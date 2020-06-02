@@ -30,7 +30,6 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <p> Something</p>
                 <Router>
                     <Switch>
                         {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}

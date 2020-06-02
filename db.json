@@ -2,7 +2,7 @@
     "recipes": [
      {
          "title": "Pasta al pomodoro",
-         "servings": 2,
+         "Servings": 2,
          "Author" : "Me",
          "Ingredients":[{
              "Name": "Pasta",
@@ -19,7 +19,7 @@
      },
      {
         "title": "Tuna Pasta",
-        "servings": 2,
+        "Servings": 2,
         "Author" : "Me",
         "Ingredients":[{
             "Name": "Pasta",
@@ -36,7 +36,7 @@
     },
     {
         "title": "Lasagna",
-        "servings": 2,
+        "Servings": 2,
         "Author" : "Me",
         "Ingredients":[{
             "Name": "Lasagna",
@@ -58,7 +58,7 @@
     },
     {
         "title": "Foo Bar",
-        "servings": 2,
+        "Servings": 2,
         "Author" : "Me",
         "Ingredients":[{
             "Name": "Foo",
