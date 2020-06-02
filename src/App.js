@@ -5,6 +5,7 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
+import { HomeView } from "./views/HomeView";
 
 
 export default class App extends React.Component {
@@ -29,6 +30,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
+                <p> Something</p>
                 <Router>
                     <Switch>
                         {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}

@@ -1,0 +1,83 @@
+{
+    "recipes": [
+     {
+         "title": "Pasta al pomodoro",
+         "servings": 2,
+         "Author" : "Me",
+         "Ingredients":[{
+             "Name": "Pasta",
+             "Brand": "Barilla",
+             "Amount(g)": 250
+         },
+         {
+            "Name": "Tomato Sauce",
+            "Brand": "Aldi",
+            "Amount(g)": 100
+        }
+        ]
+
+     },
+     {
+        "title": "Tuna Pasta",
+        "servings": 2,
+        "Author" : "Me",
+        "Ingredients":[{
+            "Name": "Pasta",
+            "Brand": "Barilla",
+            "Amount(g)": 250
+        },
+        {
+           "Name": "Tuna",
+           "Brand": "Aldi",
+           "Amount(g)": 100
+       }
+       ]
+
+    },
+    {
+        "title": "Lasagna",
+        "servings": 2,
+        "Author" : "Me",
+        "Ingredients":[{
+            "Name": "Lasagna",
+            "Brand": "Barilla",
+            "Amount(g)": 250
+        },
+        {
+           "Name": "Parmigiano Cheese",
+           "Brand": "FooBar",
+           "Amount(g)": 100
+       },
+       {
+        "Name": "Ragu",
+        "Brand": "Barilla",
+        "Amount(g)": 100
+    }
+       ]
+
+    },
+    {
+        "title": "Foo Bar",
+        "servings": 2,
+        "Author" : "Me",
+        "Ingredients":[{
+            "Name": "Foo",
+            "Brand": "Bar",
+            "Amount(g)": 250
+        },
+        {
+           "Name": "Baz",
+           "Brand": "FooBar",
+           "Amount(g)": 100
+       },
+       {
+        "Name": "TestName",
+        "Brand": "Yes",
+        "Amount(g)": 100
+    }
+       ]
+
+    }
+    
+    ]
+  }
