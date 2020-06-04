@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import './Header.css';
 import Logo from '../Assets/echef-logo.png';
 import '../services/CategoryService'
 import CategoryService from '../services/CategoryService';
 
-const Header = () => {
+const Header = (title) => {
 
     return (
         <div className="header">
@@ -21,7 +21,7 @@ const Header = () => {
                     <Categories/>
                 </div>
             </div>
-            <h1>page title</h1>
+    <h1 className="pageTitle">Home</h1>
         </div>
     )
   }
@@ -37,11 +37,13 @@ const Header = () => {
             console.error(e);
         });
     },[])
-        console.log("Data now:", Data)
         return (
             
             <div>
-               <select>{ Data.map(dt => <option>{dt} </option> )}</select>
+               <select className="categoryDropdown">
+                   <option>All Categories</option>
+                   { Data.map(dt => <option>{dt} </option> )}
+                </select>
             </div>
         )
     }

@@ -8,7 +8,7 @@ import { SignupView } from "./views/SignupView";
 import { HomeView } from "./views/HomeView";
 import Footer from './components/Footer';
 import Header from './components/Header';
-
+import './App.css';
 
 
 export default class App extends React.Component {

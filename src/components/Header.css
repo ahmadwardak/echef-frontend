@@ -1,8 +1,13 @@
 /* Style the header with a grey background and some padding */
+bode{
+  margin: 0;
+  padding: 0;
+}
+
 .header {
   overflow: hidden;
   background-color: #393432;
-  padding: 15px 0 120px;
+  padding: 15px 0 20px;
 }
 
 
@@ -14,14 +19,29 @@
   padding:5px 10px 5px 10px;
 }
 
+.categoryDropdown{
+  height:30px;
+  margin-left:-5px;
+  background-color:#239125;
+  color:#fff;
+}
+
 .header-right{
     float: right;
     line-height: 35px;
-    display: flex;
-}
+    display: -webkit-inline-box;
+  }
+
+  .pageTitle{
+    color:#fff;
+    padding: 10px 0px 0px 20px;
+    font-size: 32px;
+    font-weight: bold;
+  }
 
 .header-right input{
   width:300px;
+  height:30px;
 }
 
 .logo {
