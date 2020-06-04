@@ -1,0 +1,61 @@
+/* Style the header with a grey background and some padding */
+.header {
+  overflow: hidden;
+  background-color: #393432;
+  padding: 15px 0 120px;
+}
+
+
+/* Float the link section to the right */
+.header-back {
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  padding:5px 10px 5px 10px;
+}
+
+.header-right{
+    float: right;
+    line-height: 35px;
+    display: flex;
+}
+
+.header-right input{
+  width:300px;
+}
+
+.logo {
+  width:70px;
+  height:70px;
+  position: absolute;
+  margin: 0 48%;
+}
+
+ul.headerNav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  float: left;
+  width: 80%;
+}
+
+ul.headerNav > li {
+  float: left;
+}
+
+ul.headerNav li a {
+  display: block;
+  padding: 8px;
+  background-color: #fff;
+  color: #333333;;
+  text-decoration: none;
+}
+
+ul.headerNav li a:hover {
+  color:#239125;
+}
+
+ul.headerNav li a:active {
+  color:#239125;
+}

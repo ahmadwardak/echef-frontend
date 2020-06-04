@@ -7,6 +7,8 @@ import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
 import { HomeView } from "./views/HomeView";
 import Footer from './components/Footer';
+import Header from './components/Header';
+
 
 
 export default class App extends React.Component {
@@ -31,6 +33,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
+                <Header/>
                 <Router>
                     <Switch>
                         {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
