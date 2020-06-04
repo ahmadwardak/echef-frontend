@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import Logo from '../Assets/echef-logo.png';
 import '../services/CategoryService'
@@ -27,17 +27,21 @@ const Header = () => {
   }
 
   const Categories = () => {
-        var Data = [];
+        const [Data,setData] =useState([])
+        
+        useEffect(() => {
         CategoryService.getAll().then((data) => {
-            Data = data;
-            console.log(Data);
+            setData(data)
+            //console.log("Current array:", Data);
         }).catch((e) => {
             console.error(e);
         });
+    },[])
+        console.log("Data now:", Data)
         return (
             
             <div>
-               assal
+               <select>{ Data.map(dt => <option>{dt} </option> )}</select>
             </div>
         )
     }
