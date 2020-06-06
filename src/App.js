@@ -7,7 +7,7 @@ import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
 import { HomeView } from "./views/HomeView";
 import {RecipeView} from "./views/RecipeView";
-import Footer from './components/Footer';
+import Footer from './components/FooterComponent/Footer.js';
 import Header from './views/HeaderView';
 import './App.css';
 
@@ -38,9 +38,12 @@ export default class App extends React.Component {
                 <Router>
                     <div>
                     <Header/>
-                    <Switch>
-                        {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
+                    <div className="content">
+                        <Switch>
+                            {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
                     </Switch>
+                    </div>
+                    
                     </div>
                     
                 </Router>

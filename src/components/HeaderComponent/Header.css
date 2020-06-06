@@ -12,6 +12,7 @@
   display: flex;
   padding:5px 10px 5px 10px;
   z-index:100;
+  position: sticky;
 }
 
 .categoryDropdown{
@@ -31,6 +32,13 @@
     color:#fff;
     padding: 30px 0px 0px 30px;
     font-size: 40px;
+    font-weight: bold;
+    text-transform:capitalize;
+  }
+  .recipeTitle{
+    color:#fff;
+    padding: 10% 0px 0px 20px;
+    font-size: 70px;
     font-weight: bold;
     text-transform:capitalize;
   }
