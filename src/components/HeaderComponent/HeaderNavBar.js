@@ -1,27 +1,29 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
-import Logo from '../Assets/echef-logo.png';
-import '../services/CategoryService'
-import CategoryService from '../services/CategoryService';
+import Logo from '../../Assets/echef-logo.png';
+import cartButton from '../../Assets/cart.png';
+import CategoryService from '../../services/CategoryService';
 
-const Header = (title) => {
-
+const HeaderNavBar = ({shouldDisplayLogo}) => {
+    const logoStyle ={
+        display: shouldDisplayLogo ? 'block' : 'none'
+    };
     return (
-        <div className="header">
-            <img src={Logo} className="logo"/>
+        <div>
             <div className="header-back">
                 <ul className="headerNav">
-                    <li><a href="#home">Home</a></li>
+                    <li><a href="#">Home</a></li>
                     <li><a href="#news">News</a></li>
                     <li><a href="#contact">Contact</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>
+                <img src={Logo} className="logo" style={logoStyle}/>
                 <div className="header-right">
                     <input placeholder="Search"></input>
                     <Categories/>
+                    <img className="cartButton" src={cartButton} href="#"/>
                 </div>
             </div>
-    <h1 className="pageTitle">Home</h1>
         </div>
     )
   }
@@ -50,4 +52,4 @@ const Header = (title) => {
 
 
 
-export default Header;
+export default HeaderNavBar;
