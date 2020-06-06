@@ -1,0 +1,110 @@
+.header {
+  overflow: hidden;
+  background-color: #393432;
+  padding: 0;
+}
+
+
+/* Float the link section to the right */
+.header-back {
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  padding:5px 10px 5px 10px;
+  z-index:100;
+  position: sticky;
+}
+
+.categoryDropdown{
+  height:30px;
+  margin-left:-5px;
+  background-color:#239125;
+  color:#fff;
+}
+
+.header-right{
+    float: right;
+    display: -webkit-inline-box;
+    line-height: 30px;
+  }
+
+  .pageTitle{
+    color:#fff;
+    padding: 30px 0px 0px 30px;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform:capitalize;
+  }
+  .recipeTitle{
+    color:#fff;
+    padding: 10% 0px 0px 20px;
+    font-size: 70px;
+    font-weight: bold;
+    text-transform:capitalize;
+  }
+
+.header-right input{
+  width:300px;
+  height:30px;
+}
+
+.logo {
+  width:70px;
+  height:70px;
+  position: absolute;
+  margin: 0 48%;
+}
+
+.bigLogo {
+  width:200px;
+  height:200px;
+  margin-top:30px;
+}
+
+.cartButton{
+  width:30px;
+  height:30px;
+  margin-left: 15px;
+}
+
+ul.headerNav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  float: left;
+  width: 80%;
+}
+
+ul.headerNav > li {
+  float: left;
+}
+
+ul.headerNav li a {
+  display: block;
+  padding: 8px;
+  background-color: #fff;
+  color: #333333;;
+  text-decoration: none;
+}
+
+ul.headerNav li a:hover {
+  color:#239125;
+}
+
+ul.headerNav li a:active {
+  color:#239125;
+}
+
+.blackTransparency{
+  width: 100%;
+  height: 400px;
+  z-index: 50;
+  background-color: rgb(0,0,0,0.5);
+  text-align: center;
+  padding:20px 0px;
+}
+
+.noImageStyle{
+  padding:20px 0 40px;
+}

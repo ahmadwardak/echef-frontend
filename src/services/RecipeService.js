@@ -16,9 +16,21 @@ const update = (id, newObject) => {
   return request.then(response => response.data)
 }
 
+const getRecipe = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`)
+  return request.then(response => response.data)
+}
+
+const getRecipeName = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`)
+  return request.then(response => response.data.title)
+}
+
 
 export default { 
   getAll, 
   create, 
-  update 
+  update,
+  getRecipe,
+  getRecipeName
 }

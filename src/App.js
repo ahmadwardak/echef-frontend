@@ -1,12 +1,15 @@
 "use strict";
 
 import React from 'react';
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch,withRouter, Redirect, useParams } from 'react-router-dom';
 
 import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
 import { HomeView } from "./views/HomeView";
-import Footer from './components/Footer';
+import {RecipeView} from "./views/RecipeView";
+import Footer from './components/FooterComponent/Footer.js';
+import Header from './views/HeaderView';
+import './App.css';
 
 
 export default class App extends React.Component {
@@ -19,7 +22,8 @@ export default class App extends React.Component {
             routes: [
                 { component: HomeView, path: '/', exact: true },
                 { component: LoginView, path: '/login' },
-                { component: SignupView, path: '/register' }
+                { component: SignupView, path: '/register' },
+                { component: RecipeView, path: '/recipe/:id' }
             ]
         };
     }
@@ -32,9 +36,16 @@ export default class App extends React.Component {
         return (
             <div>
                 <Router>
-                    <Switch>
-                        {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
+                    <div>
+                    <Header/>
+                    <div className="content">
+                        <Switch>
+                            {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
                     </Switch>
+                    </div>
+                    
+                    </div>
+                    
                 </Router>
                 <Footer />
             </div>
