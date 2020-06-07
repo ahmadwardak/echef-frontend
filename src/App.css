@@ -11,3 +11,20 @@ html {
     padding:30px 40px 120px;
     overflow-y: auto;
 }
+
+.row{
+    width:100%;
+    display: flex;
+}
+
+.bigCol{
+    width:70%;
+}
+
+.whiteFont{
+    color:#fff;
+}
+
+.boldFont{
+    font-weight: bold;
+}

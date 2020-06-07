@@ -2,3 +2,60 @@
     width:50%;
     float:left;
 }
+
+.ingredientBox{
+    background-color: #393432;
+    width: 50%;
+    height: 400px;
+    margin-left: 40px;
+    padding: 20px 20px 40px;
+}
+
+
+
+.servingSizeDiv{
+    display:flex;
+    width:100%;
+}
+
+.servingSizeBox{
+    float:right;
+    line-height: 30px;
+    display: -webkit-inline-box;
+    margin-bottom: 10px;
+    height:30px;
+}
+
+.brandDropdown{
+    height:30px;
+    width:200px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-left: 100px;
+    background-color:#239125;
+    color:#fff;
+}
+
+.ScrollableContent{
+    height:200px;
+    width:100%;
+    padding:10px 10px 10px;
+    overflow-y: scroll;
+    border:1px #fff solid;
+}
+
+.amountBox{
+    width:60px;
+    height: 30px;
+    margin-right: 30px;
+}
+
+.amountParameter{
+    width:20px;
+    display: inline-block;
+}
+
+.priceDiv{
+    display: inline;
+    margin-left: 150px;
+}

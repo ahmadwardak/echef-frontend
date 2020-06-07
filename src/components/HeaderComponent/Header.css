@@ -12,7 +12,6 @@
   display: flex;
   padding:5px 10px 5px 10px;
   z-index:100;
-  position: sticky;
 }
 
 .categoryDropdown{
