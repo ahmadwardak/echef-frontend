@@ -1,80 +1,109 @@
 {
     "recipes": [
      {
+         "id":0,
          "title": "Pasta al pomodoro",
          "Servings": 2,
          "Author" : "Me",
+         "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
          "Ingredients":[{
-             "Name": "Pasta",
-             "Brand": "Barilla",
-             "Amount(g)": 250
+             "IngredientId":0,
+             "PrefferedBrand": "Barilla",
+             "Amount": 2
          },
          {
-            "Name": "Tomato Sauce",
-            "Brand": "Aldi",
-            "Amount(g)": 100
+            "IngredientId":4,
+             "PrefferedBrand": "Aldi",
+             "Amount": 2
         }
         ]
 
      },
      {
+        "id":1,
         "title": "Tuna Pasta",
         "Servings": 2,
         "Author" : "Me",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
         "Ingredients":[{
-            "Name": "Pasta",
-            "Brand": "Barilla",
-            "Amount(g)": 250
+            "IngredientId":0,
+             "PrefferedBrand": "Barilla",
+             "Amount": 250
         },
         {
-           "Name": "Tuna",
-           "Brand": "Aldi",
-           "Amount(g)": 100
-       }
+            "IngredientId":5,
+            "PrefferedBrand": "Aldi",
+            "Amount": 2
+       },
+       {
+        "IngredientId":6,
+        "PrefferedBrand": "Barilla",
+        "Amount": 2
+        },
+        {
+            "IngredientId":4,
+             "PrefferedBrand": "Aldi",
+             "Amount": 20
+        },
+        {
+            "IngredientId":1,
+             "PrefferedBrand": "Aldi",
+             "Amount": 2
+        },
+        {
+            "IngredientId":2,
+             "PrefferedBrand": "Aldi",
+             "Amount": 2
+        }
        ]
 
     },
     {
+        "id":2,
         "title": "Lasagna",
         "Servings": 2,
         "Author" : "Me",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
         "Ingredients":[{
-            "Name": "Lasagna",
-            "Brand": "Barilla",
-            "Amount(g)": 250
+            "IngredientId":6,
+            "PrefferedBrand": "Barilla",
+            "Amount": 2
         },
         {
-           "Name": "Parmigiano Cheese",
-           "Brand": "FooBar",
-           "Amount(g)": 100
+            "IngredientId":0,
+            "PrefferedBrand": "Barilla",
+            "Amount": 2
        },
        {
-        "Name": "Ragu",
-        "Brand": "Barilla",
-        "Amount(g)": 100
+            "IngredientId":0,
+            "PrefferedBrand": "Barilla",
+            "Amount": 2
     }
        ]
 
     },
     {
+        "id":3,
         "title": "Foo Bar",
         "Servings": 2,
         "Author" : "Me",
-        "Ingredients":[{
-            "Name": "Foo",
-            "Brand": "Bar",
-            "Amount(g)": 250
-        },
-        {
-           "Name": "Baz",
-           "Brand": "FooBar",
-           "Amount(g)": 100
-       },
-       {
-        "Name": "TestName",
-        "Brand": "Yes",
-        "Amount(g)": 100
-    }
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
+        "Ingredients":[
+            {
+                "IngredientId":6,
+                "PrefferedBrand": "Barilla",
+                "Amount": 2
+            },
+            {
+                "IngredientId":0,
+                "PrefferedBrand": "Barilla",
+                "Amount": 2
+           },
+           {
+                "IngredientId":0,
+                "PrefferedBrand": "Barilla",
+                "Amount": 2
+        }
        ]
 
     }
@@ -82,5 +111,154 @@
     ],
     "categories":[
         "Italian","Indian","Spanish","Mexican","American","German","Iranian","Brazilian","Japanese","Chinese"
+    ],
+    "Ingredients":[
+    {
+        "id":0,
+        "title":"Pasta",
+        "parameter":"gr",
+        "brands":[
+            {
+                "brandName":"Barilla",
+                "price":1.39
+            },
+            {
+                "brandName":"Ronzoni",
+                "price":3.39
+            },
+            {
+                "brandName":"Mueller's",
+                "price":1.50
+            },
+            {
+                "brandName":"Buitoni",
+                "price":1.60
+            },
+            {
+                "brandName":"Creamette",
+                "price":2.49
+            },
+            {
+                "brandName":"Skinner",
+                "price":1.39
+            }
+        ]
+
+    },
+    {
+        "id":1,
+        "title":"Eggs",
+        "parameter":"pkg",
+        "brands":[
+            {
+                "brandName":"Bio",
+                "price":3.39
+            },
+            {
+                "brandName":"non-Bio",
+                "price":2.39
+            }
+        ]
+    },
+    {
+        "id":2,
+        "title":"Flour",
+        "parameter":"gr",
+        "brands":[
+            {
+                "brandName":"Bio",
+                "price":3.39
+            },
+            {
+                "brandName":"non-Bio",
+                "price":2.39
+            }
+        ]
+    },
+    {
+        "id":3,
+        "title":"Cheese",
+        "parameter":"gr",
+        "brands":[
+            {
+                "brandName":"Sargento",
+                "price":3.39
+            },
+            {
+                "brandName":"Philadelphia",
+                "price":2.39
+            }
+        ]
+    },
+    {
+        "id":4,
+        "title":"Tomato Sauce",
+        "parameter":"pkg",
+        "brands":[
+            {
+                "brandName":"Aldi",
+                "price":0.49
+            },
+            {
+                "brandName":"Ja",
+                "price":0.39
+            },
+            {
+                "brandName":"Gut und Gunstig",
+                "price":0.39
+            }
+        ]
+    },
+    {
+        "id":5,
+        "title":"Tuna",
+        "parameter":"pkg",
+        "brands":[
+            {
+                "brandName":"Aldi",
+                "price":2.49
+            },
+            {
+                "brandName":"Ja",
+                "price":2.39
+            },
+            {
+                "brandName":"Gut und Gunstig",
+                "price":2.39
+            }
+        ]
+    },
+    {
+        "id":6,
+        "title":"Lasagna",
+        "parameter":"pkg",
+        "brands":[
+            {
+                "brandName":"Barilla",
+                "price":1.39
+            },
+            {
+                "brandName":"Ronzoni",
+                "price":3.39
+            },
+            {
+                "brandName":"Mueller's",
+                "price":1.50
+            },
+            {
+                "brandName":"Buitoni",
+                "price":1.60
+            },
+            {
+                "brandName":"Creamette",
+                "price":2.49
+            },
+            {
+                "brandName":"Skinner",
+                "price":1.39
+            }
+        ]
+
+    }
     ]
   }

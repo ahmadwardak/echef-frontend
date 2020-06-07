@@ -4,7 +4,7 @@ import './Recipe.css';
 const RecipeDescription = ({recipeTitle, recipeDescription})=>{
     return(
        <div className='recipeDescriptionBack'>
-           <h1>{recipeTitle}</h1>
+           <h1>Recipe</h1>
            <p>{recipeDescription}</p>
            <p>{recipeDescription}</p>
            <p>{recipeDescription}</p>
