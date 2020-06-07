@@ -1,5 +1,6 @@
 import { render } from "react-dom"
 import React from "react"
+import Login from '../components/LoginComponent/Login';
 
 export class LoginView extends React.Component {
 
@@ -12,14 +13,14 @@ export class LoginView extends React.Component {
         };
     }
 
-//Home View
-render(){
-    if (this.state.loading) {
-        return (<h2>Loading...</h2>);
+    //Home View
+    render() {
+        if (this.state.loading) {
+            return (<h2>Loading...</h2>);
+        }
+        return (
+            <Login />
+        );
     }
-    return (
-        <h1>Login Page</h1>
-    );
-    }
-    
+
 }

@@ -1,5 +1,6 @@
 import { render } from "react-dom"
 import React from "react"
+import Signup from '../components/SignupComponent/Signup';
 
 export class SignupView extends React.Component {
 
@@ -12,14 +13,14 @@ export class SignupView extends React.Component {
         };
     }
 
-//Home View
-render(){
-    if (this.state.loading) {
-        return (<h2>Loading...</h2>);
+    //Home View
+    render() {
+        if (this.state.loading) {
+            return (<h2>Loading...</h2>);
+        }
+        return (
+            <Signup />
+        );
     }
-    return (
-        <h1>Signup Page</h1>
-    );
-    }
-    
+
 }
