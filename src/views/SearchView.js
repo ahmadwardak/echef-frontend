@@ -2,6 +2,7 @@ import { render } from "react-dom"
 import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
+import Categories from "../components/Categories";
 
 export class SearchView extends React.Component {
 
@@ -68,13 +69,23 @@ export class SearchView extends React.Component {
             return (<h2>Loading...</h2>);
         }
         return (<div>
-            <h1>Search Results</h1>
-            Filter the Recipes based on input <br></br>
+            <div className="bigCol">
+            <h2>Filter the Recipes based on input</h2> <br></br>
             <input type="text" className="filterInput" placeholder="Filter recipes" onChange={this.handleSearchChange} />
+            <select>
+                <option>Any Difficulty</option>
+                <option>Easy</option>
+                <option>Intermediate</option>
+                <option>Hard</option>
+            </select>
+            <Categories/>
+            </div>
+            <div className="smallCol">
+            <h1>Search Results</h1>
             <ul>
                 <RecipeList recipes={recipes} />
             </ul>
-
+            </div>
         </div>
         );
     }
