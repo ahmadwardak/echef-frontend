@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import Banner from "../components/HeaderComponent/Banner";
 import RecipeService from '../services/RecipeService';
 
-class Header extends Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ class Header extends Component {
         loading: true
     });
 
-  var id = window.location.href.split('/').reverse()[0];
+  var id = ""//window.location.href.split('/').reverse()[0];
     if(id){
       RecipeService.getRecipeName(id).then((data) => {
         this.setState({

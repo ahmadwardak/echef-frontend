@@ -11,7 +11,7 @@ export  const RecipeList = ({recipes }) => {
 return (
   // {recipes.map(recipe => <li>{recipe.title}</li> ) }
    recipes.map(rec =>
-    (<Recipe Title={rec.title} Author={rec.Author} Servings={rec.Servings} Ingredients={rec.Ingredients}/>)
+    (<Recipe key={rec.id} Title={rec.title} Author={rec.Author} Servings={rec.Servings} id={rec.id}/>)
   )
 )
    

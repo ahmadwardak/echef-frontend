@@ -1,10 +1,12 @@
 import React from 'react'
 
-const Recipe = ({Title,Servings,Author }) => {
-  
+const Recipe = ({Title,Servings,Author,id }) => {
+  let recipeAddr="http://localhost:8000/#/recipes/"+id
   return (
-    <li className="Recipe" key={Title}>
+    <li className="Recipe" key={id}>
+      <a href={recipeAddr}>
         {Title}, {Servings}, {Author} 
+        </a>
     </li>
   )
 }
