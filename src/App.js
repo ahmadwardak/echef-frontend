@@ -6,6 +6,7 @@ import { HashRouter as Router, Route, Switch,withRouter, Redirect, useParams } f
 import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
 import { HomeView } from "./views/HomeView";
+import { SearchView} from "./views/SearchView";
 import {RecipeView} from "./views/RecipeView";
 import Footer from './components/FooterComponent/Footer.js';
 import Header from './views/HeaderView';
@@ -21,6 +22,7 @@ export default class App extends React.Component {
             title: 'eChef',
             routes: [
                 { component: HomeView, path: '/', exact: true },
+                { component: SearchView, path: '/search' },
                 { component: LoginView, path: '/login' },
                 { component: SignupView, path: '/register' },
                 { component: RecipeView, path: '/recipe/:id' }
@@ -39,7 +41,7 @@ export default class App extends React.Component {
                     <div>
                     <Header/>
                     <div className="content">
-                        <Switch>
+                    <Switch>
                             {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
                     </Switch>
                     </div>

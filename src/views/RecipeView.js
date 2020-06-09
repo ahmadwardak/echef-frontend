@@ -4,7 +4,6 @@ import RecipeService from '../services/RecipeService';
 import IngredientsService from '../services/IngredientsService';
 import RecipeDescription from '../components/RecipeComponent/RecipeDescription'
 import IngredientCustomizer from '../components/RecipeComponent/IngredientCustomizer'
-import Header from './HeaderView';
 
 
 
@@ -44,6 +43,7 @@ export class RecipeView extends React.Component {
 
         return (
             <div>
+               { console.log("I'm here")}
                     <div className='row'>
                         <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description}/> 
                         <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.Ingredients}/>
