@@ -43,8 +43,8 @@ const HeaderNavBar = ({shouldDisplayLogo}) => {
             
             <div>
                <select className="categoryDropdown">
-                   <option>All Categories</option>
-                   { Data.map(dt => <option>{dt} </option> )}
+                   <option key={0}>All Categories</option>
+                   { Data.map((dt,i) => <option key={i}>{dt} </option> )}
                 </select>
             </div>
         )
