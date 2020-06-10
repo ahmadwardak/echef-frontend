@@ -2,10 +2,11 @@
     "recipes": [
      {
          "id":0,
-         "title": "Pasta al pomodoro",
+         "Title": "Pasta al pomodoro",
          "Servings": 2,
          "Author" : "Me",
-         "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
+         "Difficulty": "Easy",
+         "Description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
          "Ingredients":[{
              "IngredientId":0,
              "PrefferedBrand": "Barilla",
@@ -21,10 +22,11 @@
      },
      {
         "id":1,
-        "title": "Tuna Pasta",
+        "Title": "Tuna Pasta",
         "Servings": 2,
         "Author" : "Me",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
+        "Difficulty": "Easy",
+        "Description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
         "Ingredients":[{
             "IngredientId":0,
              "PrefferedBrand": "Barilla",
@@ -60,10 +62,11 @@
     },
     {
         "id":2,
-        "title": "Lasagna",
+        "Title": "Lasagna",
         "Servings": 2,
         "Author" : "Me",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
+        "Difficulty": "Intermediate",
+        "Description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
         "Ingredients":[{
             "IngredientId":6,
             "PrefferedBrand": "Barilla",
@@ -84,10 +87,11 @@
     },
     {
         "id":3,
-        "title": "Foo Bar",
+        "Title": "Foo Bar",
         "Servings": 2,
         "Author" : "Me",
-        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
+        "Difficulty": "Hard",
+        "Description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in erat ullamcorper, accumsan libero bibendum, mollis tortor. Donec vitae libero id erat facilisis pellentesque. Sed laoreet risus a velit porttitor finibus. Vivamus iaculis tincidunt est, id commodo neque vestibulum in. Morbi lacinia lacinia bibendum. Vestibulum elit eros, congue id risus ac, tincidunt suscipit ante. Vivamus imperdiet tempus mollis. Vivamus ac dignissim nibh.",         
         "Ingredients":[
             {
                 "IngredientId":6,
@@ -115,7 +119,7 @@
     "Ingredients":[
     {
         "id":0,
-        "title":"Pasta",
+        "Title":"Pasta",
         "parameter":"gr",
         "brands":[
             {
@@ -147,7 +151,7 @@
     },
     {
         "id":1,
-        "title":"Eggs",
+        "Title":"Eggs",
         "parameter":"pkg",
         "brands":[
             {
@@ -162,7 +166,7 @@
     },
     {
         "id":2,
-        "title":"Flour",
+        "Title":"Flour",
         "parameter":"gr",
         "brands":[
             {
@@ -177,7 +181,7 @@
     },
     {
         "id":3,
-        "title":"Cheese",
+        "Title":"Cheese",
         "parameter":"gr",
         "brands":[
             {
@@ -192,7 +196,7 @@
     },
     {
         "id":4,
-        "title":"Tomato Sauce",
+        "Title":"Tomato Sauce",
         "parameter":"pkg",
         "brands":[
             {
@@ -211,7 +215,7 @@
     },
     {
         "id":5,
-        "title":"Tuna",
+        "Title":"Tuna",
         "parameter":"pkg",
         "brands":[
             {
@@ -230,7 +234,7 @@
     },
     {
         "id":6,
-        "title":"Lasagna",
+        "Title":"Lasagna",
         "parameter":"pkg",
         "brands":[
             {
