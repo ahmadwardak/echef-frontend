@@ -2,6 +2,8 @@ import { render } from "react-dom"
 import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
+import UserService from '../services/UserService';
+import { Link } from "react-router-dom";
 
 export class HomeView extends React.Component {
 
@@ -16,22 +18,61 @@ export class HomeView extends React.Component {
             data: [{ "title": "something" }],
             filteredData: [],
             loading: false,
-            searchFilter: ""
+            searchFilter: "",
+            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
         }
-   
-    };
-    
 
+        //Connects the onChange event to the function
+        this.handleSearchChange = this.handleSearchChange.bind(this);
+
+        this.logout = this.logout.bind(this);
+    };
+
+
+
+    logout() {
+        UserService.logout();
+        this.state = {
+            user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
+        };
+        if (this.props.location.pathname != '/login') {
+            this.props.history.push('/login');
+        }
+        else {
+            window.location.reload();
+        }
+    }
 
     //Home View
     render() {
-       
+
+        const recipes = this.state.filteredData;
+
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
         return (<div>
             <h1>Home Page</h1>
+
+            Filter the Recipes based on input <br></br>
+
+            <div>
+                Username: {this.state.user.username} &nbsp;
+                <button
+                    type="button"
+                    className="md-cell md-cell--1 md-btn md-btn--flat md-btn--text md-pointer--hover md-background--secondary md-background--secondary-hover md-inline-block"
+                    onClick={() => this.logout()}>
+                    Logout
+                </button> <br /><br />
             </div>
+
+
+            <input type="text" className="filterInput" placeholder="Filter recipes" onChange={this.handleSearchChange} />
+            <ul>
+                <RecipeList recipes={recipes} />
+            </ul>
+
+        </div>
         );
     }
 
