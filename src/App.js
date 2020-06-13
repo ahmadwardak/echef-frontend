@@ -5,6 +5,8 @@ import { HashRouter as Router, Route, Switch,withRouter, Redirect, useParams } f
 
 import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
+import { ChefView } from "./views/ChefView";
+import { RecipeFormView } from './views/RecipeFormView';
 import { HomeView } from "./views/HomeView";
 import { SearchView} from "./views/SearchView";
 import {RecipeView} from "./views/RecipeView";
@@ -23,6 +25,8 @@ export default class App extends React.Component {
             routes: [
                 { component: HomeView, path: '/', exact: true },
                 { component: SearchView, path: '/search' },
+                { component: ChefView, path: '/chef' },
+                { component: RecipeFormView, path:'/add'},
                 { component: LoginView, path: '/login' },
                 { component: SignupView, path: '/register' },
                 { component: RecipeView, path: '/recipe/:id' }
