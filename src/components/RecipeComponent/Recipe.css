@@ -37,7 +37,7 @@
 }
 
 .ScrollableContent{
-    height:200px;
+    height:220px;
     width:100%;
     padding:10px 10px 10px;
     overflow-y: scroll;
@@ -59,3 +59,36 @@
     display: inline;
     margin-left: 150px;
 }
+.totalPrice
+{
+    margin-top: 20px;
+}
+ul.totalPriceList {
+    max-width: 95%;
+    padding: 0;
+    overflow-x: hidden;
+    list-style: none
+    }
+    
+    ul.totalPriceList li:before {
+    color: #fff;
+    float: left;
+    width: 0;
+    white-space: nowrap;
+    content:
+    ". . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . "
+    ". . . . . . . . . . . . . . . . . . . . "
+    }
+    
+    ul.totalPriceList span:first-child {
+    padding-right: 5px;
+    background-color: #393432;
+    }
+    
+    ul.totalPriceList span + span {
+    float: right;
+    padding-left: 5px;
+    background-color: #393432;
+    }

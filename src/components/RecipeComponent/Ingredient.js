@@ -3,21 +3,29 @@ import './Recipe.css';
 import '../../App.css';
 import IngredientsService from '../../services/IngredientsService';
 
-const Ingredient = ({ingredient})=>{
-    console.log(ingredient);
-    
+const Ingredient = ({servingSize, ingredient, priceHandler})=>{    
     return(
        <div className='ingredientSection row'>
-           <BrandChoice ingredient={ingredient}/>
+           <BrandChoice ingredient={ingredient} priceHandler={priceHandler} servingSize={servingSize}/>
        </div> 
     )
 }
 
-const BrandChoice = ({ingredient}) => {
+const BrandChoice = ({servingSize,ingredient, priceHandler}) => {
+    function priceChanged(event){
+        setPrice(event.target.value*servingSize);
+        priceHandler(Price*servingSize,event.target.value*servingSize);
+        console.log("serv", servingSize);
+    }
+    function amountChanged(event){
+        
+        
+    }
     const [Brands,setBrands] =useState([]);
     const [Title, setTitle] =useState("");
     const [Parameter, setParameter] = useState("");
-    const [Price, setPrice] = useState(10);
+    const [Price, setPrice] = useState(0);
+    const[Amount, setAmount] = useState(0);
 
     
     useEffect(() => {
@@ -32,14 +40,14 @@ const BrandChoice = ({ingredient}) => {
     return (
         
         <div>
-            <input type="number" name="points" step="3" value={ingredient.Amount} className="amountBox"/>
+            <input type="number" name="points" step="1" value={(ingredient.Amount)*servingSize} onChange={amountChanged} className="amountBox"/>
             <label class="whiteFont amountParameter">{Parameter}</label>
-            <select className="brandDropdown">
+            <select className="brandDropdown" onChange={priceChanged}>
                 <option>--{Title} from:--</option>
-                { Brands.map(dt => <option>{dt.brandName} </option> )}
+                { Brands.map(dt => <option value={dt.price}>{dt.brandName} </option> )}
             </select>
             <div className='priceDiv'>
-                <label class="whiteFont ">{Price} €</label>
+                <label class="whiteFont ">{Price* servingSize} €</label>
             </div>
             
         </div>
