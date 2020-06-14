@@ -33,6 +33,7 @@
     "webpack-merge": "4.1.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.10.2",
     "axios": "^0.19.2",
     "file-loader": "^6.0.0",
     "font-awesome": "^4.7.0",
