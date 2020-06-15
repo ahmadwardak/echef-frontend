@@ -28,7 +28,22 @@ export class HomeView extends React.Component {
         this.logout = this.logout.bind(this);
     };
 
+    // Normal React component Lifecycle
+    componentWillMount() {
+        this.setState({
+            loading: true
+        });
 
+        RecipeService.getAll().then((data) => {
+            this.setState({
+                data: [...data],
+                filteredData: [...data],
+                loading: false
+            })
+        }).catch((e) => {
+            console.error(e);
+        });
+    }
 
     logout() {
         UserService.logout();
@@ -41,6 +56,29 @@ export class HomeView extends React.Component {
         else {
             window.location.reload();
         }
+    }
+
+    // Handles the filter search
+    handleSearchChange(event) {
+        event.preventDefault();
+
+        let currentList = this.state.data;
+        let filteredList = [];
+        console.log("Current values: ", currentList)
+
+        let val = event.target.value;
+        if (val !== "") {
+            filteredList = currentList.filter(recipe => recipe.Title.includes(val));
+            console.log("Filtered values: ", filteredList);
+        }
+        else {
+            filteredList = currentList;
+        }
+
+        this.setState({
+            filteredData: filteredList
+        });
+
     }
 
     //Home View
@@ -65,7 +103,6 @@ export class HomeView extends React.Component {
                     Logout
                 </button> <br /><br />
             </div>
-
 
             <input type="text" className="filterInput" placeholder="Filter recipes" onChange={this.handleSearchChange} />
             <ul>
