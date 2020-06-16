@@ -15,9 +15,9 @@ export class RecipeListRow extends React.Component {
     render() {
         return (
             <TableRow key={this.props.key}>
-                <TableColumn><SimpleLink to={`/recipe/${this.props.recipe.id}`}>{this.props.recipe.title}</SimpleLink></TableColumn>
-                <TableColumn><Link to={`/edit/${this.props.recipe.id}`}><FontIcon>mode_edit</FontIcon></Link></TableColumn>
-                <TableColumn><Button onClick={() => this.props.onDelete(this.props.recipe.id)} icon>delete</Button></TableColumn>
+                <TableColumn><SimpleLink to={`/recipe/${this.props.recipe._id}`}>{this.props.recipe.title}</SimpleLink></TableColumn>
+                <TableColumn><Link to={`/edit/${this.props.recipe._id}`}><FontIcon>mode_edit</FontIcon></Link></TableColumn>
+                <TableColumn><Button onClick={() => this.props.onDelete(this.props.recipe._id)} icon>delete</Button></TableColumn>
             </TableRow>
         );
     }

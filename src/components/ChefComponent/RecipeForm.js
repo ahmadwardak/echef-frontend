@@ -17,37 +17,54 @@ class RecipeForm extends React.Component{
 
         if(this.props.recipe != undefined){
             this.state = {
-                recipeName : props.recipe.recipeName,
-                recipeSteps: props.recipe.recipeSteps,
-                recipeServingSize: props.recipe.recipeServingSize,
-                ingredients: props.recipe.ingredients,
+                title : props.recipe.title,
+                description: props.recipe.description,
+                servingSize: props.recipe.servingSize,
+                category: props.recipe.category,
+                ingredients:[{
+                    ingredientName: props.recipe.ingredients.ingredientName,
+                    ingredientQuantity: props.recipe.ingredients.ingredientQuantity,
+                    ingredientUnit: props.recipe.ingredients.ingredientUnit,
+                    ingredientBrand: props.recipe.ingredients.ingredientBrand,
+                }],
                 loading: true
             };
         } else {
             this.state ={
-                recipeName : '',
-                recipeSteps: '',
-                recipeServingSize: '',
-                ingredients: [],
+                title : '',
+                description: '',
+                servingSize: '',
+                category: '',
+                ingredients: [{
+                    ingredientName:'',
+                    ingredientQuantity:'',
+                    ingredientUnit:'',
+                    ingredientBrand:''
+                }],
                 loading: false
             };
         }
 
-        this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangeSteps = this.handleChangeSteps.bind(this);
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleChangeServingSize = this.handleChangeServingSize.bind(this);
+        this.handleChangeCategory = this.handleChangeCategory.bind(this);
     }
 
-    handleChangeName(value){
-        this.setState(Object.assign({}, this.state, {recipeName: value}));
+    handleChangeTitle(value){
+        this.setState(Object.assign({}, this.state, {title: value}));
     }
 
-    handleChangeSteps(value){
-        this.setState(Object.assign({}, this.state, {recipeSteps: value}));
+    handleChangeDescription(value){
+        this.setState(Object.assign({}, this.state, {description: value}));
     }
     
     handleChangeServingSize(value){
-        this.setState(Object.assign({}, this.state, {recipeServingSize: value}));
+        this.setState(Object.assign({}, this.state, {servingSize: value}));
+    }
+
+    handleChangeCategory(value){
+        this.setState(Object.assign({}, this.state, {category: value}));
     }
 
     handleSubmit(event) {
@@ -58,9 +75,10 @@ class RecipeForm extends React.Component{
             recipe = {};
         }
 
-        recipe.recipeName = this.state.recipeName;
-        recipe.recipeSteps = this.state.recipeSteps;
-        recipe.recipeServingSize = this.state.recipeServingSize;
+        recipe.title = this.state.title;
+        recipe.description = this.state.description;
+        recipe.servingSize = this.state.servingSize;
+        recipe.category = this.state.category;
 
         this.props.onSubmit(recipe);
     }
@@ -70,24 +88,24 @@ class RecipeForm extends React.Component{
             <Card style={style} className="md-block-centered">
                 <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
                 <TextField  
-                    label="Recipe Name"
-                    id="RecipeName"
+                    label="Recipe Title"
+                    id="RecipeTitle"
                     type="text"
                     className="md-row"
                     required={true}
-                    value={this.state.recipeName}
-                    onChange={this.handleChangeName}
-                    errortext="Recipe Name is required"
+                    value={this.state.title}
+                    onChange={this.handleChangeTitle}
+                    errortext="Recipe title is required"
                     variant="outlined" />
                 <TextField  
-                    label="Recipe Steps"
-                    id="RecipeSteps"
+                    label="Recipe Description"
+                    id="RecipeDescription"
                     type="text"
                     className="md-row"
                     required={true}
-                    value={this.state.recipeSteps}
-                    onChange={this.handleChangeSteps}
-                    errortext="Recipe Steps is required"
+                    value={this.state.description}
+                    onChange={this.handleChangeDescription}
+                    errortext="Recipe Description is required"
                     variant="outlined" />
                 <TextField  
                     label="Serving Size"
@@ -95,14 +113,14 @@ class RecipeForm extends React.Component{
                     type="number"
                     className="md-row"
                     required={false}
-                    value={this.state.recipeServingSize}
+                    value={this.state.servingSize}
                     onChange={this.handleChangeServingSize}
                     errortext="Serving Size is required"
                     variant="outlined" />
                 <Categories />
                 <IngredientListRow ingredients={this.state.ingredients}/>
                 <Button id="submit" type="submit"
-                    disabled={this.state.recipeName == undefined || this.state.recipeName == '' || this.state.recipeSteps == undefined || this.state.recipeSteps == '' || this.state.recipeServingSize == undefined || this.state.recipeServingSize == ''}
+                    disabled={this.state.title == undefined || this.state.title == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}
                     raised primary className="md-cell md-cell--2">Publish</Button>
                 </form>
             </Card>

@@ -27,6 +27,7 @@ export default class App extends React.Component {
                 { component: SearchView, path: '/search' },
                 { component: ChefView, path: '/chef' },
                 { component: RecipeFormView, path:'/add'},
+                { component: RecipeFormView, path:'/edit/:id'},
                 { component: LoginView, path: '/login' },
                 { component: SignupView, path: '/register' },
                 { component: RecipeView, path: '/recipe/:id' }
