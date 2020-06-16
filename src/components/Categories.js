@@ -5,7 +5,7 @@ import CategoryService from '../services/CategoryService';
         const [Data,setData] =useState([])
         
         useEffect(() => {
-        CategoryService.getAll().then((data) => {
+        CategoryService.getCategories().then((data) => {
             setData(data)
             //console.log("Current array:", Data);
         }).catch((e) => {

@@ -49,22 +49,24 @@ class RecipeForm extends React.Component{
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleChangeServingSize = this.handleChangeServingSize.bind(this);
         this.handleChangeCategory = this.handleChangeCategory.bind(this);
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeTitle(value){
-        this.setState(Object.assign({}, this.state, {title: value}));
+    handleChangeTitle(event){
+        this.setState(Object.assign({}, this.state, {title: event.target.value}));
     }
 
-    handleChangeDescription(value){
-        this.setState(Object.assign({}, this.state, {description: value}));
+    handleChangeDescription(event){
+        this.setState(Object.assign({}, this.state, {description: event.target.value}));
     }
     
-    handleChangeServingSize(value){
-        this.setState(Object.assign({}, this.state, {servingSize: value}));
+    handleChangeServingSize(event){
+        this.setState(Object.assign({}, this.state, {servingSize: event.target.value}));
     }
 
-    handleChangeCategory(value){
-        this.setState(Object.assign({}, this.state, {category: value}));
+    handleChangeCategory(event){
+        this.setState(Object.assign({}, this.state, {category: event.target.value}));
     }
 
     handleSubmit(event) {
@@ -117,7 +119,7 @@ class RecipeForm extends React.Component{
                     onChange={this.handleChangeServingSize}
                     errortext="Serving Size is required"
                     variant="outlined" />
-                <Categories />
+                <Categories category={this.state.category} onChange={this.handleChangeCategory}/>
                 <IngredientListRow ingredients={this.state.ingredients}/>
                 <Button id="submit" type="submit"
                     disabled={this.state.title == undefined || this.state.title == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}

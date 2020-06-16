@@ -51,7 +51,7 @@ export class RecipeFormView extends React.Component {
     updateRecipe(recipe) {
         if(this.state.recipe == undefined) {
             RecipeService.createRecipe(recipe).then((data) => {
-                this.props.history.push('/');
+                this.props.history.push('/chef');
             }).catch((e) => {
                 console.error(e);
                 this.setState(Object.assign({}, this.state, {error: 'Error while creating recipe'}));

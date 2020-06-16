@@ -1,12 +1,21 @@
-import axios from 'axios'
-const baseUrl = 'http://localhost:3001/categories'
+"use strict";
 
-const getAll = () => {
-  const request = axios.get(baseUrl)
-  return request.then(response => {  
-      return response.data  })}
+import HttpService from './HttpService';
 
+export default class RecipeService {
 
-export default { 
-  getAll
+    constructor(){
+    }
+
+    static baseURL() {return "http://localhost:3000/categories" }
+
+    static getCategories(){
+       return new Promise((resolve, reject) => {
+           HttpService.get(this.baseURL(), function(data) {
+               resolve(data);
+           }, function(textStatus) {
+               reject(textStatus);
+           });
+       });
+    }
 }
