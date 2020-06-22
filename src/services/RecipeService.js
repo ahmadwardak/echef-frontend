@@ -1,36 +1,71 @@
-import axios from 'axios'
-const baseUrl = 'http://localhost:3001/recipes'
+"use strict";
 
-const getAll = () => {
-  const request = axios.get(baseUrl)
-  return request.then(response => {  
-      return response.data  })}
+import HttpService from './HttpService';
 
-const create = newObject => {
-  const request = axios.post(baseUrl, newObject)
-  return request.then(response => response.data)
-}
+export default class RecipeService {
 
-const update = (id, newObject) => {
-  const request = axios.put(`${baseUrl}/${id}`, newObject)
-  return request.then(response => response.data)
-}
+    constructor(){
+    }
 
-const getRecipe = (id) => {
-  const request = axios.get(`${baseUrl}/${id}`)
-  return request.then(response => response.data)
-}
+    static baseURL() {return "http://localhost:3000/recipes" }
 
-const getRecipeName = (id) => {
-  const request = axios.get(`${baseUrl}/${id}`)
-  return request.then(response => response.data.title)
-}
+    static getRecipes(){
+       return new Promise((resolve, reject) => {
+           HttpService.get(this.baseURL(), function(data) {
+               resolve(data);
+           }, function(textStatus) {
+               reject(textStatus);
+           });
+       });
+    }
 
+    static getRecipe(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${RecipeService.baseURL()}/${id}`, function(data) {
+                if(data != undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving movie');
+                }
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 
-export default { 
-  getAll, 
-  create, 
-  update,
-  getRecipe,
-  getRecipeName
+    static deleteRecipe(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.remove(`${RecipeService.baseURL()}/${id}`, function(data) {
+                if(data.message != undefined) {
+                    resolve(data.message);
+                }
+                else {
+                    reject('Error while deleting');
+                }
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static updateRecipe(recipe) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${this.baseURL()}/${recipe._id}`, recipe, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+               reject(textStatus);
+            });
+        });
+    }
+
+    static createRecipe(recipe) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(RecipeService.baseURL(), recipe, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

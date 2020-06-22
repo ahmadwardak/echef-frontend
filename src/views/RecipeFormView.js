@@ -33,20 +33,38 @@ export class RecipeFormView extends React.Component {
                 loading: true,
                 error: undefined
             });
+
+            let id = this.props.match.params.id;
+
+            RecipeService.getRecipe(id).then((data) => {
+                this.setState({
+                    recipe: data,
+                    loading: false,
+                    error: undefined
+                });
+            }).catch((e) => {
+                console.error(e);
+            });
         }
     }
 
-    /*async updateRecipe(recipe) {
+    updateRecipe(recipe) {
         if(this.state.recipe == undefined) {
-            try {
-                let ret = await RecipeService.create(recipe);
-                this.props.history.push('/');
-            } catch(err) {
-                console.error(err);
-                this.setState(Object.assign({}, this.state, {error: 'Error while creating movie'}));
-            }
-        } 
-    }*/
+            RecipeService.createRecipe(recipe).then((data) => {
+                this.props.history.push('/chef');
+            }).catch((e) => {
+                console.error(e);
+                this.setState(Object.assign({}, this.state, {error: 'Error while creating recipe'}));
+            });
+        } else {
+            RecipeService.updateRecipe(recipe).then((data) => {
+                this.props.history.goBack();
+            }).catch((e) => {
+                console.error(e);
+                this.setState(Object.assign({}, this.state, {error: 'Error while creating recipe'}));
+            });
+        }
+    }
 
     render() {
         if (this.state.loading) {

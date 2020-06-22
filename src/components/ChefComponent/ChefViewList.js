@@ -10,7 +10,7 @@ const dataTableStyle = {
     'marginBottom': '36px'
 };
 
-export const ChefViewList = ({recipes}) => (
+export const ChefViewList = ({recipes, onDelete}) => (
     <div>
         <DataTable plain style={dataTableStyle}>
         <TableHeader>
@@ -19,7 +19,7 @@ export const ChefViewList = ({recipes}) => (
             </TableRow>
             </TableHeader>
             <TableBody>
-                {recipes.map((recipe, i) => <RecipeListRow key={i} recipe={recipe} />)}
+                {recipes.map((recipe, i) => <RecipeListRow key={i} recipe={recipe} onDelete={(id)=>onDelete(id)}/>)}
             </TableBody>
         </DataTable>
     </div>
