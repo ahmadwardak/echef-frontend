@@ -53,7 +53,8 @@ export default class UserService {
         return {
             _id,
             username: JSON.parse(window.atob(base64)).username,
-            email: JSON.parse(window.atob(base64)).email
+            email: JSON.parse(window.atob(base64)).email,
+            accounttype: JSON.parse(window.atob(base64)).accounttype
         };
     }
 

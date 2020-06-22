@@ -64,7 +64,7 @@ export class HomeView extends React.Component {
 
         let currentList = this.state.data;
         let filteredList = [];
-        console.log("Current values: ", currentList)
+        //console.log("Current values: ", currentList);
 
         let val = event.target.value;
         if (val !== "") {

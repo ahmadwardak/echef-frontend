@@ -16,7 +16,16 @@ export class LoginView extends React.Component {
 
     login(user) {
         UserService.login(user.username, user.password).then((data) => {
-            this.props.history.push('/');
+            const accounttype = UserService.getCurrentUser().accounttype;
+            //console.log(accounttype);
+            if (accounttype == 'chef') {
+                this.props.history.push('/about');
+                //console.log('chef account');
+            } else {
+                this.props.history.push('/');
+                //console.log('customer account');
+            }
+
             console.log('logged in successfully');
         }).catch(err => {
             console.error(err);
