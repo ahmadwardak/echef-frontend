@@ -47,7 +47,7 @@ const BrandChoice = ({servingSize,ingredient, priceHandler}) => {
                 { Brands.map(dt => <option value={dt.price}>{dt.brandName} </option> )}
             </select>
             <div className='priceDiv'>
-                <label class="whiteFont ">{Price* servingSize} €</label>
+                <label class="whiteFont ">{Price * servingSize} €</label>
             </div>
             
         </div>

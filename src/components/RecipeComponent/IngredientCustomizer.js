@@ -9,9 +9,9 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
     function changeTotalPrice(oldPrice, newPrice){
         
         var tmp = totalPrice; 
-        console.log("old price", tmp);
+        //console.log("old price", tmp);
         tmp = tmp - parseFloat(oldPrice) + parseFloat(newPrice);
-        console.log("new price", tmp);
+        //console.log("new price", tmp);
         setTotalPrice(tmp.toFixed(2));
     }
     function changeServingSize(sSize){
