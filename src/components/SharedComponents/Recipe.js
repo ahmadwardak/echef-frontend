@@ -5,7 +5,7 @@ const Recipe = ({Title,Servings,id,difficulty }) => {
   return (
     <li className="Recipe" key={id}>
       <a href={recipeAddr}>
-        {Title}, {Servings}, {difficulty} 
+        {Title}, {difficulty} 
         </a>
     </li>
   )

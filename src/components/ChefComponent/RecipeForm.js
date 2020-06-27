@@ -2,7 +2,7 @@ import React from "react";
 import TextField from '@material-ui/core/TextField';
 import { Card, Button, FontIcon } from 'react-md';
 import { withRouter } from 'react-router-dom';
-import Categories from '../Categories';
+import Categories from '../SharedComponents/Categories';
 import Ingredient from '../RecipeComponent/Ingredient';
 import IngredientsService from "../../services/IngredientsService";
 import '../RecipeComponent/Recipe.css';

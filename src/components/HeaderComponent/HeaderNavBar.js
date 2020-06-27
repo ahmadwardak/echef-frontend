@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Header.css';
 import Logo from '../../Assets/echef-logo.png';
 import cartButton from '../../Assets/cart.png';
-import Categories from '../Categories'
+import Categories from '../SharedComponents/Categories'
 
 const HeaderNavBar = ({shouldDisplayLogo}) => {
     const logoStyle ={
