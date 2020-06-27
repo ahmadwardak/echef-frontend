@@ -2,28 +2,30 @@ import { render } from "react-dom"
 import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/SharedComponents/RecipeList';
-import  Categories  from "../components/SharedComponents/Categories";
-import  {Tags}  from "../components/SharedComponents/Tags";
+import Categories from "../components/SharedComponents/Categories";
+import { Tags } from "../components/SharedComponents/Tags";
 
 export class SearchView extends React.Component {
 
     constructor(props) {
         super(props);
-      
-        
+
+
         this.state = {
             //data: [{ "title": "If you see this, the DB is not connected", "difficulty": "Easy", "_id": "FooBar", "category": "All Categories", "tags":"" }],
-            data:[],
+            data: [],
             loading: false,
             title: "",
             difficulty: "",
             category: "All Categories",
-            tags:["uuh"],
-            activeTags:[]
+            tags: ["uuh"],
+            showTags: true,
+            activeTags: []
         }
         //Connects the onChange event to the function
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.toggleTags = this.toggleTags.bind(this);
 
 
     };
@@ -34,16 +36,16 @@ export class SearchView extends React.Component {
         });
         RecipeService.getAll().then((data) => {
             // Get all viable tags 
-            let tempTags= data.reduce((tmp,tag) => {
+            let tempTags = data.reduce((tmp, tag) => {
                 // console.log("Tmp:", tmp, " Tag: ",tag.tags)
-                return (tmp=[...tmp, ...tag.tags])
+                return (tmp = [...tmp, ...tag.tags])
             }, [])
             tempTags = [...new Set(tempTags)]
             //console.log("tempTags",tempTags)
             this.setState({
                 data: [...data],
-                tags:tempTags,
-                activeTags:tempTags,
+                tags: tempTags,
+                activeTags: tempTags,
                 loading: false
             })
         }).catch((e) => {
@@ -53,26 +55,26 @@ export class SearchView extends React.Component {
 
 
     handleChange(event) {
-       // console.log("", event.target.value, "checked", event.target.checked)
-         let tmpTags = this.state.activeTags
-        let value= event.target.value
+        // console.log("", event.target.value, "checked", event.target.checked)
+        let tmpTags = this.state.activeTags
+        let value = event.target.value
         let checked = event.target.checked
-        if(checked){//Selecting: add a value
+        if (checked) {//Selecting: add a value
             this.setState({
-                activeTags:[...this.state.activeTags,value]
+                activeTags: [...this.state.activeTags, value]
             })
         }// Remove a value
-        else{
-            tmpTags = tmpTags.filter(tag =>{
+        else {
+            tmpTags = tmpTags.filter(tag => {
                 //console.log("No want this:", value, "I am: ", tag)
                 //console.log(tag === value)
-                return ( tag !== value)
+                return (tag !== value)
             })
             this.setState({
-                activeTags:[... new Set(tmpTags)]
+                activeTags: [... new Set(tmpTags)]
             })
         }
-        
+
     }
     // Handles the filter search
     handleSearchChange(event) {
@@ -91,13 +93,22 @@ export class SearchView extends React.Component {
 
     }
 
+    toggleTags() {
+        //console.log("showTags?", !this.state.showTags)
+        let show=this.state.showTags
+        this.setState({
+            showTags: !show
+        }
+        )
+    }
+
 
     //Home View
     render() {
         // console.log("Tags:", this.state.tags)
         const recipes = this.state.data.filter(recipe => {
-            console.log("This is a recipe", recipe["tags"])
-            console.log("Active tags", this.state.activeTags)
+            //console.log("This is a recipe", recipe["tags"])
+            //console.log("Active tags", this.state.activeTags)
             if (this.state.category == "All Categories") {
                 return (
                     recipe["title"].includes(this.state.title)
@@ -133,12 +144,16 @@ export class SearchView extends React.Component {
                     <option value="Intermediate">Intermediate</option>
                     <option value="Hard">Hard</option>
                 </select>
-                
+
                 <Categories name="categories" onChange={this.handleSearchChange} />
-                <ul>
-                <Tags  tags={this.state.tags} onChange={this.handleChange}/>
-                </ul>
-                
+                <button onClick={this.toggleTags}>
+                    Toggle Tags
+                </button>
+                <div id="showTags">
+                    {this.state.showTags ?<ul>
+                        <Tags tags={this.state.tags} onChange={this.handleChange} />
+                    </ul> : null}
+                </div>
 
             </div>
             <div >
