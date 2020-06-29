@@ -49,6 +49,7 @@ class RecipeForm extends React.Component{
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleChangeServingSize = this.handleChangeServingSize.bind(this);
         this.handleChangeCategory = this.handleChangeCategory.bind(this);
+        this.ingredientTitleHandler = this.ingredientTitleHandler.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -83,6 +84,10 @@ class RecipeForm extends React.Component{
         recipe.category = this.state.category;
 
         this.props.onSubmit(recipe);
+    }
+
+    ingredientTitleHandler(ingredientName){
+        console.log(ingredientName);
     }
 
     render(){
@@ -120,7 +125,7 @@ class RecipeForm extends React.Component{
                     errortext="Serving Size is required"
                     variant="outlined" />
                 <Categories category={this.state.category} onChange={this.handleChangeCategory}/>
-                <IngredientListRow ingredients={this.state.ingredients}/>
+                <IngredientListRow ingredients={this.state.ingredients} ingredientChangeHandler={this.ingredientTitleHandler}/>
                 <Button id="submit" type="submit"
                     disabled={this.state.title == undefined || this.state.title == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}
                     raised primary className="md-cell md-cell--2">Publish</Button>

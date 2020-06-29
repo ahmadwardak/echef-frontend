@@ -12,11 +12,14 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
         console.log("old price", tmp);
         tmp = tmp - parseFloat(oldPrice) + parseFloat(newPrice);
         console.log("new price", tmp);
-        setTotalPrice(tmp.toFixed(2));
+        setTotalPrice(fixFloat(tmp));
     }
     function changeServingSize(sSize){
-        console.log(sSize.target.value);
         setServingSize(sSize.target.value);
+    }
+    function fixFloat(original){
+        var result = Math.round(original*100)/100;
+        return result;
     }
     return(
        <div className='ingredientBox'>
