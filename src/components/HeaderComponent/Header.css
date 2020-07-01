@@ -1,35 +1,12 @@
 .header {
   overflow: hidden;
-  background-color: #393432;
+  background-color: #212529;
   padding: 0;
 }
 
-
-/* Float the link section to the right */
-.header-back {
-  width: 100%;
-  background-color: #fff;
-  display: flex;
-  padding:5px 10px 5px 10px;
-  z-index:100;
-}
-
-.categoryDropdown{
-  height:30px;
-  margin-left:-5px;
-  background-color:#239125;
-  color:#fff;
-}
-
-.header-right{
-    float: right;
-    display: -webkit-inline-box;
-    line-height: 30px;
-  }
-
   .pageTitle{
     color:#fff;
-    padding: 30px 0px 0px 30px;
+    padding: 80px 0px 0px 30px;
     font-size: 40px;
     font-weight: bold;
     text-transform:capitalize;
@@ -42,57 +19,17 @@
     text-transform:capitalize;
   }
 
-.header-right input{
-  width:300px;
-  height:30px;
-}
 
 .logo {
-  width:70px;
-  height:70px;
-  position: absolute;
-  margin: 0 48%;
+  width:42px;
+  height:42px; 
+  margin: 0 8px 0 0;
 }
 
 .bigLogo {
   width:200px;
   height:200px;
-  margin-top:30px;
-}
-
-.cartButton{
-  width:30px;
-  height:30px;
-  margin-left: 15px;
-}
-
-ul.headerNav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  float: left;
-  width: 80%;
-}
-
-ul.headerNav > li {
-  float: left;
-}
-
-ul.headerNav li a {
-  display: block;
-  padding: 8px;
-  background-color: #fff;
-  color: #333333;;
-  text-decoration: none;
-}
-
-ul.headerNav li a:hover {
-  color:#239125;
-}
-
-ul.headerNav li a:active {
-  color:#239125;
+  margin-top:60px;
 }
 
 .blackTransparency{
@@ -106,4 +43,8 @@ ul.headerNav li a:active {
 
 .noImageStyle{
   padding:20px 0 40px;
+}
+
+.marginLeft{
+  margin-left: 20px;
 }
