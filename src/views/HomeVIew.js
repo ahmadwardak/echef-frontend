@@ -1,7 +1,7 @@
 import { render } from "react-dom"
 import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
-import { RecipeList } from '../components/RecipeList';
+import { RecipeList } from '../components/SharedComponents/RecipeList';
 import UserService from '../services/UserService';
 import { Link } from "react-router-dom";
 

@@ -3,8 +3,10 @@ const baseUrl = 'http://localhost:3000/ingredient'
 
 const getAll = () => {
   const request = axios.get(baseUrl)
-  return request.then(response => {  
-      return response.data  })}
+  return request.then(response => {
+    return response.data
+  })
+}
 
 const create = newObject => {
   const request = axios.post(baseUrl, newObject)
@@ -24,9 +26,9 @@ const getIngredient = (id) => {
 
 
 
-export default { 
-  getAll, 
-  create, 
+export default {
+  getAll,
+  create,
   update,
   getIngredient
 }
