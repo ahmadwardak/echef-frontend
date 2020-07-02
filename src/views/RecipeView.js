@@ -43,9 +43,10 @@ export class RecipeView extends React.Component {
 
         return (
             <div>
+               { console.log("I'm here")}
                     <div className='row'>
                         <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description}/> 
-                        <IngredientCustomizer servingSize={this.state.recipe.servingSize} ingredientsNeeded={this.state.recipe.ingredients}/>
+                        <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.Ingredients}/>
                     </div>
                     
             </div>
