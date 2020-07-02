@@ -1,6 +1,6 @@
-import { render } from "react-dom";
-import React, { useState } from "react";
-import RecipeService from "../services/RecipeService";
+import { render } from "react-dom"
+import React, { useState } from "react"
+import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
 import UserService from '../services/UserService';
 import { Link } from "react-router-dom";
@@ -86,6 +86,9 @@ export class HomeView extends React.Component {
 
         const recipes = this.state.filteredData;
 
+        if (this.state.loading) {
+            return (<h2>Loading...</h2>);
+        }
         return (<div>
             <h1>Home Page</h1>
 
