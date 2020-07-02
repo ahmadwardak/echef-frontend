@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import WebFontLoader from 'webfontloader';
+import 'react-md/dist/react-md.indigo-pink.min.css';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 WebFontLoader.load({
     google: {
@@ -14,6 +14,4 @@ WebFontLoader.load({
     },
 });
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

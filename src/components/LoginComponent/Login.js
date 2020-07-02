@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Button, Col, } from 'react-bootstrap';
-import Alert from 'react-bootstrap/Alert'
-
+import { Card, Button, TextField } from 'react-md';
 import './Login.css';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
 
@@ -18,18 +17,17 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeUsername(event) {
-        this.setState({ username: event.target.value });
+    handleChangeUsername(value) {
+        this.setState({ username: value });
     }
 
-    handleChangePassword(event) {
-        this.setState({ password: event.target.value });
+    handleChangePassword(value) {
+        this.setState({ password: value });
     }
-
-
 
     handleSubmit(event) {
         event.preventDefault();
+        console.log('submit clicked');
 
         let user = {
             username: this.state.username,
@@ -37,67 +35,40 @@ class Login extends Component {
         };
 
         this.props.onSubmit(user);
-
-        console.log('submit clicked');
-
-    }
-    goToRegister() {
-        window.location = '/#register';
     }
 
     render() {
         return (
-            <Form onSubmit={this.handleSubmit} >
-                <Form.Row className="align-items-center" >
-                    <Col xs={7}>
-                        <Form.Group controlId="username">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Username"
-                                required
-                                defaultValue={this.state.username}
-                                onChange={this.handleChangeUsername} />
-                        </Form.Group>
-                    </Col>
-                </Form.Row>
-                <Form.Row className="align-items-center">
-                    <Col xs={7}>
-                        <Form.Group controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
+
+            <div className="row">
+                <div className="col">
+                    <Card className="md-block-centered secondary ">
+                        <form className="md-grid" onSubmit={this.handleSubmit} >
+                            <TextField
+                                label="Username"
+                                id="username"
+                                type="text"
+                                className="md-row"
+                                required={true}
+                                value={this.state.username}
+                                onChange={this.handleChangeUsername}
+                                errorText="Username required" />
+                            <TextField
+                                label="Password"
+                                id="password"
                                 type="password"
-                                placeholder="Password"
-                                required
-                                defaultValue={this.state.password}
-                                onChange={this.handleChangePassword} />
-                        </Form.Group>
-                    </Col>
-                </Form.Row>
-                <Form.Row className="align-items-center">
-                    <Col xs="auto">
-                        <Button variant="primary" type="submit">
-                            Login
-                    </Button>
-                    </Col>
-                    <Col xs="auto">
-                        <Button variant="secondary" type="button" onClick={() => this.goToRegister()}>
-                            Register
-                    </Button>
-                    </Col>
-                </Form.Row>
-                <br></br>
-                {this.props.error ? <Form.Row>
-                    <Col xs="auto">
-                        <Alert variant="danger">
-                            <Alert.Heading>Error!</Alert.Heading>
-                            <p>
-                                {this.props.error}
-                            </p>
-                        </Alert>
-                    </Col>
-                </Form.Row>
-                    : ''}
-            </Form>
+                                className="md-row"
+                                required={true} value={this.state.password}
+                                onChange={this.handleChangePassword}
+                                errorText="Password required" />
+
+                            <Button id="submit" type="submit"
+                                raised primary className="md-cell md-cell--1 md-btn md-btn--flat md-btn--text md-pointer--hover md-background--primary md-background--primary-hover md-inline-block">Login</Button>
+                            <Link to={'/register'} className="md-cell md-cell--1 md-btn md-btn--flat md-btn--text md-pointer--hover md-background--secondary md-background--secondary-hover md-inline-block" >Sign Up</Link>
+                        </form>
+                    </Card>
+                </div>
+            </div>
         );
     }
 }

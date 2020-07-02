@@ -14,16 +14,9 @@ export default class UserService {
 
         return new Promise((resolve, reject) => {
             HttpService.post(`${UserService.baseURL()}/register`, {
-                fullName: user.fullName,
                 username: user.username,
                 password: user.password,
-                email: user.email,
-                accountType: user.accountType,
-                paymentOption: 'none',
-                address: user.address,
-                shippingAddress: user.shippingAddress,
-                billingAddress: user.billingAddress,
-                subscriptionType: 'normal',
+                email: user.email
             }, function (data) {
                 resolve(data);
             }, function (textStatus) {
@@ -60,17 +53,10 @@ export default class UserService {
         return {
             _id,
             username: JSON.parse(window.atob(base64)).username,
-            fullname: JSON.parse(window.atob(base64)).fullname,
             email: JSON.parse(window.atob(base64)).email,
-            accounttype: JSON.parse(window.atob(base64)).accounttype,
-            subscriptiontype: JSON.parse(window.atob(base64)).subscriptiontype,
-            email: JSON.parse(window.atob(base64)).email,
-            address: JSON.parse(window.atob(base64)).address,
-            shippingaddress: JSON.parse(window.atob(base64)).shippingaddress,
-            billingaddress: JSON.parse(window.atob(base64)).billingaddress,
+            accounttype: JSON.parse(window.atob(base64)).accounttype
         };
     }
-
 
     static isAuthenticated() {
         return !!window.localStorage['jwtToken'];

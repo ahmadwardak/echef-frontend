@@ -1,18 +1,17 @@
 // footer
-import React, { Component } from 'react';
-import './Footer.css';
+import React from 'react'
+import './Footer.css'
 
-class Footer extends Component {
-  render() {
+const Footer = () => {
+  
     return (
       <div className='eChefFooter'>
         <br />
         <em>Copyright © 2020 eChef Munich, Germany. All rights reserved.</em>
-      </div>
+      </div> 
     )
   }
-}
 
 
 
-export default Footer;
+export default Footer

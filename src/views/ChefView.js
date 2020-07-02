@@ -21,7 +21,7 @@ export class ChefView extends React.Component {
             loading: true
         });
 
-        RecipeService.getRecipes().then((data) => {
+        RecipeService.getAll().then((data) => {
             this.setState({
                 data: [...data],
                 loading: false
