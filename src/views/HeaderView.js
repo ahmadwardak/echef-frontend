@@ -18,14 +18,11 @@ class HeaderView extends React.Component {
       loading: true
     });
 
-    var id = window.location.href.split('/').reverse()[0];
-    console.log(id);
+    var id = ""//window.location.href.split('/').reverse()[0];
     if (id) {
-      console.log("id available");
-      RecipeService.getRecipe(id).then((data) => {
-        console.log(data);
+      RecipeService.getRecipeName(id).then((data) => {
         this.setState({
-          pageTitle: data.title,
+          pageTitle: data,
           loading: false,
           recipeId: id
         });
