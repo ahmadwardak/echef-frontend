@@ -12,8 +12,9 @@ const IngredientCustomizer = ({ servingSize, ingredientsNeeded }) => {
         //console.log("old price", tmp);
         tmp = tmp - parseFloat(oldPrice) + parseFloat(newPrice);
         console.log("new price", tmp);
-        setTotalPrice(fixFloat(tmp));
+        setTotalPrice(tmp.toFixed(2));
     }
+<<<<<<< HEAD
     function changeServingSize(sSize) {
         setServingSize(sSize.target.value);
     }
@@ -24,6 +25,15 @@ const IngredientCustomizer = ({ servingSize, ingredientsNeeded }) => {
     return (
         <div className='ingredientBox'>
             <div className='servingSizeDiv'>
+=======
+    function changeServingSize(sSize){
+        console.log(sSize.target.value);
+        setServingSize(sSize.target.value);
+    }
+    return(
+       <div className='ingredientBox'>
+           <div className='servingSizeDiv'>
+>>>>>>> parent of cc04d1c... Merge branch 'Assal's'
                 <h4 className='whiteFont bigCol'>For how many people you are cooking?</h4>
                 <input className="servingSizeBox" defaultValue={ServingSize} onChange={changeServingSize}></input>
             </div>

@@ -4,14 +4,18 @@ import '../../App.css';
 import IngredientsService from '../../services/IngredientsService';
 import { Divider } from '@material-ui/core';
 
+<<<<<<< HEAD
 const IngredientListRow = ({ ingredients, ingredientChangeHandler }) => {
     const [Ingredients, setIngredients] = useState([]);
+=======
+const IngredientListRow = ({ingredients}) => {
+    const [Ingredients, setIngredients] =useState([]);
+>>>>>>> parent of cc04d1c... Merge branch 'Assal's'
     const [IngredientUnit, setIngredientUnit] = useState("");
     const [IngredientBrands, setIngredientBrands] = useState([]);
 
     useEffect(() => {
         IngredientsService.getAll().then((data) => {
-            console.log(data);
             setIngredients(data);
             //  console.log("I've set the following", data)
         }).catch((e) => {
@@ -24,8 +28,7 @@ const IngredientListRow = ({ ingredients, ingredientChangeHandler }) => {
         var id = event.target.value;
         IngredientsService.getIngredient(id).then((data) => {
             setIngredientUnit(data.parameter);
-            setIngredientBrands(data.ingredientBrands);
-            ingredientChangeHandler(data.name);
+            setIngredientBrands(data.brands);
         }).catch((e) => {
             console.error(e);
         });
@@ -36,7 +39,11 @@ const IngredientListRow = ({ ingredients, ingredientChangeHandler }) => {
         <div>
             <select className="brandDropdown" onChange={selectedIngredient}>
                 <option>--Select ingredient--</option>
+<<<<<<< HEAD
                 {Ingredients.map((dt, i) => <option key={i} value={dt._id}>{dt.name} </option>)}
+=======
+                {Ingredients.map((dt,i) =><option key={i} value={dt.id}>{dt.title} </option>)}
+>>>>>>> parent of cc04d1c... Merge branch 'Assal's'
             </select>
             <input type="number" name="ingredientQuantity" step="1" value={ingredients.Amount} className="amountBox" onChange={onChange} />
             <label name="ingredientUnit"   >{IngredientUnit} </label>

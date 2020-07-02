@@ -48,6 +48,7 @@ class RecipeForm extends React.Component {
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleChangeServingSize = this.handleChangeServingSize.bind(this);
+<<<<<<< HEAD
         this.ingredientTitleHandler = this.ingredientTitleHandler.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         // Dynamic values
@@ -55,6 +56,9 @@ class RecipeForm extends React.Component {
         this.handleIngredientChange = this.handleIngredientChange.bind(this);
         this.handleAddClick = this.handleAddClick.bind(this);
         this.handleRemoveClick = this.handleRemoveClick.bind(this);
+=======
+        this.handleChangeCategory = this.handleChangeCategory.bind(this);
+>>>>>>> parent of cc04d1c... Merge branch 'Assal's'
 
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -135,6 +139,7 @@ class RecipeForm extends React.Component {
         console.log("submitting", recipe)
     }
 
+<<<<<<< HEAD
     render() {
         return (
             <div className="Anythign">
@@ -197,6 +202,49 @@ class RecipeForm extends React.Component {
                 </Card >
                 <div style={{ marginTop: 20 }}>{JSON.stringify(this.state)}</div>
             </div>
+=======
+    render(){
+        return (
+            <Card style={style} className="md-block-centered">
+                <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
+                <TextField  
+                    label="Recipe Title"
+                    id="RecipeTitle"
+                    type="text"
+                    className="md-row"
+                    required={true}
+                    value={this.state.title}
+                    onChange={this.handleChangeTitle}
+                    errortext="Recipe title is required"
+                    variant="outlined" />
+                <TextField  
+                    label="Recipe Description"
+                    id="RecipeDescription"
+                    type="text"
+                    className="md-row"
+                    required={true}
+                    value={this.state.description}
+                    onChange={this.handleChangeDescription}
+                    errortext="Recipe Description is required"
+                    variant="outlined" />
+                <TextField  
+                    label="Serving Size"
+                    id="ServingSize"
+                    type="number"
+                    className="md-row"
+                    required={false}
+                    value={this.state.servingSize}
+                    onChange={this.handleChangeServingSize}
+                    errortext="Serving Size is required"
+                    variant="outlined" />
+                <Categories category={this.state.category} onChange={this.handleChangeCategory}/>
+                <IngredientListRow ingredients={this.state.ingredients}/>
+                <Button id="submit" type="submit"
+                    disabled={this.state.title == undefined || this.state.title == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}
+                    raised primary className="md-cell md-cell--2">Publish</Button>
+                </form>
+            </Card>
+>>>>>>> parent of cc04d1c... Merge branch 'Assal's'
         );
     }
     // {
