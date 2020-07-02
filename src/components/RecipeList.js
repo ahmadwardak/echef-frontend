@@ -8,8 +8,9 @@ import Recipe from "./Recipe"
 export  const RecipeList = ({recipes }) => {
 
 return (
+
    recipes.map(rec =>
-    (<Recipe key={rec._id} Title={rec.title} id={rec._id} difficulty={rec.difficulty}/>)
+    (<Recipe key={rec.id} Title={rec.Title} Author={rec.Author} Servings={rec.Servings} id={rec.id} difficulty={rec.Difficulty}/>)
   )
 )
    
