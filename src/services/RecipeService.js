@@ -9,7 +9,7 @@ export default class RecipeService {
 
     static baseURL() {return "http://localhost:3000/recipes" }
 
-    static getAll(){
+    static getRecipes(){
        return new Promise((resolve, reject) => {
            HttpService.get(this.baseURL(), function(data) {
                resolve(data);
@@ -18,7 +18,6 @@ export default class RecipeService {
            });
        });
     }
-    
 
     static getRecipe(id) {
         return new Promise((resolve, reject) => {
@@ -34,7 +33,6 @@ export default class RecipeService {
             });
         });
     }
-    
 
     static deleteRecipe(id) {
         return new Promise((resolve, reject) => {
