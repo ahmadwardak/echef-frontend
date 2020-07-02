@@ -34,15 +34,15 @@ export class HomeView extends React.Component {
             loading: true
         });
 
-        // RecipeService.getAll().then((data) => {
-        //     this.setState({
-        //         data: [...data],
-        //         filteredData: [...data],
-        //         loading: false
-        //     })
-        // }).catch((e) => {
-        //     console.error(e);
-        // });
+        RecipeService.getRecipes().then((data) => {
+            this.setState({
+                data: [...data],
+                filteredData: [...data],
+                loading: false
+            })
+        }).catch((e) => {
+            console.error(e);
+        });
     }
 
     logout() {
