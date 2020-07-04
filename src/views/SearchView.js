@@ -1,9 +1,9 @@
 import { render } from "react-dom"
 import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
-import { RecipeList } from '../components/SharedComponents/RecipeList';
-import Categories from "../components/SharedComponents/Categories";
-import { Tags } from "../components/SharedComponents/Tags";
+import { RecipeList } from '../components/RecipeList';
+import Categories from "../components/Categories";
+import { Tags } from "../components/Tags";
 
 export class SearchView extends React.Component {
 
@@ -34,7 +34,11 @@ export class SearchView extends React.Component {
         this.setState({
             loading: true
         });
+<<<<<<< Updated upstream
         RecipeService.getAll().then((data) => {
+=======
+        RecipeService.getRecipes().then((data) => {
+>>>>>>> Stashed changes
             // Get all viable tags 
             let tempTags = data.reduce((tmp, tag) => {
                 // console.log("Tmp:", tmp, " Tag: ",tag.tags)
@@ -79,15 +83,23 @@ export class SearchView extends React.Component {
     // Handles the filter search
     handleSearchChange(event) {
         event.preventDefault()
-        let nameVal = event.target.name
-        let val = event.target.value
 
+<<<<<<< Updated upstream
         // console.log("nameVal", nameVal)
         // console.log("val", val)
 
         this.setState({
             [nameVal]: val
+=======
+        let nameVal = event.target.name // input name = "something"
+        let val = event.target.value // something = value
 
+        // console.log("nameVal", nameVal)
+        // console.log("val", val)
+>>>>>>> Stashed changes
+
+        this.setState({
+            [nameVal]: val  // this.state{something:value}
         })
 
 

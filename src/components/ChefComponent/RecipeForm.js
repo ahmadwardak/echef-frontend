@@ -10,6 +10,7 @@ import IngredientListRow from './IngredientListRow';
 
 const style = { maxWidth: 1500 };
 
+
 class RecipeForm extends React.Component {
 
     constructor(props) {
@@ -196,6 +197,7 @@ class RecipeForm extends React.Component {
             </div>
         );
     }
+<<<<<<< Updated upstream
     // {
     //<div style={{ marginTop: 20 }}>{JSON.stringify(this.state.components)}</div> Helps in debugging!
     //     this.state.components.map((x, i)) => {
@@ -242,6 +244,8 @@ class RecipeForm extends React.Component {
     //         );
     //     }
     // }
+=======
+>>>>>>> Stashed changes
 
 }
 
