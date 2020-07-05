@@ -26,6 +26,7 @@ export class RecipeView extends React.Component {
 
         let id = this.props.match.params.id;
         RecipeService.getRecipe(id).then((data) => {
+            console.log("test", data);
             this.setState({
                 recipe: data,
                 loading: false
@@ -46,7 +47,7 @@ export class RecipeView extends React.Component {
                { console.log("I'm here")}
                     <div className='row'>
                         <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description}/> 
-                        <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.Ingredients}/>
+                        <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients}/>
                     </div>
                     
             </div>
