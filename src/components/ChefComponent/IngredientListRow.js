@@ -44,32 +44,12 @@ const IngredientListRow = ({ onChange, ingredients }) => {
                     </option>)}
             </select>
             <input type="number" name="ingredientQuantity" step="1" value={ingredients.Amount} className="amountBox" onChange={onChange} />
-<<<<<<< Updated upstream
             <label  name="ingredientUnit"   >{IngredientUnit} </label>
-=======
-            <input  name="ingredientUnit"   value={ingredients.ingredientUnit} onChange={onChange} />
->>>>>>> Stashed changes
             <select className="brandDropdown" name="ingredientBrand" onChange={onChange}>
                 <option>--Select brand--</option>
                 {IngredientBrands.map((dt, i) => <option key={i}>{dt.brandName} </option>)}
             </select>
         </div>
-<<<<<<< Updated upstream
-        // <div>
-        //     <select className="brandDropdown" onChange={selectedIngredient}>
-        //         <option>--Select ingredient--</option>
-        //         {Ingredients.map((dt,i) =><option key={i} value={dt.id}>{dt.title} </option>)}
-        //     </select>
-        //     <input type="number" name="points" step="1" value={ingredients.Amount} className="amountBox"/>
-        //     <label>{IngredientUnit}</label>
-        //     <select className="brandDropdown">
-        //         <option>--Select brand--</option>
-        //         {IngredientBrands.map((dt,i) =><option key={i}>{dt.brandName} </option>)}
-        //     </select>
-        // </div>
-=======
-
->>>>>>> Stashed changes
     )
 }
 

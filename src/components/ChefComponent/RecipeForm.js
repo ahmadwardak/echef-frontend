@@ -197,56 +197,6 @@ class RecipeForm extends React.Component {
             </div>
         );
     }
-<<<<<<< Updated upstream
-    // {
-    //<div style={{ marginTop: 20 }}>{JSON.stringify(this.state.components)}</div> Helps in debugging!
-    //     this.state.components.map((x, i)) => {
-    //         return (
-    //             <Card style={style} className="md-block-centered">
-    //                 <form className="md-grid" onSubmit={this.handleSubmit} onReset={() => this.props.history.goBack()}>
-    //                     <TextField
-    //                         label="Recipe Title"
-    //                         id="RecipeTitle"
-    //                         type="text"
-    //                         className="md-row"
-    //                         required={true}
-    //                         value={this.state.title}
-    //                         onChange={this.handleChangeTitle}
-    //                         errortext="Recipe title is required"
-    //                         variant="outlined" />
-    //                     <TextField
-    //                         label="Recipe Description"
-    //                         id="RecipeDescription"
-    //                         type="text"
-    //                         className="md-row"
-    //                         required={true}
-    //                         value={this.state.description}
-    //                         onChange={this.handleChangeDescription}
-    //                         errortext="Recipe Description is required"
-    //                         variant="outlined" />
-    //                     <TextField
-    //                         label="Serving Size"
-    //                         id="ServingSize"
-    //                         type="number"
-    //                         className="md-row"
-    //                         required={false}
-    //                         value={this.state.servingSize}
-    //                         onChange={this.handleChangeServingSize}
-    //                         errortext="Serving Size is required"
-    //                         variant="outlined" />
-    //                     <Categories category={this.state.category} onChange={this.handleChangeCategory} />
-    //                     <IngredientListRow ingredients={this.state.ingredients} />
-    //                     <Button id="submit" type="submit"
-    //                         disabled={this.state.title == undefined || this.state.title == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}
-    //                         raised primary className="md-cell md-cell--2">Publish</Button>
-    //                 </form>
-    //             </Card>
-    //         );
-    //     }
-    // }
-=======
->>>>>>> Stashed changes
-
 }
 
 export default RecipeForm;
