@@ -7,6 +7,7 @@ import Ingredient from '../RecipeComponent/Ingredient';
 import IngredientsService from "../../services/IngredientsService";
 import '../RecipeComponent/Recipe.css';
 import IngredientListRow from './IngredientListRow';
+import UserService from '../../services/UserService';
 
 const style = { maxWidth: 1500 };
 
@@ -21,6 +22,7 @@ class RecipeForm extends React.Component {
                 title: props.recipe.title,
                 description: props.recipe.description,
                 servingSize: props.recipe.servingSize,
+                createdByChef: props.recipe.createdByChef,
                 ingredients: [{
                     ingredientName: props.recipe.ingredients.ingredientName,
                     ingredientQuantity: props.recipe.ingredients.ingredientQuantity,
@@ -35,6 +37,7 @@ class RecipeForm extends React.Component {
                 title: '',
                 description: '',
                 servingSize: '',
+                createdByChef:'',
                 ingredients: [{
                     ingredientName: '',
                     ingredientQuantity: '',
@@ -127,6 +130,7 @@ class RecipeForm extends React.Component {
         recipe.description = this.state.description;
         recipe.servingSize = this.state.servingSize;
         recipe.category = this.state.category;
+        recipe.createdByChef = UserService.getCurrentUser()._id;
         recipe.ingredients = this.state.ingredients;
 
         //this.props.onSubmit(recipe);

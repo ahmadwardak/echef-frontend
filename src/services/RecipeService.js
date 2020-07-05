@@ -18,6 +18,16 @@ export default class RecipeService {
            });
        });
     }
+
+    static getRecipesByChefID(chefID){
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${this.baseURL()}/chef/${chefID}`,function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+     }
     
 
     static getRecipe(id) {

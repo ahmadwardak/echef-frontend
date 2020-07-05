@@ -2,6 +2,7 @@ import { render } from "react-dom"
 import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
 import { ChefViewList } from '../components/ChefComponent/ChefViewList';
+import UserService from '../services/UserService'
 
 export class ChefView extends React.Component {
 
@@ -21,7 +22,8 @@ export class ChefView extends React.Component {
             loading: true
         });
 
-        RecipeService.getAll().then((data) => {
+        let chefID = UserService.getCurrentUser()._id;
+        RecipeService.getRecipesByChefID(chefID).then((data) => {
             this.setState({
                 data: [...data],
                 loading: false
