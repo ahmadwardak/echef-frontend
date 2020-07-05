@@ -1,6 +1,7 @@
 "use strict";
 
 import HttpService from './HttpService';
+import UserService from './UserService';
 
 export default class RecipeReviewService {
 
@@ -36,7 +37,15 @@ export default class RecipeReviewService {
 
     static createReview(recipeID, review) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${this.baseURL()}/${recipeID}`, review, function (data) {
+            HttpService.post(`${this.baseURL()}/${recipeID}`, {
+                heading: review.heading,
+                addedbyUser: UserService.getCurrentUser()._id,
+                recipe: recipeID,
+                detail: review.detail,
+                overallRating: review.overallRating,
+                qualityRating: review.qualityRating,
+                valueForMoneyRating: review.valueForMoneyRating,
+            }, function (data) {
                 resolve(data);
             }, function (textStatus) {
                 reject(textStatus);

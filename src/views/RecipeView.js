@@ -5,7 +5,11 @@ import IngredientsService from '../services/IngredientsService';
 import RecipeDescription from '../components/RecipeComponent/RecipeDescription'
 import IngredientCustomizer from '../components/RecipeComponent/IngredientCustomizer'
 
+import RecipeReviews from '../components/RecipeReviewComponent/RecipeReview';
 
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle, faComments } from "@fortawesome/free-solid-svg-icons";
 
 export class RecipeView extends React.Component {
 
@@ -17,9 +21,9 @@ export class RecipeView extends React.Component {
             recipe: []
         }
     };
-    
 
-    componentWillMount(props){
+
+    componentWillMount(props) {
         this.setState({
             loading: true
         });
@@ -32,7 +36,11 @@ export class RecipeView extends React.Component {
             });
         }).catch((e) => {
             console.error(e);
-        });    
+        });
+    }
+
+    goToAddRecipeReview() {
+        window.location = '/#reviews/' + this.state.recipe._id;
     }
 
 
@@ -43,13 +51,28 @@ export class RecipeView extends React.Component {
 
         return (
             <div>
-               { console.log("I'm here")}
+                {console.log("I'm here")}
+                <div className='row'>
+                    <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
+                    <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.Ingredients} />
+                </div>
+                <br />
+                <div className="container">
+                    {/* Recipe Review Section */}
+
                     <div className='row'>
-                        <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description}/> 
-                        <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.Ingredients}/>
+                        <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews <span style={{ color: 'red', fontSize: '40%' }}>Average Rating goes here (stars).....</span></h3>
                     </div>
-                    
+
+                    <div className='row mb-2'>
+                        <Button variant="primary" type="button"
+                            onClick={() => this.goToAddRecipeReview()}>
+                            Write a review
+                    </Button>
+                    </div>
+                    <RecipeReviews recipeId={this.state.recipe._id} ></RecipeReviews>
+                </div>
             </div>
-                   );
+        );
     }
 }
