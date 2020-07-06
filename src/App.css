@@ -12,10 +12,6 @@ html {
     overflow-y: auto;
 }
 
-.row{
-    width:100%;
-    display: flex;
-}
 
 .bigCol{
     width:70%;
