@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Form, FormFile, Button, Col, } from 'react-bootstrap';
+import { Form, Button, Col, } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 
 import Rating from 'react-rating';
@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import RecipeReviewService from '../../services/RecipeReviewService';
-import { AssignmentIndFontIcon } from 'react-md';
 
 class RecipeReviewForm extends Component {
 
@@ -27,7 +26,6 @@ class RecipeReviewForm extends Component {
             qualityRatingError: '',
             valueForMoneyRatingError: '',
             hasError: false,
-            recipeId: '',
         };
 
 
@@ -35,6 +33,7 @@ class RecipeReviewForm extends Component {
         this.overallRating = React.createRef();
         this.qualityRating = React.createRef();
         this.valueForMoneyRating = React.createRef();
+        this.fileCollection = React.createRef();
 
         this.handleChangeHeading = this.handleChangeHeading.bind(this);
         this.handleChangeDetail = this.handleChangeDetail.bind(this);
@@ -45,11 +44,11 @@ class RecipeReviewForm extends Component {
 
     handleChangeHeading(event) {
         this.setState({ heading: event.target.value });
-        console.log(event.target.value);
+        // console.log(event.target.value);
     }
     handleChangeDetail(event) {
         this.setState({ detail: event.target.value });
-        console.log(event.target.value);
+        // console.log(event.target.value);
     }
 
 
@@ -89,36 +88,36 @@ class RecipeReviewForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-
         if (this.state.hasError == 'true') {
             return false;
         } else {
-
+            //console.log(this.fileCollection.current.files);
+            // return false;
             let review = {
                 heading: this.state.heading,
                 detail: this.state.detail,
                 overallRating: this.state.overallRating,
                 qualityRating: this.state.qualityRating,
                 valueForMoneyRating: this.state.valueForMoneyRating,
-                // fileCollection: 
+                fileCollection: this.fileCollection.current.files,
             };
             const recipeId = this.props.match.params.id;
             RecipeReviewService.createReview(recipeId, review).catch((e) => window.confirm(e));
 
-            console.log('submitted');
+            // console.log('submitted');
         }
     }
 
     validate() {
         const overallRatingValue = this.overallRating.current.value;
         this.setState({ overallRating: overallRatingValue });
-        console.log(overallRatingValue);
+        // console.log(overallRatingValue);
         const qualityRatingValue = this.qualityRating.current.value;
         this.setState({ qualityRating: qualityRatingValue });
-        console.log(qualityRatingValue);
+        // console.log(qualityRatingValue);
         const valueForMoneyRatingValue = this.valueForMoneyRating.current.value;
         this.setState({ valueForMoneyRating: valueForMoneyRatingValue });
-        console.log(valueForMoneyRatingValue);
+        // console.log(valueForMoneyRatingValue);
 
 
         this.validateHeading();
@@ -244,7 +243,8 @@ class RecipeReviewForm extends Component {
                             <Form.File
                                 className="position-relative"
                                 multiple
-
+                                accept=".jpg,.gif,.png,.jpeg,.mp4,.avi,.mov,.wmv"
+                                ref={this.fileCollection}
                                 onChange={this.handleChangeFileCollection}
                                 name="fileCollection"
                                 label="Add photo(s) or Video(s)"

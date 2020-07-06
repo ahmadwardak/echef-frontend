@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import Moment from 'react-moment';
 import Rating from 'react-rating';
 import RecipeReviewService from '../../services/RecipeReviewService';
-import { Card } from 'react-bootstrap';
+import { Card, Figure, Image, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import { v4 as uuidv4 } from 'uuid';
 
+import ReactPlayer from 'react-player'
+
+import VideoThumbnail from 'react-video-thumbnail';
 
 class RecipeReview extends Component {
 
@@ -26,9 +30,10 @@ class RecipeReview extends Component {
         const reviews = RecipeReviewService.getReviews(this.props.recipeId).then((data) => {
             this.setState({
                 reviews: data
-            });
 
-            console.log(this.state.reviews);
+            });
+            console.log(data);
+
         }).catch((e) => {
             console.error(e);
         });
@@ -37,6 +42,7 @@ class RecipeReview extends Component {
 
 
     render() {
+
         return (
             < div className="row" >
                 {
@@ -81,6 +87,29 @@ class RecipeReview extends Component {
                                         readonly
                                     /></span>
                                 </Card.Text>
+                                {Object.keys(review.videoCollection).length !== 0 || Object.keys(review.imageCollection).length !== 0 ?
+
+                                    <Container>
+                                        <Row>
+                                            {review.imageCollection.map(image => (
+                                                <Col md={3} id={uuidv4()}><Image
+                                                    width={160}
+                                                    style={{ border: "1px solid rgba(0,0,0,.125)" }}
+                                                    id={uuidv4()} src={image} fluid /></Col>
+                                            ))}
+                                            {review.videoCollection.map(video => (
+                                                <Col md={3} id={uuidv4()}>
+                                                    <ReactPlayer playing={true} light={true}
+                                                        width={160}
+                                                        style={{ border: "1px solid rgba(0,0,0,.125)" }}
+                                                        controls={true}
+                                                        height={120}
+                                                        url={video} />
+                                                </Col>
+                                            ))}
+                                        </Row>
+                                    </Container>
+                                    : ""}
                             </Card.Body>
                         </Card>
                     ))

@@ -2,6 +2,7 @@
 
 import HttpService from './HttpService';
 import UserService from './UserService';
+import axios from 'axios';
 
 export default class RecipeReviewService {
 
@@ -37,19 +38,47 @@ export default class RecipeReviewService {
 
     static createReview(recipeID, review) {
         return new Promise((resolve, reject) => {
-            HttpService.post(`${this.baseURL()}/${recipeID}`, {
-                heading: review.heading,
-                addedbyUser: UserService.getCurrentUser()._id,
-                recipe: recipeID,
-                detail: review.detail,
-                overallRating: review.overallRating,
-                qualityRating: review.qualityRating,
-                valueForMoneyRating: review.valueForMoneyRating,
-            }, function (data) {
-                resolve(data);
-            }, function (textStatus) {
-                reject(textStatus);
-            });
+            var formData = new FormData();
+            formData.append('heading', review.heading);
+            formData.append('detail', review.detail);
+            formData.append('recipe', recipeID);
+            formData.append('addedbyUser', UserService.getCurrentUser()._id);
+            formData.append('overallRating', review.overallRating);
+            formData.append('qualityRating', review.qualityRating);
+            formData.append('valueForMoneyRating', review.valueForMoneyRating);
+            let aaa = [...review.fileCollection];
+            aaa.forEach(file => {
+                formData.append('fileCollection', file);
+            })
+
+
+            // formData.append('review', {
+            //     heading: review.heading,
+            //     addedbyUser: UserService.getCurrentUser()._id,
+            //     recipe: recipeID,
+            //     detail: review.detail,
+            //     overallRating: review.overallRating,
+            //     qualityRating: review.qualityRating,
+            //     valueForMoneyRating: review.valueForMoneyRating,
+            // });
+
+            //console.log(review.fileCollection);
+            //return false;
+            axios.post(`${this.baseURL()}/${recipeID}`, formData)
+                .then(res => {
+                    window.location = '/#recipe/' + res.data.recipeID;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+
+
+            // HttpService.post(, formData, function (data) {
+            //     resolve(data);
+            // }, function (textStatus) {
+            //     reject(textStatus);
+            // });
         });
     }
 
