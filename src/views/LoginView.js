@@ -19,7 +19,7 @@ export class LoginView extends React.Component {
             const accounttype = UserService.getCurrentUser().accounttype;
             //console.log(accounttype);
             if (accounttype == 'chef') {
-                this.props.history.push('/about');
+                this.props.history.push('/chef');
                 //console.log('chef account');
             } else {
                 this.props.history.push('/');
