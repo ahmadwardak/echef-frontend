@@ -5,6 +5,7 @@ import { HashRouter as Router, Route, Switch, withRouter, Redirect, useParams } 
 
 import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
+import { AccountView } from "./views/AccountView";
 import { ChefView } from "./views/ChefView";
 import { RecipeFormView } from './views/RecipeFormView';
 import { HomeView } from "./views/HomeView";
