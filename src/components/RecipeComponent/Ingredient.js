@@ -51,13 +51,13 @@ const BrandChoice = ({ id, cartHandler, servingSize, ingredient }) => {
 
         <div>
             <input type="number" name="points" step="1" value={tmp} onChange={amountChanged} className="amountBox" />
-            <label class="whiteFont amountParameter">{Parameter}</label>
+            <label className="whiteFont amountParameter">{Parameter}</label>
             <select className="brandDropdown" onChange={priceChanged}>
                 <option>--{Title} from:--</option>
                 {Brands.map(dt => <option value={dt.brandName}>{dt.brandName} </option>)}
             </select>
             <div className='priceDiv'>
-                <label class="whiteFont"> {fixFloat((Price * tmp) / baseAmount)} €</label>
+                <label className="whiteFont"> {fixFloat((Price * tmp) / baseAmount)} €</label>
             </div>
 
         </div>

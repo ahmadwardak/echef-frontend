@@ -55,15 +55,13 @@ export class RecipeView extends React.Component {
                 {console.log("I'm here")}
                 <div className='row'>
                     <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
-                    <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.Ingredients} />
+                    <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} />
                 </div>
                 <br />
                 <div className="container">
                     {/* Recipe Review Section */}
 
                     <div className='row'>
-                        <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
-                        <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} />
                         <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews <span style={{ color: 'red', fontSize: '40%' }}>Average Rating goes here (stars).....</span></h3>
                     </div>
 
