@@ -113,7 +113,7 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
                 { ingredientsNeeded.map(ing => <Ingredient id={ing.ingredientID} cartHandler={shoppingCartHandler} ingredient={ing} servingSize={ServingSize/2}/> )}
             </div>
             <div className="totalPrice">
-                <ul class="totalPriceList">
+                <ul className="totalPriceList">
                     <li><span className="whiteFont boldFont">Total</span> <span className="whiteFont boldFont">{totalPrice} €</span></li>
                 </ul>
             </div>
