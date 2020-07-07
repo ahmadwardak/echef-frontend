@@ -279,7 +279,7 @@ class Signup extends Component {
                 </Form.Row>
                 <Form.Row className="align-items-center" >
                     <Col xs={7}>
-                        <Form.Group controlId="address">
+                        <Form.Group controlId="shippingAddress">
                             <Form.Label>Shipping Address</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Shipping Address"
@@ -292,7 +292,7 @@ class Signup extends Component {
                 </Form.Row>
                 <Form.Row className="align-items-center" >
                     <Col xs={7}>
-                        <Form.Group controlId="address">
+                        <Form.Group controlId="billingAddress">
                             <Form.Label>Billing Address</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Billing Address"
