@@ -41,7 +41,6 @@ class Signup extends Component {
 
     handleChangeFullName(event) {
         this.setState({ fullName: event.target.value });
-        console.log(event.target.value);
     }
     handleChangeUsername(event) {
         this.setState({ username: event.target.value });
