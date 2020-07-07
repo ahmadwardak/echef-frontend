@@ -34,7 +34,7 @@ export class SearchView extends React.Component {
         this.setState({
             loading: true
         });
-        RecipeService.getRecipes().then((data) => {
+        RecipeService.getAll().then((data) => {
             // Get all viable tags 
             let tempTags = data.reduce((tmp, tag) => {
                 // console.log("Tmp:", tmp, " Tag: ",tag.tags)
@@ -95,7 +95,7 @@ export class SearchView extends React.Component {
 
     toggleTags() {
         //console.log("showTags?", !this.state.showTags)
-        let show=this.state.showTags
+        let show = this.state.showTags
         this.setState({
             showTags: !show
         }
@@ -150,7 +150,7 @@ export class SearchView extends React.Component {
                     Toggle Tags
                 </button>
                 <div id="showTags">
-                    {this.state.showTags ?<ul>
+                    {this.state.showTags ? <ul>
                         <Tags tags={this.state.tags} onChange={this.handleChange} />
                     </ul> : null}
                 </div>
