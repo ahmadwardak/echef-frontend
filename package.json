@@ -49,6 +49,7 @@
     "popper.js": "^1.16.1",
     "react": "16.8.4",
     "react-bootstrap": "^1.0.1",
+    "react-bootstrap-icons": "^1.0.3-alpha5",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "16.8.4",
     "react-md": "2.0.1",

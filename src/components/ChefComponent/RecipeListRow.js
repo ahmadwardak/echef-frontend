@@ -1,10 +1,9 @@
 "use strict";
 
 import React from 'react';
-import { TableRow, TableColumn, FontIcon, Button } from 'react-md';
+import { Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
-import { SimpleLink } from '../SimpleLink';
+import * as Icon from 'react-bootstrap-icons';
 
 export class RecipeListRow extends React.Component {
 
@@ -14,11 +13,11 @@ export class RecipeListRow extends React.Component {
 
     render() {
         return (
-            <TableRow key={this.props.key}>
-                <TableColumn><SimpleLink to={`/recipe/${this.props.recipe._id}`}>{this.props.recipe.title}</SimpleLink></TableColumn>
-                <TableColumn><Link to={`/edit/${this.props.recipe._id}`}><FontIcon>mode_edit</FontIcon></Link></TableColumn>
-                <TableColumn><Button onClick={() => this.props.onDelete(this.props.recipe._id)} icon>delete</Button></TableColumn>
-            </TableRow>
+            <tr key={this.props.key}>
+                <td><Link to={`/recipe/${this.props.recipe._id}`}>{this.props.recipe.title}</Link></td>
+                <td><Link to={`/edit/${this.props.recipe._id}`}><Icon.Pencil/></Link></td>
+                <td><Button onClick={() => this.props.onDelete(this.props.recipe._id)}><Icon.TrashFill/></Button></td>
+            </tr>
         );
     }
 }

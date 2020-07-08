@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
 import { ChefViewList } from '../components/ChefComponent/ChefViewList';
 import UserService from '../services/UserService'
+import { Button, ListGroup, Card } from "react-bootstrap";
 
 export class ChefView extends React.Component {
 
@@ -34,8 +35,7 @@ export class ChefView extends React.Component {
     }
     
     createRecipe(){
-
-        alert("Recipe creation");
+        window.location="/#add";
     }
 
     deleteRecipe(id) {
@@ -52,21 +52,27 @@ export class ChefView extends React.Component {
                data: [...recipes],
                loading: false
             });
+            window.location="/chef";
         }).catch((e) => {
             console.error(e);
         });
     }
 
     render() {
-        
-        return (<div>
-            <h1>My recipes</h1>
-            <button onClick={this.createRecipe}>Create a new recipe</button>
-            <ul>
-                <ChefViewList recipes={this.state.data} onDelete={(id)=>this.deleteRecipe(id)}/>
-            </ul>
 
-        </div>
+        if(this.state.loading){
+            return(<h3>Loading...</h3>);
+        }
+        
+        return (<Card>
+            <Card.Header as="h4">My recipes</Card.Header>
+            <Card.Body>
+                <ChefViewList recipes={this.state.data} onDelete={(id)=>this.deleteRecipe(id)}/>
+            </Card.Body>
+            <Card.Footer>
+                <Button variant="success" onClick={this.createRecipe}>Create a new recipe</Button>
+            </Card.Footer>
+        </Card>
         );
     }
 

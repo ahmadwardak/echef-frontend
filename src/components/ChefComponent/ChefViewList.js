@@ -1,27 +1,21 @@
 "use strict";
 
 import React from 'react';
-import { DataTable, TableHeader, TableBody, TableRow, TableColumn, Button } from 'react-md';
-
+import { Table } from 'react-bootstrap';
 import { RecipeListRow } from './RecipeListRow';
 
-
-const dataTableStyle = {
-    'marginBottom': '36px'
-};
-
 export const ChefViewList = ({recipes, onDelete}) => (
-    <div>
-        <DataTable plain style={dataTableStyle}>
-        <TableHeader>
-            <TableRow>
-                <TableColumn>My List</TableColumn>
-            </TableRow>
-            </TableHeader>
-            <TableBody>
-                {recipes.map((recipe, i) => <RecipeListRow key={i} recipe={recipe} onDelete={(id)=>onDelete(id)}/>)}
-            </TableBody>
-        </DataTable>
-    </div>
+    <Table>
+        <thead>
+            <tr>
+                <th>Recipe Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {recipes.map((recipe, i) => <RecipeListRow key={i} recipe={recipe} onDelete={(id)=>onDelete(id)}/>)}
+        </tbody>
+    </Table>
 );
 
