@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import Moment from 'react-moment';
 import Rating from 'react-rating';
 import RecipeReviewService from '../../services/RecipeReviewService';
-import { Card, Figure, Image, Container, Row, Col } from 'react-bootstrap';
+import { Card, Image, Container, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
-import { v4 as uuidv4 } from 'uuid';
 
 import ReactPlayer from 'react-player'
 
-import VideoThumbnail from 'react-video-thumbnail';
 
 class RecipeReview extends Component {
 
@@ -20,7 +18,9 @@ class RecipeReview extends Component {
 
         this.state = {
             reviews: [],
-            id: ''
+            id: '',
+            showImgModal: false,
+            imgModalSrc: ''
         }
     };
 
@@ -32,7 +32,6 @@ class RecipeReview extends Component {
                 reviews: data
 
             });
-            console.log(data);
 
         }).catch((e) => {
             console.error(e);
@@ -92,18 +91,23 @@ class RecipeReview extends Component {
                                     <Container>
                                         <Row>
                                             {review.imageCollection.map(image => (
-                                                <Col md={3} id={uuidv4()}><Image
-                                                    width={160}
+                                                <Col md={3}><Image
+                                                    width={180}
+                                                    onClick={() => {
+                                                        this.setState({ showImgModal: true, imgModalSrc: image });
+                                                    }}
                                                     style={{ border: "1px solid rgba(0,0,0,.125)" }}
-                                                    id={uuidv4()} src={image} fluid /></Col>
+                                                    src={image} fluid />
+                                                </Col>
                                             ))}
                                             {review.videoCollection.map(video => (
-                                                <Col md={3} id={uuidv4()}>
+                                                <Col md={3} >
                                                     <ReactPlayer playing={true} light={true}
-                                                        width={160}
+
+                                                        width={240}
                                                         style={{ border: "1px solid rgba(0,0,0,.125)" }}
                                                         controls={true}
-                                                        height={120}
+                                                        height={160}
                                                         url={video} />
                                                 </Col>
                                             ))}
@@ -114,6 +118,36 @@ class RecipeReview extends Component {
                         </Card>
                     ))
                 }
+
+
+                <div
+                    id="imgModal"
+                    className="modal"
+                    style={{
+                        display: this.state.showImgModal ? 'block' : 'none',
+                        zIndex: "1", position: "fixed", paddingTop: "100px",
+                        left: "0",
+                        top: "0",
+                        width: "100%",
+                        overflow: "auto",
+                        backgroundColor: "rgb(0,0,0)",
+                        backgroundColor: "rgba(0,0,0,0.9)",
+
+                    }}
+                >
+                    <div>
+                        <span className="close" style={{ color: "white", marginRight: "20px" }}
+                            onClick={() => this.setState({ showImgModal: false })}>
+                            &times;</span>
+                        <img className="modal-content" style={{
+                            margin: "auto",
+                            display: "block",
+                            width: "80%",
+                            maxWidth: "700px"
+                        }} id="img01" src={this.state.imgModalSrc} />
+                    </div>
+                </div>
+
 
             </div >
         );

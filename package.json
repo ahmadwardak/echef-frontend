@@ -52,14 +52,13 @@
     "react-bootstrap-icons": "^1.0.3-alpha5",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "16.8.4",
-    "react-md": "2.0.1",
+    "react-md": "^2.0.3",
     "react-moment": "^0.9.7",
     "react-player": "^2.5.0",
     "react-rating": "^2.0.5",
     "react-router-dom": "4.2.2",
     "react-star-rating-input": "^8.0.1",
     "react-table": "^7.2.2",
-    "simple-react-video-thumbnail": "0.0.7",
     "styled-components": "3.1.6",
     "uuid": "^8.2.0",
     "webfontloader": "1.6.28",
@@ -68,7 +67,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
-    "start": "webpack-dev-server  --config webpack.dev.js",
-    "server": "json-server -p3001 --watch db.json"
+    "start": "webpack-dev-server  --config webpack.dev.js"
   }
 }

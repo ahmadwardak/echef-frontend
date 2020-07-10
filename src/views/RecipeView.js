@@ -11,7 +11,10 @@ import RecipeReviews from '../components/RecipeReviewComponent/RecipeReview';
 
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faComments } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faComments, faStar } from "@fortawesome/free-solid-svg-icons";
+
+import Rating from 'react-rating';
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 
 export class RecipeView extends React.Component {
 
@@ -20,7 +23,8 @@ export class RecipeView extends React.Component {
 
         this.state = {
             loading: false,
-            recipe: []
+            recipe: [],
+            overallRating: ""
         }
     };
 
@@ -31,9 +35,10 @@ export class RecipeView extends React.Component {
 
         let id = this.props.match.params.id;
         RecipeService.getRecipe(id).then((data) => {
-            console.log("test", data);
+            console.log("test", data.recipe);
             this.setState({
-                recipe: data,
+                recipe: data.recipe,
+                overallRating: data.OverallRating,
                 loading: false
             });
         }).catch((e) => {
@@ -65,7 +70,13 @@ export class RecipeView extends React.Component {
                     {/* Recipe Review Section */}
 
                     <div className='row'>
-                        <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews <span style={{ color: 'red', fontSize: '40%' }}>Average Rating goes here (stars).....</span></h3>
+                        <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews <span><Rating style={{ color: 'green' }}
+                            emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
+                            fullSymbol={<FontAwesomeIcon icon={faStar} />}
+                            fractions={2}
+                            initialRating={this.state.overallRating}
+                            readonly
+                        /></span></h3>
                     </div>
 
                     <div className='row mb-2'>
