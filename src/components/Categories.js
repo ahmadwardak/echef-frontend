@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CategoryService from '../services/CategoryService'; 
  
- const Categories = () => {
+ const Categories = (props) => {
         const [Data,setData] =useState([])
         
         useEffect(() => {
@@ -15,7 +15,7 @@ import CategoryService from '../services/CategoryService';
         return (
             
             <div>
-               <select className="categoryDropdown">
+               <select className="categoryDropdown" name="category" onChange={props.onChange} >
                    <option key={0}>All Categories</option>
                    { Data.map((dt,i) => <option key={i}>{dt} </option> )}
                 </select>

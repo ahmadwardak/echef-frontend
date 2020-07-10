@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../RecipeComponent/Recipe.css';
 import '../../App.css';
 import IngredientsService from '../../services/IngredientsService';
-import { Divider } from '@material-ui/core';
 
 const IngredientListRow = ({ onChange, ingredients }) => {
     const [Ingredients, setIngredients] = useState([]);

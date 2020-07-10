@@ -52,7 +52,7 @@ export class ChefView extends React.Component {
                data: [...recipes],
                loading: false
             });
-            window.location="/chef";
+            this.props.history.push('/');
         }).catch((e) => {
             console.error(e);
         });
