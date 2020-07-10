@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Form, Button, Row, Col, Alert } from "react-bootstrap";
 import Categories from '../Categories';
+import CookingLevels from '../CookingLevels';
 import '../RecipeComponent/Recipe.css';
 import IngredientListRow from './IngredientListRow';
 import UserService from '../../services/UserService';
@@ -19,6 +20,7 @@ class RecipeForm extends React.Component {
                 description: props.recipe.description,
                 servingSize: props.recipe.servingSize,
                 category: props.recipe.category,
+                difficulty: props.recipe.difficulty,
                 createdByChef: props.recipe.createdByChef,
                 ingredients: [{
                     ingredientName: props.recipe.ingredients.ingredientName,
@@ -34,6 +36,7 @@ class RecipeForm extends React.Component {
                 description: '',
                 servingSize: '',
                 category: '',
+                difficulty: '',
                 createdByChef:'',
                 ingredients: [{
                     ingredientName: '',
@@ -47,6 +50,7 @@ class RecipeForm extends React.Component {
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
         // Dynamic values
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleIngredientChange = this.handleIngredientChange.bind(this);
@@ -62,6 +66,9 @@ class RecipeForm extends React.Component {
     handleCategoryChange(event) {
         //console.log("category", event.target.value)
         this.setState(Object.assign({}, this.state, { category: event.target.value }));
+    }
+    handleDifficultyChange(event) {
+        this.setState(Object.assign({}, this.state, { difficulty: event.target.value }));
     }
     handleInputChange(event) {
         const name = event.target.name
@@ -126,6 +133,7 @@ class RecipeForm extends React.Component {
         recipe.description = this.state.description;
         recipe.servingSize = this.state.servingSize;
         recipe.category = this.state.category;
+        recipe.difficulty = this.state.difficulty;
         recipe.createdByChef = UserService.getCurrentUser()._id;
         recipe.ingredients = this.state.ingredients;
 
@@ -175,11 +183,7 @@ class RecipeForm extends React.Component {
 
                             <Form.Group as={Col}>
                             <Form.Label>Cooking difficulty level</Form.Label>
-                            <select name="difficulty" onChange={this.handleInputChange}>
-                            <option >Easy</option>
-                            <option>Intermediate</option>
-                            <option>Hard</option>
-                            </select>
+                            <CookingLevels difficulty={this.state.difficulty} onChange={this.handleDifficultyChange}/>
                             </Form.Group>
                         </Form.Row>
                         </Card.Header>
