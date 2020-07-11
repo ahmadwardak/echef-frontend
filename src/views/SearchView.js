@@ -138,8 +138,8 @@ export class SearchView extends React.Component {
         return (
             <div>
                 <Container fluid>
-                    <Row noGutters >
-                        <Col  xs={6} md={4}   >
+                    <Row xs={1} >
+                        <Col  xs={6} md={4} style={{width:"20vw"}}  >
                             <ListGroup as="ul">
                                 <ListGroup.Item as="li" active>
                                     <h2>Filter the Recipes based on input</h2> <br></br>
@@ -173,7 +173,7 @@ export class SearchView extends React.Component {
                                 </ListGroup.Item>
                             </ListGroup>
                         </Col>
-                        <Col xs={6} md={8}>
+                        <Col xs={6} md={8} style={{width:"80vw"}}>
                             <Card >
                                 <h1>Search Results</h1>
                                 <RecipeList recipes={recipes} />

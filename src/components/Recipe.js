@@ -7,7 +7,7 @@ const Recipe = ({ Title, Servings, id, difficulty }) => {
   return (
 <div>
     
-      <Card style={{margin:"5px"}}className="Recipe" key={id}>
+      <Card style={{margin:"4px", minWidth:"5rem"}}className="Recipe" key={id}>
         <Link to={"recipe/"+id}>
           <Card.Header style={{whitespace:"nowrap"}}>
             {Title}

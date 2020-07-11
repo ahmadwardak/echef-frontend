@@ -13,8 +13,8 @@ export const RecipeList = ({ recipes }) => {
 
   return (
     <Container fluid >
-      <span>we</span>
-      <Row  xs={2} md={4} sm>
+      {/* <span>we</span> */}
+      <Row  xs={1} md={4} sm>
         {recipes.map((rec) => {
           return(
           <Col  >

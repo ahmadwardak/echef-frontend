@@ -2,8 +2,9 @@ import React from "react";
 import { Container, Row, Col, Card, CardDeck, CardGroup } from "react-bootstrap";
 
 import InfiniteCarousel from 'react-leaf-carousel';
-
 import CategoryService from "../services/CategoryService";
+import RecipeService from "../services/RecipeService"
+import { RecipeList } from '../components/RecipeList';
 import Link from "react-router-dom";
 import Logo from "../Assets/echef-logo.png";
 
@@ -19,14 +20,26 @@ export class HomeView extends React.Component {
         this.state = {
             loading: true,
             categories: [],
+            newRecipes: []
         }
 
+    }   
+
+
+    componentWillMount() {
+        this.setState({
+            loading: true
+        });
+        RecipeService.getNew().then((data)=>{
+            this.setState({
+                newRecipes:[...data],
+                loading:false,
+                
+            })
+        }).catch((e) =>{
+            console.error(e)
+        })
     }
-
-
-
-
-
     componentDidMount() {
 
         CategoryService.getCategories().then((data) => {
@@ -35,11 +48,13 @@ export class HomeView extends React.Component {
                 loading: false
             }
             )
-            console.log("Got this", data)
+            // console.log("Got this", data)
             //console.log("Current array:", Data);
         }).catch((e) => {
             console.error(e);
         });
+
+        
     };
 
     //Home View
@@ -47,6 +62,8 @@ export class HomeView extends React.Component {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
+        const recs =this.state.newRecipes
+        const cats = this.state.categories
 
         return (<div>
             <h1>Home Page</h1>
@@ -86,7 +103,7 @@ export class HomeView extends React.Component {
                                 slidesToShow={6}
                                 scrollOnDevice={false}
                             >
-                                {this.state.categories.map((cat, i) =>
+                                {cats.map((cat, i) =>
                                     <div key={i}>
                                         <img
                                             alt=""
@@ -96,11 +113,24 @@ export class HomeView extends React.Component {
                                     </div>
 
                                 )}
-
                             </InfiniteCarousel>
-
                         </Card>
-
+                    </Col>
+                </Row>
+                <Row xs={12}>
+                    <Col >
+                    <Card>
+                        <Card.Header><span>Want to try something new?</span></Card.Header>
+                        { <RecipeList recipes={recs} /> }
+                    </Card>
+                    </Col>
+                </Row>
+                <Row xs={12}>
+                    <Col >
+                    <Card>
+                        <Card.Header><span>Want to try something new?</span></Card.Header>
+                        { <RecipeList recipes={recs} /> }
+                    </Card>
                     </Col>
                 </Row>
             </Container>
