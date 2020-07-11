@@ -4,6 +4,12 @@ import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
 import Categories from "../components/Categories";
 import { Tags } from "../components/Tags";
+import Card from "react-bootstrap/Card";
+import CardGroup from "react-bootstrap/CardGroup";
+import ListGroup from "react-bootstrap/ListGroup"
+import Container from "react-bootstrap/Container";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export class SearchView extends React.Component {
 
@@ -129,40 +135,53 @@ export class SearchView extends React.Component {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
-        return (<div>
+        return (
             <div>
-                <h2>Filter the Recipes based on input</h2> <br></br>
-
-                <input
-                    type="text" className="filterInput" name="title"
-                    placeholder="Filter recipes" onChange={this.handleSearchChange}
-                />
-
-                <select onChange={this.handleSearchChange} name="difficulty">
-                    <option value="">Any Difficulty</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Hard">Hard</option>
-                </select>
-
-                <Categories name="categories" onChange={this.handleSearchChange} />
-                <button onClick={this.toggleTags}>
-                    Toggle Tags
-                </button>
-                <div id="showTags">
-                    {this.state.showTags ? <ul>
-                        <Tags tags={this.state.tags} onChange={this.handleChange} />
-                    </ul> : null}
-                </div>
-
+                <Container fluid>
+                    <Row noGutters >
+                        <Col  xs={6} md={4}   >
+                            <ListGroup as="ul">
+                                <ListGroup.Item as="li" active>
+                                    <h2>Filter the Recipes based on input</h2> <br></br>
+                                </ListGroup.Item>
+                                <ListGroup.Item as="li" >
+                                    <input
+                                        type="text" className="filterInput" name="title"
+                                        placeholder="Filter recipes" onChange={this.handleSearchChange}
+                                    />
+                                </ListGroup.Item>
+                                <ListGroup.Item as="li" >
+                                    <select onChange={this.handleSearchChange} name="difficulty">
+                                        <option value="">Any Difficulty</option>
+                                        <option value="Easy">Easy</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Hard">Hard</option>
+                                    </select>
+                                </ListGroup.Item>
+                                <ListGroup.Item as="li" >
+                                    <Categories name="categories" onChange={this.handleSearchChange} />
+                                </ListGroup.Item>
+                                <ListGroup.Item as="li" >
+                                    <button onClick={this.toggleTags}>
+                                        Toggle Tags
+                                    </button>
+                                    <div id="showTags">
+                                        {this.state.showTags ? <ul>
+                                            <Tags tags={this.state.tags} onChange={this.handleChange} />
+                                        </ul> : null}
+                                    </div>
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Col>
+                        <Col xs={6} md={8}>
+                            <Card >
+                                <h1>Search Results</h1>
+                                <RecipeList recipes={recipes} />
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
-            <div >
-                <h1>Search Results</h1>
-                <ul>
-                    <RecipeList recipes={recipes} />
-                </ul>
-            </div>
-        </div>
         );
     }
 
