@@ -53,6 +53,7 @@
     "react-bootstrap-icons": "^1.0.3-alpha5",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "16.8.4",
+    "react-leaf-carousel": "^2.0.3",
     "react-md": "^2.0.3",
     "react-moment": "^0.9.7",
     "react-player": "^2.5.0",

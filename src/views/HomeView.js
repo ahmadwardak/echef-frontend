@@ -1,8 +1,16 @@
 import React from "react";
-import { Container, Row, Col, Card, CardDeck, CardGroup, Carousel } from "react-bootstrap";
+import { Container, Row, Col, Card, CardDeck, CardGroup } from "react-bootstrap";
+
+import InfiniteCarousel from 'react-leaf-carousel';
+
 import CategoryService from "../services/CategoryService";
 import Link from "react-router-dom";
-import Logo from "../Assets/echef-logo.png"
+import Logo from "../Assets/echef-logo.png";
+
+import '../App.css';
+
+
+
 export class HomeView extends React.Component {
 
     constructor(props) {
@@ -10,10 +18,15 @@ export class HomeView extends React.Component {
 
         this.state = {
             loading: true,
-            categories: []
+            categories: [],
         }
 
     }
+
+
+
+
+
     componentDidMount() {
 
         CategoryService.getCategories().then((data) => {
@@ -29,52 +42,75 @@ export class HomeView extends React.Component {
         });
     };
 
-
     //Home View
     render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
 
-
         return (<div>
             <h1>Home Page</h1>
             <Container fluid>
                 <Row>
-                    <Card>
-                        <Carousel
-                            interval={50000}
-                            slide
-                            pause="hover"
-                            controls={true}
-                        //  style={carouselStyle}
-                        >
-                            {this.state.categories.map((cat, i) =>
-                                <Carousel.Item role="listbox" style={{ width: "50%", height: "50%" }}>
-                                    <img
-                                        className="d-block w-50"
-                                        src={Logo}
-                                        style={{ width: "50px" }}
-                                    >
-                                    </img>
-                                    <Carousel.Caption>
+                    <Col>
+                        <Card>
+                            <InfiniteCarousel
+                                breakpoints={[
+                                    {
+                                        breakpoint: 500,
+                                        settings: {
+                                            slidesToShow: 2,
+                                            slidesToScroll: 2,
+                                        },
+                                    },
+                                    {
+                                        breakpoint: 768,
+                                        settings: {
+                                            slidesToShow: 3,
+                                            slidesToScroll: 3,
+                                        },
+                                    },
+                                    {
+                                        breakpoint: 1000,
+                                        settings: {
+                                            slidesToShow: 4,
+                                            slidesToScroll: 3,
+                                        },
+                                    },
+                                ]}
+                                dots={false}
+                                showSides={true}
+                                sidesOpacity={0.5}
+                                sideSize={0.1}
+                                slidesToScroll={4}
+                                slidesToShow={6}
+                                scrollOnDevice={false}
+                            >
+                                {this.state.categories.map((cat, i) =>
+                                    <div key={i}>
+                                        <img
+                                            alt=""
+                                            src={Logo}
+                                        />
                                         <h3>{cat}</h3>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                            )}
-                        </Carousel>
-                    </Card>
-                </Row>
-                <Row>
-                    <Card>
-                        Recent Recipes go here
-                    </Card>
-                </Row>
+                                    </div>
 
+                                )}
+
+                            </InfiniteCarousel>
+
+                        </Card>
+
+                    </Col>
+                </Row>
             </Container>
 
-        </div>
+
+
+        </div >
         );
     }
 
 }
+
+
