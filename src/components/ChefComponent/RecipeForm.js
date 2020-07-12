@@ -21,11 +21,12 @@ class RecipeForm extends React.Component {
                 servingSize: props.recipe.servingSize,
                 category: props.recipe.category,
                 difficulty: props.recipe.difficulty,
+                recipeImageURL: props.recipe.recipeImageURL,
                 createdByChef: props.recipe.createdByChef,
                 ingredients: [{
-                    ingredientName: props.recipe.ingredients.ingredientName,
+                    //ingredientName: props.recipe.ingredients.ingredientName,
                     ingredientQuantity: props.recipe.ingredients.ingredientQuantity,
-                    ingredientUnit: props.recipe.ingredients.ingredientUnit,
+                    //ingredientUnit: props.recipe.ingredients.ingredientUnit,
                     ingredientBrand: props.recipe.ingredients.ingredientBrand,
                 }],
                 loading: true
@@ -37,11 +38,12 @@ class RecipeForm extends React.Component {
                 servingSize: '',
                 category: '',
                 difficulty: '',
+                recipeImageURL:'',
                 createdByChef:'',
                 ingredients: [{
-                    ingredientName: '',
+                    //ingredientName: '',
                     ingredientQuantity: '',
-                    ingredientUnit: '',
+                    //ingredientUnit: '',
                     ingredientBrand: ''
                 }],
                 loading: false
@@ -51,6 +53,7 @@ class RecipeForm extends React.Component {
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
+        this.recipeImageURL = React.createRef();
         // Dynamic values
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleIngredientChange = this.handleIngredientChange.bind(this);
@@ -111,9 +114,9 @@ class RecipeForm extends React.Component {
             {
                 ingredients: [...this.state.ingredients,
                 {
-                    ingredientName: '',
+                    //ingredientName: '',
                     ingredientQuantity: '',
-                    ingredientUnit: '',
+                    //ingredientUnit: '',
                     ingredientBrand: ''
                 }
                 ]
@@ -134,6 +137,8 @@ class RecipeForm extends React.Component {
         recipe.servingSize = this.state.servingSize;
         recipe.category = this.state.category;
         recipe.difficulty = this.state.difficulty;
+        //console.log(this.recipeImageURL.current.files[0]);
+        recipe.recipeImageURL = this.recipeImageURL.current.files[0];
         recipe.createdByChef = UserService.getCurrentUser()._id;
         recipe.ingredients = this.state.ingredients;
 
@@ -220,7 +225,14 @@ class RecipeForm extends React.Component {
                                 })}
                             </Form.Group>
                             <Form.Group as={Col}>
-                            <Form.Label>Upload an image</Form.Label>
+                            <Form.File
+                                className="position-relative"
+                                accept=".jpg,.gif,.png,.jpeg"
+                                ref={this.recipeImageURL}
+                                name="recipeImageURL"
+                                label="Add photo"
+                                id="recipeImageURL"
+                            />
                             </Form.Group>
                             </Form.Row>
                         </Card.Body>

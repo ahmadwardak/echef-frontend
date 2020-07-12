@@ -1,6 +1,7 @@
 "use strict";
 
 import HttpService from './HttpService';
+import axios from 'axios';
 
 export default class RecipeService {
 
@@ -84,11 +85,26 @@ export default class RecipeService {
 
     static createRecipe(recipe) {
         return new Promise((resolve, reject) => {
-            HttpService.post(RecipeService.baseURL(), recipe, function (data) {
+            var formData = new FormData();
+            formData.append('title', recipe.title);
+            formData.append('description', recipe.description);
+            formData.append('createdByChef', recipe.createdByChef);
+            formData.append('servingSize', recipe.servingSize);
+            formData.append('difficulty', recipe.difficulty);
+            formData.append('category', recipe.category);
+            formData.append('recipeImageURL', recipe.recipeImageURL);
+            axios.post(this.baseURL(), formData)
+                .then(res => {
+                    window.location = '/#chef/';
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            /*HttpService.post(RecipeService.baseURL(), recipe, function (data) {
                 resolve(data);
             }, function (textStatus) {
                 reject(textStatus);
-            });
+            });*/
         });
     }
 
