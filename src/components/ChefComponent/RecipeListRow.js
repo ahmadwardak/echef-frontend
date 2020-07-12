@@ -13,7 +13,7 @@ export class RecipeListRow extends React.Component {
 
     render() {
         return (
-            <tr key={this.props.key}>
+            <tr>
                 <td><Link to={`/recipe/${this.props.recipe._id}`}>{this.props.recipe.title}</Link></td>
                 <td><Link to={`/edit/${this.props.recipe._id}`}><Icon.Pencil/></Link></td>
                 <td><Button onClick={() => this.props.onDelete(this.props.recipe._id)}><Icon.TrashFill/></Button></td>

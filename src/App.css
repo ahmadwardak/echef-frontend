@@ -29,3 +29,26 @@ html {
 .boldFont{
     font-weight: bold;
 }
+
+.InfiniteCarouselSlide div{
+    margin: 15px 0;
+    text-align: center;
+
+}
+
+
+.InfiniteCarouselSlide div img{
+    width: 50%;
+
+}
+
+.InfiniteCarouselSlide h3{
+    margin-top: 8px;
+    font-size: 95%;
+}
+
+
+.InfiniteCarousel button:focus {
+    outline: 0;
+    border: none;
+}

@@ -2,6 +2,7 @@ import { render } from "react-dom"
 import React from "react"
 import Login from '../components/LoginComponent/Login';
 import UserService from '../services/UserService';
+import Banner from '../components/HeaderComponent/Banner';
 
 export class LoginView extends React.Component {
 
@@ -42,7 +43,10 @@ export class LoginView extends React.Component {
             return (<h2>Loading...</h2>);
         }
         return (
-            <Login onSubmit={(user) => this.login(user)} error={this.state.error} />
+            <div>
+                <Banner pageTitle={this.props.title} />
+                <div className="content">
+                    <Login onSubmit={(user) => this.login(user)} error={this.state.error} /></div></div>
         );
     }
 

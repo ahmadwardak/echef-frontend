@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../RecipeComponent/Recipe.css';
 import '../../App.css';
 import IngredientsService from '../../services/IngredientsService';
-import { Divider } from '@material-ui/core';
 
 const IngredientListRow = ({ onChange, ingredients }) => {
     const [Ingredients, setIngredients] = useState([]);
@@ -12,6 +11,7 @@ const IngredientListRow = ({ onChange, ingredients }) => {
     useEffect(() => {
         IngredientsService.getAll().then((data) => {
             setIngredients(data);
+            //console.log(data);
             //  console.log("I've set the following", data)
         }).catch((e) => {
             console.error(e);
@@ -19,28 +19,26 @@ const IngredientListRow = ({ onChange, ingredients }) => {
     }, []);
 
     function selectedIngredient(event) {
-        console.log(event.target.value);
+        
         var id = event.target.value;
-        IngredientsService.getIngredient(id).then((data) => {
-            console.log(data);
-            setIngredientUnit(data.ingredientUnit);
-            setIngredientBrands(data.ingredientBrands);
-        }).catch((e) => {
-            console.error(e);
-        });
+        //console.log("called", id);
+        let ingr = Ingredients.find(dt => dt._id==id)
+        //console.log("ingr",ingr)
+        setIngredientBrands(ingr.ingredientBrands)
+        setIngredientUnit(ingr.ingredientUnit)
     }
 
     return (
 
         <div>
-            <select className="brandDropdown" name="ingredientName" onChange={(e, i) => {
+            <select className="brandDropdown" name="ingredientID" onChange={(e, i) => {
                 onChange(e, i);
                 selectedIngredient(e)
             }}
             >
-                <option >--Select ingredient--</option>
+                <option value="0">--Select ingredient--</option>
                 {Ingredients.map((dt, i) =>
-                    <option key={dt._id} value={dt.value}  >{dt.name}
+                    <option key={dt._id} value={dt._id}  >{dt.name}
                     </option>)}
             </select>
             <input type="number" name="ingredientQuantity" step="1" value={ingredients.Amount} className="amountBox" onChange={onChange} />

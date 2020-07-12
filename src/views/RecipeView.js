@@ -15,7 +15,9 @@ import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faComments } from "@fortawesome/free-solid-svg-icons";
 import { Shop } from 'react-bootstrap-icons';
-
+import Rating from 'react-rating';
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import Banner from '../components/HeaderComponent/Banner';
 
 export class RecipeView extends React.Component {
 
@@ -25,7 +27,8 @@ export class RecipeView extends React.Component {
         this.state = {
             loading: false,
             recipe: [],
-            user: UserService.getCurrentUser()
+            user: UserService.getCurrentUser(),
+            overallRating: ""
         }
         this.handleShoppingCart=this.handleShoppingCart.bind(this);
     };
@@ -39,8 +42,10 @@ export class RecipeView extends React.Component {
 
         let id = this.props.match.params.id;
         RecipeService.getRecipe(id).then((data) => {
+            console.log("test", data.recipe);
             this.setState({
-                recipe: data,
+                recipe: data.recipe,
+                overallRating: data.OverallRating,
                 loading: false
             });
         }).catch((e) => {
@@ -84,37 +89,45 @@ export class RecipeView extends React.Component {
         }
 
         return (
+
             <div>
-                <Row>
+                <Banner pageTitle={this.props.title} />
+                <div className="content">
+                    <Row>
                     <Col>
                         <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
                     </Col>
                     <Col>
                         <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} addToShoppingCart={this.handleShoppingCart}/>
                     </Col>
-                </Row>
-                    
+                    </Row>
 
-                <br />
-                <br />
-                <br />
-                <div className="container">
-                    {/* Recipe Review Section */}
+                    <br />
+                    <br />
+                    <br />
+                    <div className="container">
+                        {/* Recipe Review Section */}
 
-                    <div className='row'>
-                        <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews <span style={{ color: 'red', fontSize: '40%' }}>Average Rating goes here (stars).....</span></h3>
-                    </div>
+                        <div className='row'>
+                            <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews <span><Rating style={{ color: 'green' }}
+                                emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
+                                fullSymbol={<FontAwesomeIcon icon={faStar} />}
+                                fractions={2}
+                                initialRating={this.state.overallRating}
+                                readonly
+                            /></span></h3>
+                        </div>
 
-                    <div className='row mb-2'>
-                        <Button variant="primary" type="button"
-                            onClick={() => this.goToAddRecipeReview()}>
-                            Write a review
+                        <div className='row mb-2'>
+                            <Button variant="primary" type="button"
+                                onClick={() => this.goToAddRecipeReview()}>
+                                Write a review
                     </Button>
+                        </div>
+                        <RecipeReviews recipeId={this.state.recipe._id} ></RecipeReviews>
                     </div>
-                    <RecipeReviews recipeId={this.state.recipe._id} ></RecipeReviews>
-                </div>
 
-            </div>
+                </div></div>
         );
     }
 }

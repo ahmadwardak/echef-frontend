@@ -4,6 +4,7 @@ import RecipeService from "../services/RecipeService"
 import { ChefViewList } from '../components/ChefComponent/ChefViewList';
 import UserService from '../services/UserService'
 import { Button, ListGroup, Card } from "react-bootstrap";
+import Banner from '../components/HeaderComponent/Banner';
 
 export class ChefView extends React.Component {
 
@@ -16,6 +17,8 @@ export class ChefView extends React.Component {
         }
         this.createRecipe = this.createRecipe.bind(this);
         this.deleteRecipe = this.deleteRecipe.bind(this);
+
+        console.log(this.props);
     };
     // Normal React component Lifecycle
     componentWillMount() {
@@ -32,10 +35,11 @@ export class ChefView extends React.Component {
         }).catch((e) => {
             console.error(e);
         });
+
     }
-    
-    createRecipe(){
-        window.location="/#add";
+
+    createRecipe() {
+        window.location = "/#add";
     }
 
     deleteRecipe(id) {
@@ -49,10 +53,10 @@ export class ChefView extends React.Component {
             let recipes = this.state.data;
             recipes.splice(recipeIndex, 1);
             this.setState({
-               data: [...recipes],
-               loading: false
+                data: [...recipes],
+                loading: false
             });
-            window.location="/chef";
+            this.props.history.push('/');
         }).catch((e) => {
             console.error(e);
         });
@@ -60,19 +64,24 @@ export class ChefView extends React.Component {
 
     render() {
 
-        if(this.state.loading){
-            return(<h3>Loading...</h3>);
+        if (this.state.loading) {
+            return (<h3>Loading...</h3>);
         }
-        
-        return (<Card>
-            <Card.Header as="h4">My recipes</Card.Header>
-            <Card.Body>
-                <ChefViewList recipes={this.state.data} onDelete={(id)=>this.deleteRecipe(id)}/>
-            </Card.Body>
-            <Card.Footer>
-                <Button variant="success" onClick={this.createRecipe}>Create a new recipe</Button>
-            </Card.Footer>
-        </Card>
+
+        return (
+            <div>
+                <Banner pageTitle={this.props.title} />
+                <div className="content">
+                    <Card>
+                        <Card.Header as="h4">My recipes</Card.Header>
+                        <Card.Body>
+                            <ChefViewList recipes={this.state.data} onDelete={(id) => this.deleteRecipe(id)} />
+                        </Card.Body>
+                        <Card.Footer>
+                            <Button variant="success" onClick={this.createRecipe}>Create a new recipe</Button>
+                        </Card.Footer>
+                    </Card></div>
+            </div>
         );
     }
 

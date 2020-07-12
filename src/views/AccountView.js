@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from 'react-bootstrap';
 import UserService from '../services/UserService';
+import Banner from '../components/HeaderComponent/Banner';
 
 export class AccountView extends Component {
 
@@ -25,69 +26,74 @@ export class AccountView extends Component {
         };
 
         return (
-            <div className="container">
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Name:
+            <div>
+                <Banner pageTitle={this.props.title} />
+                <div className="content">
+                    <div className="container">
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Name:
                     </div>
-                    <div className="col-md-9 text-left">{this.state.user.fullname}
+                            <div className="col-md-9 text-left">{this.state.user.fullname}
+                            </div>
+                        </div>
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Username:
                     </div>
-                </div>
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Username:
+                            <div className="col-md-9 text-left">{this.state.user.username}
+                            </div>
+                        </div>
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Email:
                     </div>
-                    <div className="col-md-9 text-left">{this.state.user.username}
+                            <div className="col-md-9 text-left">{this.state.user.email}
+                            </div>
+                        </div>
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Account Type:
                     </div>
-                </div>
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Email:
+                            <div className="col-md-9 text-left">{this.state.user.accounttype}
+                            </div>
+                        </div>
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Subscription:
                     </div>
-                    <div className="col-md-9 text-left">{this.state.user.email}
+                            <div className="col-md-9 text-left">{this.state.user.subscriptiontype}
+                            </div>
+                        </div>
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Address:
                     </div>
-                </div>
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Account Type:
+                            <div className="col-md-9 text-left">{this.state.user.address}
+                            </div>
+                        </div>
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Shipping Address:
                     </div>
-                    <div className="col-md-9 text-left">{this.state.user.accounttype}
+                            <div className="col-md-9 text-left">{this.state.user.shippingaddress}
+                            </div>
+                        </div>
+                        <div className="row" style={rowBorder}>
+                            <div className="col-md-3">
+                                Billing Address:
                     </div>
-                </div>
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Subscription:
-                    </div>
-                    <div className="col-md-9 text-left">{this.state.user.subscriptiontype}
-                    </div>
-                </div>
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Address:
-                    </div>
-                    <div className="col-md-9 text-left">{this.state.user.address}
-                    </div>
-                </div>
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Shipping Address:
-                    </div>
-                    <div className="col-md-9 text-left">{this.state.user.shippingaddress}
-                    </div>
-                </div>
-                <div className="row" style={rowBorder}>
-                    <div className="col-md-3">
-                        Billing Address:
-                    </div>
-                    <div className="col-md-9 text-left">{this.state.user.billingaddress}
-                    </div>
-                </div>
-                <div style={{ height: '15px' }}></div>
-                <div className="row">
-                    <div className="col-md-3" style={{ margin: '0 15px' }}>
-                        <Button variant="secondary" type="button" onClick={() => this.goToEditAccount()}>
-                            Edit Detail
+                            <div className="col-md-9 text-left">{this.state.user.billingaddress}
+                            </div>
+                        </div>
+                        <div style={{ height: '15px' }}></div>
+                        <div className="row">
+                            <div className="col-md-3" style={{ margin: '0 15px' }}>
+                                <Button variant="secondary" type="button" onClick={() => this.goToEditAccount()}>
+                                    Edit Detail
                     </Button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

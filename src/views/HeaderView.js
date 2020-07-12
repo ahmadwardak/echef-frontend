@@ -2,38 +2,76 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Header from "../components/HeaderComponent/Header";
 import RecipeService from '../services/RecipeService';
+import { matchPath } from 'react-router';
+
 
 class HeaderView extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: false,
       pageTitle: 'Home',
       recipeId: -1
     }
   };
-  componentWillMount(props) {
+  componentDidMount(props) {
     this.setState({
       loading: true
     });
-
-    var id = ""//window.location.href.split('/').reverse()[0];
-    if (id) {
-      RecipeService.getRecipeName(id).then((data) => {
-        this.setState({
-          pageTitle: data,
-          loading: false,
-          recipeId: id
-        });
-      }).catch((e) => {
-        console.error(e);
+    const isRecipePathActive = !!matchPath(
+      this.props.location.pathname,
+      '/recipe/:id'
+    );
+    const isHome = !!matchPath(
+      this.props.location.pathname,
+      '/'
+    );
+    let recipeId = "";
+    if (isRecipePathActive) {
+      recipeId = window.location.href.split('/').reverse()[0];
+      this.setState({
+        //pageTitle: data.title,
+        recipeId: recipeId,
       });
+
     }
+    document.title = this.props.title;
+    console.log(this.props.location.pathname);
+    // if (recipeId) {
+
+    //   RecipeService.getRecipeName(recipeId).then((data) => {
+    //     console.log("test", data);
+    //     this.setState({
+    //       pageTitle: data.title,
+    //       recipeId: data._id,
+    //     });
+    //   }).catch((e) => {
+    //     console.error(e);
+    //   });
+
+    // } else {
+    //   if (isHome) {
+    //     this.setState({
+    //       pageTitle: 'Home',
+    //       recipeId: -1,
+    //     });
+
+    //   } else {
+    //     this.setState({
+    //       pageTitle: '',
+    //       recipeId: -1,
+    //     });
+
+    //   }
+
+    // }
+
   }
   render() {
+
     var path = this.props.location.pathname.slice(1);
     if (this.state.recipeId != -1) {//if it is a recipe page
+
       path = this.state.pageTitle;
     }
     else {
@@ -41,6 +79,7 @@ class HeaderView extends React.Component {
         path = 'Home'
       }
     }
+
 
     return (
 

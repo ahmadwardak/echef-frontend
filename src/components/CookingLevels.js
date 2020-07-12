@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import CategoryService from '../services/CategoryService'; 
  
- const Categories = (props) => {
+ const CookingLevels = (props) => {
         const [Data,setData] =useState([])
         
         useEffect(() => {
-        CategoryService.getCategories().then((data) => {
+        CategoryService.getCookingLevels().then((data) => {
             setData(data)
-            //console.log("Current array:", Data);
+            //console.log("Current array:", data);
         }).catch((e) => {
             console.error(e);
         });
@@ -15,8 +15,8 @@ import CategoryService from '../services/CategoryService';
         return (
             
             <div>
-               <select className="categoryDropdown" name="category" onChange={props.onChange} >
-                   <option key={0}>All Categories</option>
+               <select className="difficultyDropdown" name="difficulty" onChange={props.onChange} >
+                   <option key={0}>Select any level</option>
                    { Data.map((dt,i) => <option key={i}>{dt} </option> )}
                 </select>
             </div>
@@ -24,4 +24,4 @@ import CategoryService from '../services/CategoryService';
     }
 
     
-export default Categories;
+export default CookingLevels;
