@@ -11,6 +11,7 @@ const IngredientListRow = ({ onChange, ingredients }) => {
     useEffect(() => {
         IngredientsService.getAll().then((data) => {
             setIngredients(data);
+            //console.log(data);
             //  console.log("I've set the following", data)
         }).catch((e) => {
             console.error(e);
@@ -18,15 +19,12 @@ const IngredientListRow = ({ onChange, ingredients }) => {
     }, []);
 
     function selectedIngredient(event) {
-        console.log(event.target.value);
+        //console.log("called", id);
         var id = event.target.value;
-        IngredientsService.getIngredient(id).then((data) => {
-            console.log(data);
-            setIngredientUnit(data.ingredientUnit);
-            setIngredientBrands(data.ingredientBrands);
-        }).catch((e) => {
-            console.error(e);
-        });
+        let ingr = Ingredients.find(dt => dt.name==id)
+        //console.log("ingr",ingr)
+        setIngredientBrands(ingr.ingredientBrands)
+        setIngredientUnit(ingr.ingredientUnit)
     }
 
     return (
