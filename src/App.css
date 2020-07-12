@@ -10,11 +10,8 @@ html {
 .content{
     padding:30px 40px 120px;
     overflow-y: auto;
-}
+    background-color: #f6f6f6;
 
-.row{
-    width:100%;
-    display: flex;
 }
 
 .bigCol{

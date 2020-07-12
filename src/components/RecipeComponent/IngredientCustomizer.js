@@ -5,13 +5,22 @@ import Ingredient from './Ingredient.js'
 import {  Button } from 'react-bootstrap';
 
 
-const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
+const IngredientCustomizer = ({servingSize, ingredientsNeeded, addToShoppingCart})=>{
     const[totalPrice, setTotalPrice]=useState(0.0);
     const[ServingSize,setServingSize]=useState(servingSize);
+    const[buttonEnabled, setButtonEnabled]=useState(false);
     
     var initialItems=[];
         ingredientsNeeded.map(ing=>{
-            initialItems.push({id:ing.ingredientID , name:''  , amount:ing.ingredientQuantity , price:0 , brand:ing.ingredientBrand, basePrice:0});
+            initialItems.push({
+                id:ing.ingredientID, 
+                amount:ing.ingredientQuantity, 
+                price:0, 
+                brand:ing.ingredientBrand,
+                basePrice:0,
+                baseAmount:ing.ingredientQuantity,
+                isActive:false
+            });
         });
     const[cartItems, setCartItems]=useState(initialItems);
     
@@ -23,12 +32,23 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
         cartItems.forEach(element=>{
             var newPrice= (element.basePrice * newServingSize )/servingSize;
             newPrice= Math.round(newPrice*100)/100;
+            var newAmount= (newServingSize *element.baseAmount)/servingSize;
             element.price=newPrice;
+            element.amount=newAmount;
         });
         calculateTotalPrice();
     }
     function addToCart(){
-
+        var finalItems=[];
+        cartItems.map(item=>{
+            finalItems.push({
+                ingredientID:item.id,
+                ingredientQuantity:item.amount,
+                ingredientBrand:item.brand,
+                price:item.price
+            });
+        });
+        addToShoppingCart(finalItems, totalPrice);
     }
     function calculateTotalPrice(){
         var total = 0.0;
@@ -39,63 +59,67 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
         console.log("total", total);
         setTotalPrice(Math.round(total*100)/100);
     }
-    function shoppingCartHandler(event,id,type){
-        if(type=="name"){
-            handleIngredientName(event,id);
-        }
-        else if(type=="amount"){
-            handleIngredientAmount(event,id);
+    function shoppingCartHandler(value,id,type){
+      
+        if(type=="amount"){
+            handleIngredientAmount(value,id);
         }
         else if(type=="brand"){
-            handleIngredientBrand(event,id);
+            handleIngredientBrand(value,id);
         }
         else if(type=="price"){
-            handleIngredientPrice(event,id);
+            handleIngredientPrice(value,id);
             calculateTotalPrice();
         }
         else if(type=="basePrice"){
-            handleIngredientBasePrice(event,id);
+            handleIngredientBasePrice(value,id);
+        }
+        else if(type=="isActive"){
+            handleIngredientActivation(value,id);
         }
 
         
     }
-    function handleIngredientAmount(event, id){
+    function handleIngredientAmount(value, id){
         var newItems= cartItems;
         var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].amount = parseInt(event.target.value);
+        newItems[itemIndex].amount = parseInt(value);
         setCartItems(newItems);
-        console.log("amount handler:" , cartItems);
     }
-    function handleIngredientName(name, id){
+    function handleIngredientBrand(value,id){
         var newItems= cartItems;
         var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].name = name;
+        newItems[itemIndex].brand = value;
         setCartItems(newItems);
-        console.log("name handler:" , cartItems);
-    }
-    function handleIngredientBrand(event,id){
-        var newItems= cartItems;
-        var itemIndex = newItems.findIndex(it => it.id==id);
-        console.log("event brand", event);
-        newItems[itemIndex].brand = event.target.value;
-        setCartItems(newItems);
-        console.log("brand handler:" , cartItems);
     }
 
-    function handleIngredientPrice(event,id){
+    function handleIngredientPrice(value,id){
         var newItems= cartItems;
         var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].price = event;
+        newItems[itemIndex].price = value;
         setCartItems(newItems);
-        console.log("price handler:" , cartItems);
     }
 
-    function handleIngredientBasePrice(event,id){
+    function handleIngredientBasePrice(value,id){
         var newItems= cartItems;
         var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].basePrice = event;
+        newItems[itemIndex].basePrice = value;
         setCartItems(newItems);
-        console.log("base price handler:" , cartItems);
+    }
+    function handleIngredientActivation(value,id){
+        var newItems= cartItems;
+        var itemIndex = newItems.findIndex(it => it.id==id);
+        newItems[itemIndex].isActive = value;
+        setCartItems(newItems);
+        handleButton();
+    }
+    function handleButton(){
+        var isEnabled=false;
+        cartItems.forEach(item=>{
+            if(item.isActive==true)
+                isEnabled=true;
+        });
+        setButtonEnabled(isEnabled);
     }
     function preventKeyDown(event){
         event.preventDefault();
@@ -110,7 +134,7 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
            <div className='ingredientChanger'>
             <h5 className="whiteFont boldFont">Ingredients needed for {ServingSize} people:</h5>
             <div className="ScrollableContent">
-                { ingredientsNeeded.map(ing => <Ingredient id={ing.ingredientID} cartHandler={shoppingCartHandler} ingredient={ing} servingSize={ServingSize/2}/> )}
+                { ingredientsNeeded.map(ing => <Ingredient id={ing.ingredientID}  key={ing.ingredientID} cartHandler={shoppingCartHandler} ingredient={ing} servingSize={ServingSize/2}/> )}
             </div>
             <div className="totalPrice">
                 <ul className="totalPriceList">
@@ -120,7 +144,7 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded})=>{
             
            </div>
            <div className="d-flex justify-content-center">
-                <Button className="btn btn-success" onClick={addToCart} type="submit">
+                <Button className="btn btn-success btn-block" onClick={addToCart} type="submit" disabled={!buttonEnabled}>
                             Order
                     </Button>
            </div>

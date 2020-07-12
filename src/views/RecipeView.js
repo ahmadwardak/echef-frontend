@@ -1,10 +1,12 @@
-"use strict";
 import React from 'react';
 import RecipeService from '../services/RecipeService';
-import IngredientsService from '../services/IngredientsService';
+import ShoppingCartService from '../services/ShoppingCartService';
+import UserService from '../services/UserService';
 import RecipeDescription from '../components/RecipeComponent/RecipeDescription'
 import IngredientCustomizer from '../components/RecipeComponent/IngredientCustomizer'
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import {toast} from 'react-toastify';
 
 
 import RecipeReviews from '../components/RecipeReviewComponent/RecipeReview';
@@ -12,6 +14,8 @@ import RecipeReviews from '../components/RecipeReviewComponent/RecipeReview';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faComments } from "@fortawesome/free-solid-svg-icons";
+import { Shop } from 'react-bootstrap-icons';
+
 
 export class RecipeView extends React.Component {
 
@@ -20,18 +24,21 @@ export class RecipeView extends React.Component {
 
         this.state = {
             loading: false,
-            recipe: []
+            recipe: [],
+            user: UserService.getCurrentUser()
         }
+        this.handleShoppingCart=this.handleShoppingCart.bind(this);
     };
 
     componentWillMount(props) {
         this.setState({
             loading: true
         });
+        toast.configure();
+
 
         let id = this.props.match.params.id;
         RecipeService.getRecipe(id).then((data) => {
-            console.log("test", data);
             this.setState({
                 recipe: data,
                 loading: false
@@ -45,6 +52,32 @@ export class RecipeView extends React.Component {
         window.location = '/#reviews/' + this.state.recipe._id;
     }
 
+    handleShoppingCart(shoppingCart, totalPrice){
+        ShoppingCartService.getShoppingCartByUserId(this.state.user._id).then((data)=>{
+            if(data.length==0){
+                var itemsWithID=[];
+                itemsWithID.push({
+                    recipeID:this.state.recipe._id,
+                    recipeIngredients:shoppingCart
+                });
+                var finalCart = {
+                    cartItems:itemsWithID,
+                    customerID: this.state.user._id,
+                    totalPrice: totalPrice
+                }
+                console.log("shopping cart", finalCart);
+                ShoppingCartService.createShoppingCart(finalCart).then((data)=>{
+                    toast("Added to shopping cart",{type: 'success'});
+                    window.location = '/#checkout';
+                });
+            }
+            else{
+                console.log("data not 0", data);
+
+            }
+        });
+    }
+
     render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
@@ -52,11 +85,15 @@ export class RecipeView extends React.Component {
 
         return (
             <div>
-                {console.log("I'm here")}
-                <div className='row'>
-                    <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
-                    <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} />
-                </div>
+                <Row>
+                    <Col>
+                        <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
+                    </Col>
+                    <Col>
+                        <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} addToShoppingCart={this.handleShoppingCart}/>
+                    </Col>
+                </Row>
+                    
 
                 <br />
                 <br />

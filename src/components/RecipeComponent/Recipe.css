@@ -1,13 +1,6 @@
-.recipeDescriptionBack{
-    width:50%;
-    float:left;
-}
-
 .ingredientBox{
     background-color: #393432;
-    width: 45%;
     height: 480px;
-    margin-left: 40px;
     padding: 20px 20px 40px;
 }
 
@@ -95,8 +88,8 @@ ul.totalPriceList {
     background-color: #393432;
     }
 
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button {  
+    input[type=number].servingSizeBox::-webkit-inner-spin-button, 
+    input[type=number].servingSizeBox::-webkit-outer-spin-button {  
 
    opacity: 1;
 

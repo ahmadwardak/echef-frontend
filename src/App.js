@@ -12,6 +12,7 @@ import { HomeView } from "./views/HomeView";
 import { SearchView } from "./views/SearchView";
 import { RecipeView } from "./views/RecipeView";
 import { RecipeReviewFormView } from './views/RecipeReviewFormView';
+import { CheckoutView } from './views/CheckoutView';
 import Footer from './components/FooterComponent/Footer.js';
 import Header from './views/HeaderView';
 import './App.css';
@@ -34,7 +35,9 @@ export default class App extends React.Component {
                 { component: SignupView, path: '/register' },
                 { component: AccountView, path: '/account' },
                 { component: RecipeView, path: '/recipe/:id' },
-                { component: RecipeReviewFormView, path: '/reviews/:id' }
+                { component: RecipeReviewFormView, path: '/reviews/:id' },
+                { component: CheckoutView, path: '/checkout' }
+
             ]
         };
     }
