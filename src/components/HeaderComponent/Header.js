@@ -6,25 +6,13 @@ import { Nav, NavDropdown, Navbar, Form, FormControl, InputGroup, DropdownButton
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-import HomeHeader from '../../Assets/echef-home-header-image.jpeg';
 import Logo from '../../Assets/echef-logo.png';
-import RecipeHeader from '../../Assets/recipe-1.jpg';
+
 import './Header.css';
 
 
 import UserService from '../../services/UserService';
 
-
-const homeHeaderStyle = {
-  backgroundImage: 'url(' + HomeHeader + ')',
-  height: '400px'
-};
-
-const recipeHeaderStyle = {
-  backgroundImage: 'url(' + RecipeHeader + ')',
-  height: '400px',
-  textAlignment: 'center'
-};
 
 class Header extends Component {
 
@@ -51,6 +39,7 @@ class Header extends Component {
     };
 
     window.location = '/#login';
+    window.location.reload(false);
 
   }
   goToLogin() {
@@ -65,7 +54,7 @@ class Header extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link href="#">Home</Nav.Link>
+              <Nav.Link href="#/">Home</Nav.Link>
               <Nav.Link href="#about">About</Nav.Link>
               <Nav.Link href="#contact">Contact</Nav.Link>
             </Nav>
@@ -111,21 +100,6 @@ class Header extends Component {
             }
           </Navbar.Collapse>
         </Navbar>
-
-        {this.props.recipeId == -1 && this.props.title == 'Home' ?
-
-          <div>
-            <div className='header' style={homeHeaderStyle}>
-              <div className='blackTransparency'>
-                <img src={Logo} className="bigLogo" />
-              </div>
-            </div>
-          </div>
-          :
-          <div className='header noImageStyle'>
-            <h1 className='pageTitle'>{this.props.title}</h1>
-          </div>
-        }
       </div>
     );
   }

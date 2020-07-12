@@ -5,6 +5,8 @@ import { HashRouter as Router, Route, Switch, withRouter, Redirect, useParams } 
 
 import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
+import { AboutView } from "./views/AboutView";
+import { ContactView } from "./views/ContactView";
 import { AccountView } from "./views/AccountView";
 import { ChefView } from "./views/ChefView";
 import { RecipeFormView } from './views/RecipeFormView';
@@ -25,16 +27,66 @@ export default class App extends React.Component {
         this.state = {
             title: 'eChef',
             routes: [
-                { component: HomeView, path: '/', exact: true },
-                { component: SearchView, path: '/search' },
-                { component: ChefView, path: '/chef' },
-                { component: RecipeFormView, path: '/add' },
-                { component: RecipeFormView, path: '/edit/:id' },
-                { component: LoginView, path: '/login' },
-                { component: SignupView, path: '/register' },
-                { component: AccountView, path: '/account' },
-                { component: RecipeView, path: '/recipe/:id' },
-                { component: RecipeReviewFormView, path: '/reviews/:id' }
+                {
+                    render: (props) => {
+                        return (<HomeView {...props} title={"eChef Home"} />)
+                    }, path: '/', exact: true
+                },
+                {
+                    render: (props) => {
+                        return (<SearchView {...props} title={"Search"} />)
+                    }, path: '/search'
+                },
+                {
+                    render: (props) => {
+                        return (<ChefView {...props} title={"Chef"} />)
+                    }, path: '/chef'
+                },
+                {
+                    render: (props) => {
+                        return (<RecipeFormView {...props} title={"Add Recipe"} />)
+                    }, path: '/add'
+                },
+                {
+                    render: (props) => {
+                        return (<RecipeFormView {...props} title={"Update Recipe"} />)
+                    }, path: '/edit/:id'
+                },
+                {
+                    render: (props) => {
+                        return (<LoginView {...props} title={"Login"} />)
+                    }, path: '/login'
+                },
+                {
+                    render: (props) => {
+                        return (<SignupView {...props} title={"Register"} />)
+                    }, path: '/register'
+                },
+                {
+                    render: (props) => {
+                        return (<AccountView {...props} title={"Account"} />)
+                    }, path: '/account'
+                },
+                {
+                    render: (props) => {
+                        return (<RecipeView {...props} title={"Recipe"} />)
+                    }, path: '/recipe/:id'
+                },
+                {
+                    render: (props) => {
+                        return (<AboutView {...props} title={"About"} />)
+                    }, path: '/about'
+                },
+                {
+                    render: (props) => {
+                        return (<ContactView {...props} title={"Contact"} />)
+                    }, path: '/contact'
+                },
+                {
+                    render: (props) => {
+                        return (<RecipeReviewFormView {...props} title={"Recipe Review"} />)
+                    }, path: '/reviews/:id'
+                }
             ]
         };
     }
@@ -44,16 +96,17 @@ export default class App extends React.Component {
     }
 
     render() {
+
+        const { title } = this.state;
+        //console.log(title);
         return (
             <div>
                 <Router>
                     <div>
                         <Header />
-                        <div className="content">
-                            <Switch>
-                                {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
-                            </Switch>
-                        </div>
+                        <Switch>
+                            {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
+                        </Switch>
 
                     </div>
 

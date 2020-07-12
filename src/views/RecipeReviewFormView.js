@@ -1,6 +1,7 @@
 import React from "react"
 import RecipeReviewForm from '../components/RecipeReviewComponent/RecipeReviewForm';
 import UserService from '../services/UserService';
+import Banner from '../components/HeaderComponent/Banner';
 
 export class RecipeReviewFormView extends React.Component {
 
@@ -19,7 +20,10 @@ export class RecipeReviewFormView extends React.Component {
 
     render() {
         return (
-            <RecipeReviewForm onSubmit={(review) => this.addReview(review)} error={this.state.error} />
+            <div>
+                <Banner pageTitle={this.props.title} />
+                <div className="content">
+                    <RecipeReviewForm onSubmit={(review) => this.addReview(review)} error={this.state.error} /></div></div>
         );
     }
 

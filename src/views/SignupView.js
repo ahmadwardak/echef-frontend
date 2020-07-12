@@ -2,6 +2,7 @@ import { render } from "react-dom"
 import React from "react"
 import Signup from '../components/SignupComponent/Signup';
 import UserService from '../services/UserService';
+import Banner from '../components/HeaderComponent/Banner';
 
 export class SignupView extends React.Component {
 
@@ -32,7 +33,10 @@ export class SignupView extends React.Component {
             return (<h2>Loading...</h2>);
         }
         return (
-            <Signup onSubmit={(user) => this.signup(user)} error={this.state.error} />
+            <div>
+                <Banner pageTitle={this.props.title} />
+                <div className="content">
+                    <Signup onSubmit={(user) => this.signup(user)} error={this.state.error} /></div></div>
         );
     }
 

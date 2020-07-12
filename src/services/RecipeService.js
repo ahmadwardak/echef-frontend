@@ -4,69 +4,69 @@ import HttpService from './HttpService';
 
 export default class RecipeService {
 
-    constructor(){
+    constructor() {
     }
 
-    static baseURL() {return "http://localhost:3000/recipes" }
+    static baseURL() { return "http://localhost:3000/recipes" }
 
-    static getAll(){
-       return new Promise((resolve, reject) => {
-           HttpService.get(this.baseURL(), function(data) {
-               resolve(data);
-           }, function(textStatus) {
-               reject(textStatus);
-           });
-       });
-    }
-
-    static getNew(){
+    static getAll() {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${this.baseURL()}/new/4`, function(data) {
+            HttpService.get(this.baseURL(), function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static getNew() {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${this.baseURL()}/new/4`, function (data) {
                 resolve(data);
                 console.log("Received", data)
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
-     }
+    }
 
-    static getRecipesByChefID(chefID){
+    static getRecipesByChefID(chefID) {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${this.baseURL()}/chef/${chefID}`,function(data) {
+            HttpService.get(`${this.baseURL()}/chef/${chefID}`, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
-     }
-    
+    }
+
 
     static getRecipe(id) {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${RecipeService.baseURL()}/${id}`, function(data) {
-                if(data != undefined || Object.keys(data).length !== 0) {
+            HttpService.get(`${RecipeService.baseURL()}/${id}`, function (data) {
+                if (data != undefined || Object.keys(data).length !== 0) {
                     resolve(data);
                 }
                 else {
                     reject('Error while retrieving movie');
                 }
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
     }
-    
+
 
     static deleteRecipe(id) {
         return new Promise((resolve, reject) => {
-            HttpService.remove(`${RecipeService.baseURL()}/${id}`, function(data) {
-                if(data.message != undefined) {
+            HttpService.remove(`${RecipeService.baseURL()}/${id}`, function (data) {
+                if (data.message != undefined) {
                     resolve(data.message);
                 }
                 else {
                     reject('Error while deleting');
                 }
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -74,21 +74,34 @@ export default class RecipeService {
 
     static updateRecipe(recipe) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${this.baseURL()}/${recipe._id}`, recipe, function(data) {
+            HttpService.put(`${this.baseURL()}/${recipe._id}`, recipe, function (data) {
                 resolve(data);
-            }, function(textStatus) {
-               reject(textStatus);
+            }, function (textStatus) {
+                reject(textStatus);
             });
         });
     }
 
     static createRecipe(recipe) {
         return new Promise((resolve, reject) => {
-            HttpService.post(RecipeService.baseURL(), recipe, function(data) {
+            HttpService.post(RecipeService.baseURL(), recipe, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
     }
+
+
+
+    static getRecipeName(recipeId) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${this.baseURL()}/recipeName/${recipeId}`, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
 }
