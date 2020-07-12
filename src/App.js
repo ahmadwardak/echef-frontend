@@ -90,7 +90,7 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<CheckoutView {...props} title={"Checkout"} />)
+                        return (<CheckoutView {...props} title={"Purchase"} />)
                     }, path: '/checkout'
                 }
             ]

@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col';
 import PaymentInfo from '../components/PaymentComponent/PaymentInfoComponent.js';
 import ShoppingCartService from '../services/ShoppingCartService';
 import ShoppingBasket from "../components/PaymentComponent/ShoppingBasket";
+import Banner from '../components/HeaderComponent/Banner';
+
 
 export class CheckoutView extends React.Component {
 
@@ -44,6 +46,8 @@ export class CheckoutView extends React.Component {
         }
         return (
             <div>
+                <Banner pageTitle={this.props.title} />
+                <div className="content">
                 <Container fluid>
                 <Row xs={1} md={2}>
                     <Col>
@@ -54,6 +58,8 @@ export class CheckoutView extends React.Component {
                     </Col>
                 </Row>
                 </Container>
+                </div>
+                
                 
             </div>
         );
