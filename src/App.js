@@ -18,6 +18,7 @@ import { CheckoutView } from './views/CheckoutView';
 import Footer from './components/FooterComponent/Footer.js';
 import Header from './views/HeaderView';
 import './App.css';
+import UserService from './services/UserService';
 
 
 export default class App extends React.Component {
@@ -30,7 +31,12 @@ export default class App extends React.Component {
             routes: [
                 {
                     render: (props) => {
-                        return (<HomeView {...props} title={"eChef Home"} />)
+                        if (UserService.getCurrentUser().accounttype === 'chef') {
+                            return (<ChefView {...props} title={"Chef"} />)
+                        }
+                        else {
+                            return (<HomeView {...props} title={"eChef Home"} />)
+                        }
                     }, path: '/', exact: true
                 },
                 {
