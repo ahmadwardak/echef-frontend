@@ -92,6 +92,7 @@ export default class RecipeService {
             formData.append('servingSize', recipe.servingSize);
             formData.append('difficulty', recipe.difficulty);
             formData.append('category', recipe.category);
+            formData.append('ingredients', JSON.stringify(recipe.ingredients));
             formData.append('recipeImageURL', recipe.recipeImageURL);
             axios.post(this.baseURL(), formData)
                 .then(res => {
@@ -100,11 +101,6 @@ export default class RecipeService {
                 .catch(err => {
                     console.log(err);
                 });
-            /*HttpService.post(RecipeService.baseURL(), recipe, function (data) {
-                resolve(data);
-            }, function (textStatus) {
-                reject(textStatus);
-            });*/
         });
     }
 

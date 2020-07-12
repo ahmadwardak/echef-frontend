@@ -13,7 +13,7 @@ class RecipeForm extends React.Component {
 
     constructor(props) {
         super(props);
-
+        console.log(this.props.recipe);
         if (this.props.recipe != undefined) {
             this.state = {
                 title: props.recipe.title,
@@ -24,6 +24,7 @@ class RecipeForm extends React.Component {
                 recipeImageURL: props.recipe.recipeImageURL,
                 createdByChef: props.recipe.createdByChef,
                 ingredients: [{
+                    ingredientID: props.recipe.ingredients.ingredientID,
                     //ingredientName: props.recipe.ingredients.ingredientName,
                     ingredientQuantity: props.recipe.ingredients.ingredientQuantity,
                     //ingredientUnit: props.recipe.ingredients.ingredientUnit,
@@ -41,6 +42,7 @@ class RecipeForm extends React.Component {
                 recipeImageURL:'',
                 createdByChef:'',
                 ingredients: [{
+                    ingredientID: '',
                     //ingredientName: '',
                     ingredientQuantity: '',
                     //ingredientUnit: '',
@@ -114,6 +116,7 @@ class RecipeForm extends React.Component {
             {
                 ingredients: [...this.state.ingredients,
                 {
+                    ingredientID: '',
                     //ingredientName: '',
                     ingredientQuantity: '',
                     //ingredientUnit: '',

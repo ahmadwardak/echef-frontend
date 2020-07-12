@@ -19,9 +19,10 @@ const IngredientListRow = ({ onChange, ingredients }) => {
     }, []);
 
     function selectedIngredient(event) {
-        //console.log("called", id);
+        
         var id = event.target.value;
-        let ingr = Ingredients.find(dt => dt.name==id)
+        //console.log("called", id);
+        let ingr = Ingredients.find(dt => dt._id==id)
         //console.log("ingr",ingr)
         setIngredientBrands(ingr.ingredientBrands)
         setIngredientUnit(ingr.ingredientUnit)
@@ -30,14 +31,14 @@ const IngredientListRow = ({ onChange, ingredients }) => {
     return (
 
         <div>
-            <select className="brandDropdown" name="ingredientName" onChange={(e, i) => {
+            <select className="brandDropdown" name="ingredientID" onChange={(e, i) => {
                 onChange(e, i);
                 selectedIngredient(e)
             }}
             >
-                <option >--Select ingredient--</option>
+                <option value="0">--Select ingredient--</option>
                 {Ingredients.map((dt, i) =>
-                    <option key={dt._id} value={dt.value}  >{dt.name}
+                    <option key={dt._id} value={dt._id}  >{dt.name}
                     </option>)}
             </select>
             <input type="number" name="ingredientQuantity" step="1" value={ingredients.Amount} className="amountBox" onChange={onChange} />
