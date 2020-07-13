@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Logo from '../../Assets/echef-logo.png';
+import CategoryService from '../../services/CategoryService';
 
 import './Header.css';
 
@@ -20,7 +21,8 @@ class Header extends Component {
     super(props);
     this.state = {
       user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined,
-      dropDownValue: "All Categories"
+      dropDownValue: "All Categories",
+      categories: []
     }
     //console.log(this.state.user);
     // this.state.user ? console.log(1) : console.log(0);
@@ -28,6 +30,13 @@ class Header extends Component {
     this.logout = this.logout.bind(this);
   }
 
+  componentWillMount(props) {
+    CategoryService.getCategories().then((data) => {
+      this.setState({ categories: data })
+    }).catch((e) => {
+      console.error(e);
+    });
+  }
   changeValue(text) {
     this.setState({ dropDownValue: text });
   }
@@ -73,9 +82,10 @@ class Header extends Component {
                   id="input-group-dropdown-2"
                 >
                   <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>All Categories</Dropdown.Item>
-                  <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Italian</Dropdown.Item>
+                  {this.state.categories.map((category, i) => <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)} key={i}>{category} </Dropdown.Item>)}
+                  {/* <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Italian</Dropdown.Item>
                   <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Indian</Dropdown.Item>
-                  <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>German</Dropdown.Item>
+                  <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>German</Dropdown.Item> */}
                 </DropdownButton>
               </InputGroup>
             </Form>
