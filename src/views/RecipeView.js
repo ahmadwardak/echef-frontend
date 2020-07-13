@@ -10,13 +10,12 @@ import {toast} from 'react-toastify';
 
 
 import RecipeReviews from '../components/RecipeReviewComponent/RecipeReview';
-
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faComments } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faComments, faStar } from "@fortawesome/free-solid-svg-icons";
 import { Shop } from 'react-bootstrap-icons';
 import Rating from 'react-rating';
-import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import { faStar as faStarEmpty } from '@fortawesome/fontawesome-svg-core';
 import Banner from '../components/HeaderComponent/Banner';
 
 export class RecipeView extends React.Component {
