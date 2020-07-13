@@ -4,25 +4,21 @@ import HeaderImage from '../../Assets/echef-home-header-image.jpeg';
 import Logo from '../../Assets/echef-logo.png';
 import RecipeHeader from '../../Assets/recipe-1.jpg';
 
-
-const homeHeaderStyle = {
-    backgroundImage: 'url(' + HeaderImage + ')',
-    height: '400px'
-};
-
-const recipeHeaderStyle = {
-    backgroundImage: 'url(' + HeaderImage + ')',
-    height: '250px',
-};
-
 class Banner extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            recipeId: -1
+            backgroundImage: 'url(' + RecipeHeader + ')'
         }
-        console.log(this.props);
+        console.log(this.props.recipeImageURL);
+    }
+
+    componentWillMount(props) {
+
+        if (this.props.recipeImageURL !== undefined) {
+            this.setState({ backgroundImage: 'url(' + this.props.recipeImageURL + ')' });
+        }
     }
 
     render() {
@@ -32,14 +28,14 @@ class Banner extends Component {
                 {this.props.pageTitle == 'eChef Home' ?
 
                     <div>
-                        <div className='header' style={homeHeaderStyle}>
+                        <div className='header' style={{ backgroundImage: 'url(' + HeaderImage + ')', backgroundSize: 'cover', height: '400px' }}>
                             <div className='blackTransparency center'>
                                 <img src={Logo} className="bigLogo" />
                             </div>
                         </div>
                     </div>
                     :
-                    <div className='header' style={recipeHeaderStyle}>
+                    <div className='header' style={{ backgroundImage: this.state.backgroundImage, backgroundSize: 'cover', height: '300px' }}>
                         <div className='blackTransparency'>
                             <h1 className='pageTitle'>{this.props.pageTitle}</h1>
                         </div>

@@ -6,7 +6,7 @@ import RecipeDescription from '../components/RecipeComponent/RecipeDescription'
 import IngredientCustomizer from '../components/RecipeComponent/IngredientCustomizer'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 import RecipeReviews from '../components/RecipeReviewComponent/RecipeReview';
@@ -29,7 +29,7 @@ export class RecipeView extends React.Component {
             user: UserService.getCurrentUser(),
             overallRating: ""
         }
-        this.handleShoppingCart=this.handleShoppingCart.bind(this);
+        this.handleShoppingCart = this.handleShoppingCart.bind(this);
     };
 
     componentWillMount(props) {
@@ -56,26 +56,26 @@ export class RecipeView extends React.Component {
         window.location = '/#reviews/' + this.state.recipe._id;
     }
 
-    handleShoppingCart(shoppingCart, totalPrice){
-        ShoppingCartService.getShoppingCartByUserId(this.state.user._id).then((data)=>{
-            if(data.length==0){
-                var itemsWithID=[];
+    handleShoppingCart(shoppingCart, totalPrice) {
+        ShoppingCartService.getShoppingCartByUserId(this.state.user._id).then((data) => {
+            if (data.length == 0) {
+                var itemsWithID = [];
                 itemsWithID.push({
-                    recipeID:this.state.recipe._id,
-                    recipeIngredients:shoppingCart
+                    recipeID: this.state.recipe._id,
+                    recipeIngredients: shoppingCart
                 });
                 var finalCart = {
-                    cartItems:itemsWithID,
+                    cartItems: itemsWithID,
                     customerID: this.state.user._id,
                     totalPrice: totalPrice
                 }
                 console.log("shopping cart", finalCart);
-                ShoppingCartService.createShoppingCart(finalCart).then((data)=>{
-                    toast("Added to shopping cart",{type: 'success'});
+                ShoppingCartService.createShoppingCart(finalCart).then((data) => {
+                    toast("Added to shopping cart", { type: 'success' });
                     window.location = '/#checkout';
                 });
             }
-            else{
+            else {
                 console.log("data not 0", data);
 
             }
@@ -90,15 +90,15 @@ export class RecipeView extends React.Component {
         return (
 
             <div>
-                <Banner pageTitle={this.props.title} />
+                <Banner pageTitle={this.props.title} recipeImageURL={this.state.recipe.recipeImageURL} />
                 <div className="content">
                     <Row>
-                    <Col>
-                        <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
-                    </Col>
-                    <Col>
-                        <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} addToShoppingCart={this.handleShoppingCart}/>
-                    </Col>
+                        <Col>
+                            <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
+                        </Col>
+                        <Col>
+                            <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} addToShoppingCart={this.handleShoppingCart} />
+                        </Col>
                     </Row>
 
                     <br />
