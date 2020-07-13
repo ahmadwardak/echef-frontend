@@ -13,6 +13,8 @@ import {RecipeView} from "./views/RecipeView";
 import Footer from './components/FooterComponent/Footer.js';
 import Header from './views/HeaderView';
 import './App.css';
+import 'flag-icon-css/css/flag-icon.css'
+import 'flag-icon-css/assets/docs.css'
 
 
 export default class App extends React.Component {
