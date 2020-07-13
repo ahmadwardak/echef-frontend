@@ -9,6 +9,7 @@ import ShoppingBasket from "../components/PaymentComponent/ShoppingBasket";
 import Banner from '../components/HeaderComponent/Banner';
 
 
+
 export class CheckoutView extends React.Component {
 
     constructor(props) {
@@ -19,11 +20,13 @@ export class CheckoutView extends React.Component {
             user: UserService.getCurrentUser(),
             shoppingCart: {}
         };
+        this.updateShoppingCart=this.updateShoppingCart.bind(this);
     }
     componentWillMount(props) {
         this.setState({
             loading: true
         });
+
 
 
         ShoppingCartService.getShoppingCartByUserId(this.state.user._id).then((data) => {
@@ -34,6 +37,12 @@ export class CheckoutView extends React.Component {
             console.log("shopppp",this.state.shoppingCart);
         }).catch((e) => {
             console.error(e);
+        });
+    }
+    updateShoppingCart(shoppingCart){
+        ShoppingCartService.updateShoppingCart(shoppingCart,this.state.user._id).then((data)=>{
+            window.location.reload();
+
         });
     }
 
@@ -51,10 +60,10 @@ export class CheckoutView extends React.Component {
                 <Container fluid>
                 <Row xs={1} md={2}>
                     <Col>
-                        <PaymentInfo user={this.state.user}/>
+                        <PaymentInfo user={this.state.user} shoppingCart={this.state.shoppingCart}/>
                     </Col>
                     <Col>
-                        <ShoppingBasket shoppingCart={this.state.shoppingCart}/>
+                        <ShoppingBasket shoppingCart={this.state.shoppingCart} updateCart={this.updateShoppingCart}/>
                     </Col>
                 </Row>
                 </Container>

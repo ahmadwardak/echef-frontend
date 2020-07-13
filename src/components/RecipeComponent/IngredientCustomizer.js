@@ -41,12 +41,14 @@ const IngredientCustomizer = ({servingSize, ingredientsNeeded, addToShoppingCart
     function addToCart(){
         var finalItems=[];
         cartItems.map(item=>{
-            finalItems.push({
-                ingredientID:item.id,
-                ingredientQuantity:item.amount,
-                ingredientBrand:item.brand,
-                price:item.price
-            });
+            if(item.price!=0){
+                finalItems.push({
+                    ingredientID:item.id,
+                    ingredientQuantity:item.amount,
+                    ingredientBrand:item.brand,
+                    price:item.price
+                });
+            }
         });
         addToShoppingCart(finalItems, totalPrice);
     }

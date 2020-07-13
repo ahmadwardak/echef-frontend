@@ -29,9 +29,9 @@ export default class ShoppingCartService {
 
 
 
-    static updateShoppingCart(shoppingCart) {
+    static updateShoppingCart(shoppingCart,id) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${this.baseURL()}/${shoppingCart._id}`, shoppingCart, function(data) {
+            HttpService.put(`${this.baseURL()}/${id}`, shoppingCart, function(data) {
                 resolve(data);
             }, function(textStatus) {
                reject(textStatus);
