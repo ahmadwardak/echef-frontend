@@ -1,4 +1,6 @@
-select[name="rcrs-country"]{
+select[name="rcrs-country"],
+select[name="rcrs-region"],
+input.formStyle{
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
@@ -13,48 +15,23 @@ select[name="rcrs-country"]{
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-select[name="rcrs-region"]{
-    display: block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-button.StripeCheckout>span,
-button.StripeCheckout{
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    color: #fff;
+button.StripeCheckout>span{
+    
     background-color: #28a745 !important;
-    border-color: #28a745 !important;
+    border: none !important;
+    box-shadow: none !important;
     background-image: none !important;
-    padding: .5rem 1rem;
-    font-size: 1.25rem;
-    line-height: 1.5;
-    border-radius: .3rem;
-    display: block;
-    width: 100%;
     background: none;
+    
+}
+button.StripeCheckout{
+    background-image: none !important;
+    background: none;
+    background-color: #28a745 !important;
+    display: block;
+    border-color: none !important;
+    box-shadow: none !important;
+    width: 100%;
 }
 
 .scrollable{
@@ -79,6 +56,14 @@ button.StripeCheckout{
     color: #28a745;
 }
 
+.greenBox{
+    border-radius: 10px;
+    background-color: #28a745;
+    margin: 10px 0px;
+    color:#fff;
+    text-align: center;
+}
+
 .whiteText{
     color:#fff;
 }
@@ -95,6 +80,7 @@ input[type=number].amountBox::-webkit-inner-spin-button,
 
 .itemSection{
     padding-top:20px;
+    padding-bottom: 10px;
     border: 1px #000 solid;
     border-radius: 10px;
     background-color: #fff;
@@ -110,4 +96,12 @@ input[type=number].amountBox::-webkit-inner-spin-button,
 }
 .shipmentDiv{
     margin-top:20px;
+}
+
+.inputGroup{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.paymentTitle{
+    margin-bottom:20px;
 }

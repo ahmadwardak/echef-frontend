@@ -3,13 +3,17 @@ import './Payment.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import GroceryIcon from '../../Assets/grocery.png';
-import deleteIcon from '../../Assets/delete.png';
+import {  Button } from 'react-bootstrap';
 import IngredientsService from '../../services/IngredientsService';
 
-const BasketItem = ({item})=>{ 
+const BasketItem = ({item,DeleteFromCart})=>{ 
     const[title,setTitle]=useState('');
-    const[brand,setBrand]=useState('');
     const[parameter,setParameter]=useState('');
+
+
+    function DeleteItemFromCart(){
+        DeleteFromCart(item.ingredientID, item.ingredientBrand);
+    }
         IngredientsService.getIngredient(item.ingredientID).then((data) => {
             setTitle(data.name);
             setParameter(data.ingredientUnit);
@@ -38,7 +42,7 @@ const BasketItem = ({item})=>{
                             <span>Quantity: </span>
                         </Col>
                         <Col md={8}>
-                            <input className='amountBox' type='number' defaultValue={item.ingredientQuantity}></input>
+                            <input disabled={true} className='amountBox' type='number' defaultValue={item.ingredientQuantity}></input>
                         </Col>
                     </Row>
                     <Row className='itemRow'>
@@ -51,7 +55,9 @@ const BasketItem = ({item})=>{
                     </Row>
                     <Row className='itemRow'>
                         <Col>
-                            <p className='greenText'><img src={deleteIcon}/> Delete from basket.</p>
+                            <Button variant="outline-success" onClick={DeleteItemFromCart} type="button">
+                                Delete from basket
+                            </Button>
                         </Col>                     
                     </Row>
                     

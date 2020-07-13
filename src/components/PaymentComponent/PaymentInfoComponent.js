@@ -12,27 +12,43 @@ import './Payment.css';
 
 
 
-const PaymentInfo = ({user})=>{
+const PaymentInfo = ({user,shoppingCart})=>{
     console.log("USER:",user);
     const[country,setCountry]=useState('');
     const[region,setRegion]=useState('');
-    const[product]=useState({
-        name:'test product',
-        price:8.90,
-        description:'this is a test'
+    const[orderDetails,setOrderDetails]=useState({
+        FirstName:'',
+        LastName:'',
+        AddressLine1:'',
+        AddressLine2:'',
+        City:'',
+        Country:'',
+        Region:'',
+        Zipcode:''
     });
+    
 
 
     function selectCountry(val){
-        setCountry(val);
+        setOrderDetails({
+            Country:val
+        });
     }
     function selectRegion (val) {
-        setRegion(val);
+        setOrderDetails({
+            Region:val
+        });
     }
-
+    function setUserDetails(event){
+        var name= event.target.name;
+        setOrderDetails({
+            [name]:event.target.value
+        });
+    }
+    
     function handleToken(token){
         OrderService.createOrder({
-            product,
+            shoppingCart,
             token
         }).then((data) => {
             console.log('response:', data.status);
@@ -50,68 +66,56 @@ const PaymentInfo = ({user})=>{
 
     return(
        <div className="scrollable">
-           <Form>
-               <div className='contactDiv'>
-                    <h4>Contact Information</h4>
-                    <Form.Group controlId="formEmail">
-                        <Form.Control type="email" placeholder="Email" />
-                    </Form.Group>
-               </div>
                 <div className='shipmentDiv'>
-                    <h4>Shipping Information</h4>
+                    <h4 className='paymentTitle'>Shipping Information</h4>
+                    <div className="inputGroup">
                     <Row>
                         <Col>
-                            <Form.Group controlId="formFirstName">
-                                <Form.Control type="text" placeholder="First Name" />
-                            </Form.Group>
+                            <input className='formStyle' type="text" value={orderDetails.FirstName} name='FirstName' onChange={setUserDetails} placeholder="First Name" />
                         </Col>
                         <Col>
-                            <Form.Group controlId="formLastName">
-                                <Form.Control type="text" placeholder="Last Name" />
-                            </Form.Group>
+                            <input className='formStyle' type="text" value={orderDetails.LastName} name='LastName' onChange={setUserDetails} placeholder="Last Name" />
                         </Col>
                     </Row>
-                    <Form.Group controlId="formAddress">
-                                <Form.Control type="text" placeholder="Address" />
-                    </Form.Group>
-                    <Form.Group controlId="formApartment">
-                                <Form.Control type="text" placeholder="Apartment number, suite, etc(optional)" />
-                    </Form.Group>
+                    </div>
+                    <div className="inputGroup">
+                        <input className='formStyle' type="text" defaultValue={user.shippingAddress} name='AddressLine1' value={orderDetails.AddressLine1} onChange={setUserDetails} placeholder="Address" />
+                    </div>
+                    <div className="inputGroup">
+                        <input className='formStyle' type="text" name='AddressLine2' value={orderDetails.AddressLine2} onChange={setUserDetails} placeholder="Apartment number, suite, etc(optional)" />
+                    </div>
+                    <div className="inputGroup">
                     <Row>
                         <Col>
-                            <Form.Group controlId="formCity">
-                                <Form.Control type="text" placeholder="City" />
-                            </Form.Group>
+                            <input className='formStyle' type="text" name='City' value={orderDetails.City} onChange={setUserDetails} placeholder="City" />
                         </Col>
                         <Col>
-                                <CountryDropdown defaultOptionLabel="Country" value={country} onChange={selectCountry} />
+                                <CountryDropdown defaultOptionLabel="Country" value={orderDetails.Country} onChange={selectCountry} />
                         </Col>
                     </Row>
-                    
-                    <div className="countrySelector">
+                    </div>
+                    <div className="inputGroup">
                         <Row>
                             
                             <Col>
-                                <RegionDropdown blankOptionLabel="Region" defaultOptionLabel="Region" country={country} value={region} onChange={selectRegion} />
+                                <RegionDropdown blankOptionLabel="Region" defaultOptionLabel="Region" country={orderDetails.Country} value={orderDetails.Region} onChange={selectRegion} />
                             </Col>
                             <Col>
-                                <Form.Group controlId="formZipcode">
-                                    <Form.Control type="number" placeholder="Zipcode" />
-                                </Form.Group>
+                                <input className='formStyle' type="number" placeholder="Zipcode" name='Zipcode' value={orderDetails.Zipcode} onChange={setUserDetails} />
                             </Col>
                         </Row>
                     </div>
                 </div>
                 <div className="paymentButton">
                     <StripeCheckout 
+                    type='button'
                     stripeKey="pk_test_51H3MpiKYLWJclmfxNXVgxmAS7PAxf0tRVed9JiuCFEauDnJx39PuLpxHaYWWXaJfAFxVj87yo5WG7HDhouYx9cWn00Eok2TOdY"
                     token={handleToken}
-                    amount={product.price*100}
+                    amount={shoppingCart.totalPrice*100}
                     currency='EUR'
                     />
                 </div>
                 
-            </Form>      
        </div> 
     )
 }
