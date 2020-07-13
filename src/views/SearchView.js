@@ -16,7 +16,7 @@ export class SearchView extends React.Component {
 
     constructor(props) {
         super(props);
-
+        console.log("Props lcoation",props.location.aboutProps.category)
 
         this.state = {
             //data: [{ "title": "If you see this, the DB is not connected", "difficulty": "Easy", "_id": "FooBar", "category": "All Categories", "tags":"" }],
@@ -24,7 +24,7 @@ export class SearchView extends React.Component {
             loading: false,
             title: "",
             difficulty: "",
-            category: "All Categories",
+            category:  "All Categories",
             tags: ["uuh"],
             showTags: true,
             activeTags: []
@@ -44,9 +44,10 @@ export class SearchView extends React.Component {
         RecipeService.getAll().then((data) => {
             // Get all viable tags 
             let tempTags = data.reduce((tmp, tag) => {
-                // console.log("Tmp:", tmp, " Tag: ",tag.tags)
+                // console.log(" Tag: ", tag.tags, tag._id)
                 return (tmp = [...tmp, ...tag.tags])
             }, [])
+            //Remove duplicates
             tempTags = [...new Set(tempTags)]
             //console.log("tempTags",tempTags)
             this.setState({
@@ -81,25 +82,18 @@ export class SearchView extends React.Component {
                 activeTags: [... new Set(tmpTags)]
             })
         }
-
     }
     // Handles the filter search
     handleSearchChange(event) {
         event.preventDefault()
-
         let nameVal = event.target.name // input name = "something"
         let val = event.target.value // something = value
-
         // console.log("nameVal", nameVal)
         // console.log("val", val)
-
         this.setState({
             [nameVal]: val  // this.state{something:value}
         })
-
-
     }
-
     toggleTags() {
         //console.log("showTags?", !this.state.showTags)
         let show = this.state.showTags
@@ -143,7 +137,7 @@ export class SearchView extends React.Component {
                 <div className="content">
                     <Container fluid>
                         <Row xs={1} >
-                            <Col xs={6} md={4} style={{ width: "20vw" }}  >
+                            <Col key={1} xs={6} md={4} style={{ width: "20vw" }}  >
                                 <ListGroup as="ul">
                                     <ListGroup.Item as="li" active>
                                         <h2>Filter the Recipes based on input</h2> <br></br>
@@ -163,7 +157,7 @@ export class SearchView extends React.Component {
                                         </select>
                                     </ListGroup.Item>
                                     <ListGroup.Item as="li" >
-                                        <Categories name="categories" onChange={this.handleSearchChange} />
+                                        <Categories name="categories" value={this.props.location.aboutProps.category} onChange={this.handleSearchChange} />
                                     </ListGroup.Item>
                                     <ListGroup.Item as="li" >
                                         <button onClick={this.toggleTags}>
@@ -177,7 +171,7 @@ export class SearchView extends React.Component {
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Col>
-                            <Col xs={6} md={8} style={{ width: "80vw" }}>
+                            <Col key={2} xs={6} md={8} style={{ width: "80vw" }}>
                                 <Card >
                                     <h1>Search Results</h1>
                                     <RecipeList recipes={recipes} />

@@ -5,7 +5,7 @@ import InfiniteCarousel from 'react-leaf-carousel';
 import CategoryService from "../services/CategoryService";
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
-import Link from "react-router-dom";
+import {Link} from "react-router-dom";
 import Logo from "../Assets/echef-logo.png";
 import Banner from '../components/HeaderComponent/Banner';
 
@@ -110,11 +110,13 @@ export class HomeView extends React.Component {
                                     >
                                         {cats.map((cat, i) =>
                                             <div key={i}>
+                                                <Link to={{ pathname: '/search', aboutProps: { category: cat } }}>
                                                 <img
                                                     alt=""
                                                     src={Logo}
                                                 />
                                                 <h3>{cat}</h3>
+                                                </Link>
                                             </div>
 
                                         )}
