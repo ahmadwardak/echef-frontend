@@ -16,16 +16,17 @@ export class SearchView extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("Props lcoation",props.location.aboutProps.category)
-
+        //console.log("Props lcoation",props.location.aboutProps.category)
+        let categories = props.location.category || "All Categories"
+        console.log("Categories", categories)
         this.state = {
             //data: [{ "title": "If you see this, the DB is not connected", "difficulty": "Easy", "_id": "FooBar", "category": "All Categories", "tags":"" }],
             data: [],
             loading: false,
             title: "",
             difficulty: "",
-            category:  "All Categories",
-            tags: ["uuh"],
+            category:   categories,
+            tags: [],
             showTags: true,
             activeTags: []
         }
@@ -37,15 +38,20 @@ export class SearchView extends React.Component {
 
     };
     // Normal React component Lifecycle
-    componentWillMount() {
+    componentWillMount(props) {
+        //  console.log("Is this here",props.location.aboutProps.category)
         this.setState({
             loading: true
         });
         RecipeService.getAll().then((data) => {
             // Get all viable tags 
             let tempTags = data.reduce((tmp, tag) => {
-                // console.log(" Tag: ", tag.tags, tag._id)
-                return (tmp = [...tmp, ...tag.tags])
+                 console.log(" Tag: ", tag.tags, tag._id)
+                if(tag.tags)
+                    return (tmp = [...tmp, ...tag.tags]);
+                else{
+                    return tmp = [...tmp];
+                }
             }, [])
             //Remove duplicates
             tempTags = [...new Set(tempTags)]
@@ -157,7 +163,7 @@ export class SearchView extends React.Component {
                                         </select>
                                     </ListGroup.Item>
                                     <ListGroup.Item as="li" >
-                                        <Categories name="categories" value={this.props.location.aboutProps.category} onChange={this.handleSearchChange} />
+                                        <Categories value={this.state.category} name="categories" onChange={this.handleSearchChange} />
                                     </ListGroup.Item>
                                     <ListGroup.Item as="li" >
                                         <button onClick={this.toggleTags}>

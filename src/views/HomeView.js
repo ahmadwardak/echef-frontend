@@ -24,7 +24,7 @@ export class HomeView extends React.Component {
             newRecipes: []
         }
 
-        console.log(this.props);
+        //console.log(this.props);
     }
 
 
@@ -110,7 +110,7 @@ export class HomeView extends React.Component {
                                     >
                                         {cats.map((cat, i) =>
                                             <div key={i}>
-                                                <Link to={{ pathname: '/search', aboutProps: { category: cat } }}>
+                                                <Link to={{ pathname: '/search',  category: cat  }}>
                                                 <img
                                                     alt=""
                                                     src={Logo}
