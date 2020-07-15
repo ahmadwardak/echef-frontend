@@ -11,11 +11,11 @@ import { toast } from 'react-toastify';
 
 import RecipeReviews from '../components/RecipeReviewComponent/RecipeReview';
 import { Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faComments, faStar } from "@fortawesome/free-solid-svg-icons";
 import { Shop } from 'react-bootstrap-icons';
 import Rating from 'react-rating';
-import { faStar as faStarEmpty } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComments, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import Banner from '../components/HeaderComponent/Banner';
 
 export class RecipeView extends React.Component {
@@ -83,40 +83,40 @@ export class RecipeView extends React.Component {
                 existingItems = existingCart.cartItems;
                 console.log("items", existingItems);
                 var existingRecipe = existingItems.find(element => element.recipeID == this.state.recipe._id);
-                if(existingRecipe){
+                if (existingRecipe) {
                     var indexOfRecipe = existingItems.findIndex(element => element.recipeID == this.state.recipe._id);
-                    console.log("recipe is there",existingRecipe);
-                    shoppingCart.forEach(element=>{
-                        var existingItem = existingRecipe.recipeIngredients.find(item=> 
-                            item.ingredientID==element.ingredientID && item.ingredientBrand === element.ingredientBrand);
-                        if(existingItem){
-                            console.log("element of cart",element);
-                            var indexOfIngredient = existingRecipe.recipeIngredients.findIndex(item=> item.ingredientID==element.ingredientID);
+                    console.log("recipe is there", existingRecipe);
+                    shoppingCart.forEach(element => {
+                        var existingItem = existingRecipe.recipeIngredients.find(item =>
+                            item.ingredientID == element.ingredientID && item.ingredientBrand === element.ingredientBrand);
+                        if (existingItem) {
+                            console.log("element of cart", element);
+                            var indexOfIngredient = existingRecipe.recipeIngredients.findIndex(item => item.ingredientID == element.ingredientID);
                             console.log("yes ingredient there");
-                            console.log("old amount",existingItem.ingredientQuantity);
+                            console.log("old amount", existingItem.ingredientQuantity);
                             existingItem.ingredientQuantity = existingItem.ingredientQuantity + element.ingredientQuantity;
-                            existingItem.price= Math.round((existingItem.price + element.price)*100)/100;
-                            console.log("new amount",existingItem.ingredientQuantity);
+                            existingItem.price = Math.round((existingItem.price + element.price) * 100) / 100;
+                            console.log("new amount", existingItem.ingredientQuantity);
                             console.log("new cartItem", existingItem);
                             console.log("new cartItems", existingItems);
-                    }
-                    else{
-                        existingRecipe.recipeIngredients.push(element);
-                        console.log("no ingredient is not there",existingRecipe);
-                    }
-                });
+                        }
+                        else {
+                            existingRecipe.recipeIngredients.push(element);
+                            console.log("no ingredient is not there", existingRecipe);
+                        }
+                    });
 
                 }
-                else{ //new recipe
+                else { //new recipe
                     existingItems.push({
-                        recipeID:this.state.recipe._id,
-                        recipeIngredients:shoppingCart
+                        recipeID: this.state.recipe._id,
+                        recipeIngredients: shoppingCart
                     });
-                    console.log("final cartt",existingCart);
+                    console.log("final cartt", existingCart);
                 }
-                existingCart.totalPrice = Math.round((existingCart.totalPrice + totalPrice)*100)/100;
-                ShoppingCartService.updateShoppingCart(existingCart,this.state.user._id).then((data)=>{
-                    toast("Added to shopping cart",{type: 'success'});
+                existingCart.totalPrice = Math.round((existingCart.totalPrice + totalPrice) * 100) / 100;
+                ShoppingCartService.updateShoppingCart(existingCart, this.state.user._id).then((data) => {
+                    toast("Added to shopping cart", { type: 'success' });
                     window.location = '/#checkout';
                 });
             }
