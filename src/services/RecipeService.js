@@ -60,16 +60,16 @@ export default class RecipeService {
 
     static deleteRecipe(id) {
         return new Promise((resolve, reject) => {
-            HttpService.remove(`${RecipeService.baseURL()}/${id}`, function (data) {
-                if (data.message != undefined) {
-                    resolve(data.message);
-                }
-                else {
-                    reject('Error while deleting');
-                }
-            }, function (textStatus) {
-                reject(textStatus);
-            });
+            var formData = new FormData();
+            formData.append('id', id);
+            
+            axios.delete(`${RecipeService.baseURL()}/${id}`, formData)
+                .then(res => {
+                    window.location = '/#chef/';
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         });
     }
 
