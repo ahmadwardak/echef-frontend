@@ -68,7 +68,7 @@ class Ingredient extends Component {
             return 0;
 
         var result = Math.round(original * 100) / 100;
-        return result;
+        return result.toFixed(2);
     }
 
 

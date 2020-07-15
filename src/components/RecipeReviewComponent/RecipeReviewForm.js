@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { Form, Button, Col, } from 'react-bootstrap';
+import { Form, Button, Row, Col, } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 
 import Rating from 'react-rating';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import RecipeService from '../../services/RecipeService';
 import RecipeReviewService from '../../services/RecipeReviewService';
 
 class RecipeReviewForm extends Component {
@@ -14,6 +15,7 @@ class RecipeReviewForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            recipeTitle: '',
             heading: '',
             detail: '',
             overallRating: '',
@@ -42,6 +44,16 @@ class RecipeReviewForm extends Component {
 
     }
 
+
+    componentWillMount(props) {
+        let id = this.props.match.params.id;
+        RecipeService.getRecipeName(id).then((data) => {
+            this.setState({ recipeTitle: data.title })
+        }).catch((e) => {
+            console.error(e);
+        });
+        console.log(id)
+    }
     handleChangeHeading(event) {
         this.setState({ heading: event.target.value });
         // console.log(event.target.value);
@@ -128,153 +140,168 @@ class RecipeReviewForm extends Component {
     render() {
         return (
 
-            <Form onSubmit={this.handleSubmit} >
-                <Form.Row className="align-items-center" >
-                    <Col xs={7}>
-                        <Form.Group controlId="heading">
-                            <Form.Label>Heading</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Heading"
-                                required
-                                className={this.state.headingError ? "form-control is-invalid" : "form-control"}
-                                defaultValue={this.state.heading}
-                                onChange={this.handleChangeHeading} />
-                            <div
-                                className={this.state.headingError !== "" ? "inline-errormsg" : "hide-error"}>
-                                {this.state.headingError}
-                            </div>
-                        </Form.Group>
-                    </Col>
-                </Form.Row>
-                <Form.Row className="align-items-center" >
-                    <Col xs={7}>
-                        <Form.Group controlId="detail">
-                            <Form.Label>Detail</Form.Label>
-                            <Form.Control type="text"
-                                placeholder="Detail"
-                                required
-                                className={this.state.detailError ? "form-control is-invalid" : "form-control"}
-                                defaultValue={this.state.detail}
-                                onChange={this.handleChangeDetail} />
-                            <div
-                                className={this.state.detailError !== "" ? "inline-errormsg" : "hide-error"}>
-                                {this.state.detailError}
-                            </div>
-                        </Form.Group>
-                    </Col>
-                </Form.Row>
+            <div className="container-fluid">
 
-                <Form.Row className="align-items-center" >
-                    <Col xs={7}>
-                        <Form.Group controlId="overallRating">
-                            <Form.Label>Overall Rating</Form.Label>
-                            <Form.Control type="hidden"
-                                placeholder="Overall"
-                                readOnly
-                                defaultValue={0}
-                                ref={this.overallRating}
-                                required />
-                            <div className="float-right">
-                                <Rating style={{ color: 'green' }}
-                                    emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
-                                    fullSymbol={<FontAwesomeIcon icon={faStar} />}
-                                    fractions={2}
-                                    initialRating={this.state.overallRating}
-                                    onChange={(rate) => document.getElementById('overallRating').value = rate}
-                                    required
-                                />
-                            </div>
-                        </Form.Group>
+                <Row className="pb-2">
+                    <Col xs={12} md={9}>
+                        <h4 >{this.state.recipeTitle}</h4>
                     </Col>
-                </Form.Row>
+                </Row>
+                <Row className="pb-2">
+                    <Col xs={12} md={9}>
+
+                        <Form onSubmit={this.handleSubmit} >
+
+                            <Row className="align-items-center" >
+                                <Col xs={7}>
+                                    <Form.Group controlId="overallRating">
+                                        <Form.Label>Overall Rating</Form.Label>
+                                        <Form.Control type="hidden"
+                                            placeholder="Overall"
+                                            readOnly
+                                            defaultValue={0}
+                                            ref={this.overallRating}
+                                            required />
+                                        <div className="float-right">
+                                            <Rating style={{ color: 'green' }}
+                                                emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
+                                                fullSymbol={<FontAwesomeIcon icon={faStar} />}
+                                                fractions={2}
+                                                initialRating={this.state.overallRating}
+                                                onChange={(rate) => document.getElementById('overallRating').value = rate}
+                                                required
+                                            />
+                                        </div>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
 
-                <Form.Row className="align-items-center" >
-                    <Col xs={7}>
-                        <Form.Group controlId="qualityRating">
-                            <Form.Label>Qualtiy</Form.Label>
-                            <Form.Control type="hidden"
-                                placeholder="Quality"
-                                readOnly
-                                defaultValue={0}
-                                ref={this.qualityRating}
-                                required />
-                            <div className="float-right">
-                                <Rating style={{ color: 'green' }}
-                                    emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
-                                    fullSymbol={<FontAwesomeIcon icon={faStar} />}
-                                    fractions={2}
-                                    initialRating={this.state.qualityRating}
-                                    onChange={(rate) => document.getElementById('qualityRating').value = rate}
-                                    required
-                                />
-                            </div>
-                        </Form.Group>
-                    </Col>
-                </Form.Row>
+                            <Row className="align-items-center" >
+                                <Col xs={7}>
+                                    <Form.Group controlId="qualityRating">
+                                        <Form.Label>Qualtiy</Form.Label>
+                                        <Form.Control type="hidden"
+                                            placeholder="Quality"
+                                            readOnly
+                                            defaultValue={0}
+                                            ref={this.qualityRating}
+                                            required />
+                                        <div className="float-right">
+                                            <Rating style={{ color: 'green' }}
+                                                emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
+                                                fullSymbol={<FontAwesomeIcon icon={faStar} />}
+                                                fractions={2}
+                                                initialRating={this.state.qualityRating}
+                                                onChange={(rate) => document.getElementById('qualityRating').value = rate}
+                                                required
+                                            />
+                                        </div>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
 
-                <Form.Row className="align-items-center" >
-                    <Col xs={7}>
-                        <Form.Group controlId="valueForMoneyRating">
-                            <Form.Label>Value for Money</Form.Label>
-                            <Form.Control type="hidden"
-                                placeholder="Value for Money"
-                                readOnly
-                                defaultValue={0}
-                                ref={this.valueForMoneyRating}
-                                required />
-                            <div className="float-right">
-                                <Rating style={{ color: 'green' }}
-                                    emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
-                                    fullSymbol={<FontAwesomeIcon icon={faStar} />}
-                                    fractions={2}
-                                    initialRating={this.state.valueForMoneyRating}
-                                    onChange={(rate) => document.getElementById('valueForMoneyRating').value = rate}
-                                    required
-                                />
-                            </div>
-                        </Form.Group>
-                    </Col>
-                </Form.Row>
-                <Form.Row className="align-items-center" >
-                    <Col xs={7}>
-                        <Form.Group>
-                            <Form.File
-                                className="position-relative"
-                                multiple
-                                accept=".jpg,.gif,.png,.jpeg,.mp4,.avi,.mov,.wmv"
-                                ref={this.fileCollection}
-                                onChange={this.handleChangeFileCollection}
-                                name="fileCollection"
-                                label="Add photo(s) or Video(s)"
-                                id="fileCollection"
+                            <Row className="align-items-center" >
+                                <Col xs={7}>
+                                    <Form.Group controlId="valueForMoneyRating">
+                                        <Form.Label>Value for Money</Form.Label>
+                                        <Form.Control type="hidden"
+                                            placeholder="Value for Money"
+                                            readOnly
+                                            defaultValue={0}
+                                            ref={this.valueForMoneyRating}
+                                            required />
+                                        <div className="float-right">
+                                            <Rating style={{ color: 'green' }}
+                                                emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
+                                                fullSymbol={<FontAwesomeIcon icon={faStar} />}
+                                                fractions={2}
+                                                initialRating={this.state.valueForMoneyRating}
+                                                onChange={(rate) => document.getElementById('valueForMoneyRating').value = rate}
+                                                required
+                                            />
+                                        </div>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                            />
-                        </Form.Group>
-                    </Col>
-                </Form.Row>
-                <Form.Row className="align-items-center">
-                    <Col xs="auto">
-                        <Button variant="primary" onClick={() => this.validate()} type="submit">
-                            Add Review
+                            <Row className="align-items-center" >
+                                <Col xs={7}>
+                                    <Form.Group controlId="heading">
+                                        <Form.Label>Heading</Form.Label>
+                                        <Form.Control type="text"
+                                            placeholder="Heading"
+                                            required
+                                            className={this.state.headingError ? "form-control is-invalid" : "form-control"}
+                                            defaultValue={this.state.heading}
+                                            onChange={this.handleChangeHeading} />
+                                        <div
+                                            className={this.state.headingError !== "" ? "inline-errormsg" : "hide-error"}>
+                                            {this.state.headingError}
+                                        </div>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row className="align-items-center" >
+                                <Col xs={7}>
+                                    <Form.Group controlId="detail">
+                                        <Form.Label>Detail</Form.Label>
+                                        <Form.Control type="text"
+                                            placeholder="Detail"
+                                            required
+                                            className={this.state.detailError ? "form-control is-invalid" : "form-control"}
+                                            defaultValue={this.state.detail}
+                                            onChange={this.handleChangeDetail} />
+                                        <div
+                                            className={this.state.detailError !== "" ? "inline-errormsg" : "hide-error"}>
+                                            {this.state.detailError}
+                                        </div>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+
+                            <Row className="align-items-center" >
+                                <Col xs={7}>
+                                    <Form.Group>
+                                        <Form.File
+                                            className="position-relative"
+                                            multiple
+                                            accept=".jpg,.gif,.png,.jpeg,.mp4,.avi,.mov,.wmv"
+                                            ref={this.fileCollection}
+                                            onChange={this.handleChangeFileCollection}
+                                            name="fileCollection"
+                                            label="Add photo(s) or Video(s)"
+                                            id="fileCollection"
+
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row className="align-items-center">
+                                <Col xs="auto">
+                                    <Button variant="primary" onClick={() => this.validate()} type="submit">
+                                        Add Review
                     </Button>
-                    </Col>
-                </Form.Row>
-                <br></br>
-                {this.props.error ? <Form.Row>
-                    <Col xs="auto">
-                        <Alert variant="danger">
-                            <Alert.Heading>Error!</Alert.Heading>
-                            <p>
-                                {this.props.error}
-                            </p>
-                        </Alert>
-                    </Col>
-                </Form.Row>
-                    : ''}
+                                </Col>
+                            </Row>
+                            <br></br>
+                            {this.props.error ? <Row>
+                                <Col xs="auto">
+                                    <Alert variant="danger">
+                                        <Alert.Heading>Error!</Alert.Heading>
+                                        <p>
+                                            {this.props.error}
+                                        </p>
+                                    </Alert>
+                                </Col>
+                            </Row>
+                                : ''}
 
-            </Form>
+                        </Form>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }
