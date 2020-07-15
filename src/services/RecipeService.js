@@ -62,10 +62,11 @@ export default class RecipeService {
         return new Promise((resolve, reject) => {
             var formData = new FormData();
             formData.append('id', id);
-            
+
             axios.delete(`${RecipeService.baseURL()}/${id}`, formData)
                 .then(res => {
                     window.location = '/#chef/';
+                    window.location.reload(false);
                 })
                 .catch(err => {
                     console.log(err);
