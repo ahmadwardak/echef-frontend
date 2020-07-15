@@ -1,158 +1,203 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import './Recipe.css';
 import '../../App.css';
 import Ingredient from './Ingredient.js'
-import {  Button } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
+import IngredientsService from '../../services/IngredientsService';
+
+class IngredientCustomizer extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            totalPrice: 0,
+            ServingSize: this.props.servingSize,
+            buttonEnabled: false,
+            cartItems: [],
+        }
 
 
-const IngredientCustomizer = ({servingSize, ingredientsNeeded, addToShoppingCart})=>{
-    const[totalPrice, setTotalPrice]=useState(0.0);
-    const[ServingSize,setServingSize]=useState(servingSize);
-    const[buttonEnabled, setButtonEnabled]=useState(false);
-    
-    var initialItems=[];
-        ingredientsNeeded.map(ing=>{
+        this.servingSizeInput = React.createRef();
+
+        this.changeServingSize = this.changeServingSize.bind(this);
+        this.addToCart = this.addToCart.bind(this);
+        this.calculateTotalPrice = this.calculateTotalPrice.bind(this);
+
+
+        this.handleButton = this.handleButton.bind(this);
+        this.preventKeyDown = this.preventKeyDown.bind(this);
+
+        this.handleAmountChange = this.handleAmountChange.bind(this);
+        this.handleBrandChange = this.handleBrandChange.bind(this);
+
+    }
+
+    componentWillMount(props) {
+
+        let initialItems = [];
+        this.props.ingredientsNeeded.map(ing => {
             initialItems.push({
-                id:ing.ingredientID, 
-                amount:ing.ingredientQuantity, 
-                price:0, 
-                brand:ing.ingredientBrand,
-                basePrice:0,
-                baseAmount:ing.ingredientQuantity,
-                isActive:false
+                id: ing.ingredientID,
+                amount: ing.ingredientQuantity,
+                price: 0,
+                brand: '',
+                basePrice: 0,
+                baseAmount: ing.ingredientQuantity,
+                isActive: false
             });
         });
-    const[cartItems, setCartItems]=useState(initialItems);
-    
-    
-    function changeServingSize(sSize){
-        var newServingSize = sSize.target.value;
-        console.log("newservs",newServingSize);
-        setServingSize(newServingSize);
-        cartItems.forEach(element=>{
-            var newPrice= (element.basePrice * newServingSize )/servingSize;
-            newPrice= Math.round(newPrice*100)/100;
-            var newAmount= (newServingSize *element.baseAmount)/servingSize;
-            element.price=newPrice;
-            element.amount=newAmount;
-        });
-        calculateTotalPrice();
+        console.log('initial', initialItems)
+        this.setState({ cartItems: initialItems });
     }
-    function addToCart(){
-        var finalItems=[];
-        cartItems.map(item=>{
-            if(item.price!=0){
+
+    changeServingSize(sSize) {
+        var newServingSize = sSize.target.value;
+        console.log("newservs", newServingSize);
+        this.setState({ ServingSize: newServingSize });
+        let newItems = [];
+        this.state.cartItems.forEach(element => {
+            var newPrice = (element.basePrice * newServingSize) / this.props.servingSize;
+            newPrice = Math.round(newPrice * 100) / 100;
+            var newAmount = (newServingSize * element.baseAmount) / this.props.servingSize;
+            element.price = newPrice;
+            element.amount = newAmount;
+            newItems.push(element);
+        });
+
+        this.setState({ cartItems: newItems });
+        console.log('serving changed', newItems);
+        this.calculateTotalPrice();
+
+    }
+
+    addToCart() {
+        let finalItems = [];
+        this.state.cartItems.map(item => {
+            if (item.price != 0) {
                 finalItems.push({
-                    ingredientID:item.id,
-                    ingredientQuantity:item.amount,
-                    ingredientBrand:item.brand,
-                    price:item.price
+                    ingredientID: item.id,
+                    ingredientQuantity: item.amount,
+                    ingredientBrand: item.brand,
+                    price: item.price
                 });
             }
         });
-        addToShoppingCart(finalItems, totalPrice);
+        this.props.addToShoppingCart(finalItems, this.state.totalPrice);
     }
-    function calculateTotalPrice(){
-        var total = 0.0;
-        var newItems= cartItems;
-        newItems.forEach(item =>{
+
+    calculateTotalPrice() {
+        let total = 0.0;
+        this.state.cartItems.forEach(item => {
             total = parseFloat(total) + parseFloat(item.price);
         });
         console.log("total", total);
-        setTotalPrice(Math.round(total*100)/100);
+        this.setState({ totalPrice: (Math.round(total * 100) / 100) });
+        this.handleButton();
     }
-    function shoppingCartHandler(value,id,type){
-      
-        if(type=="amount"){
-            handleIngredientAmount(value,id);
-        }
-        else if(type=="brand"){
-            handleIngredientBrand(value,id);
-        }
-        else if(type=="price"){
-            handleIngredientPrice(value,id);
-            calculateTotalPrice();
-        }
-        else if(type=="basePrice"){
-            handleIngredientBasePrice(value,id);
-        }
-        else if(type=="isActive"){
-            handleIngredientActivation(value,id);
-        }
 
-        
-    }
-    function handleIngredientAmount(value, id){
-        var newItems= cartItems;
-        var itemIndex = newItems.findIndex(it => it.id==id);
+    handleAmountChange(value, ingredientID) {
+        console.log('amount change', value);
+        console.log('ing id', ingredientID);
+        let newItems = this.state.cartItems;
+        //console.log(newItems);
+        let itemIndex = newItems.findIndex(it => it.id == ingredientID);
         newItems[itemIndex].amount = parseInt(value);
-        setCartItems(newItems);
-    }
-    function handleIngredientBrand(value,id){
-        var newItems= cartItems;
-        var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].brand = value;
-        setCartItems(newItems);
+        newItems[itemIndex].price = newItems[itemIndex].basePrice / newItems[itemIndex].baseAmount * newItems[itemIndex].amount;
+
+        this.setState({ cartItems: newItems });
+        console.log('amount handler', newItems);
+        this.calculateTotalPrice();
+    };
+
+    handleBrandChange(value, ingredientID) {
+        console.log('brand changed', value);
+        console.log('ing id', ingredientID);
+        let basePrice = 0;
+        if (value !== '0') {
+            IngredientsService.getIngredient(ingredientID).then((data) => {
+                basePrice = data.ingredientBrands.find(br => br.brandName == value).price;
+                console.log(basePrice);
+                let newItems = this.state.cartItems;
+                let itemIndex = newItems.findIndex(it => it.id == ingredientID);
+                newItems[itemIndex].basePrice = basePrice;
+                newItems[itemIndex].brand = value;
+                newItems[itemIndex].isActive = true;
+                newItems[itemIndex].price = (basePrice / this.servingSizeInput.current.value) * newItems[itemIndex].amount;
+
+                this.setState({ isActive: true });
+                this.setState({ cartItems: newItems });
+                console.log('brand handler', newItems);
+
+                this.calculateTotalPrice();
+            }).catch((e) => {
+                console.error(e);
+            });
+        } else {
+            let newItems = this.state.cartItems;
+            let itemIndex = newItems.findIndex(it => it.id == ingredientID);
+            newItems[itemIndex].basePrice = basePrice;
+            newItems[itemIndex].brand = value;
+            newItems[itemIndex].isActive = false;
+            newItems[itemIndex].price = 0;
+
+            this.setState({ isActive: false });
+            this.setState({ cartItems: newItems });
+            console.log('brand handler', newItems);
+
+            this.calculateTotalPrice();
+        }
+
     }
 
-    function handleIngredientPrice(value,id){
-        var newItems= cartItems;
-        var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].price = value;
-        setCartItems(newItems);
-    }
 
-    function handleIngredientBasePrice(value,id){
-        var newItems= cartItems;
-        var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].basePrice = value;
-        setCartItems(newItems);
-    }
-    function handleIngredientActivation(value,id){
-        var newItems= cartItems;
-        var itemIndex = newItems.findIndex(it => it.id==id);
-        newItems[itemIndex].isActive = value;
-        setCartItems(newItems);
-        handleButton();
-    }
-    function handleButton(){
-        var isEnabled=false;
-        cartItems.forEach(item=>{
-            if(item.isActive==true)
-                isEnabled=true;
+
+    handleButton() {
+        let isEnabled = false;
+        this.state.cartItems.forEach(item => {
+            if (item.isActive == true)
+                isEnabled = true;
         });
-        setButtonEnabled(isEnabled);
+        this.setState({ buttonEnabled: isEnabled });
     }
-    function preventKeyDown(event){
+    preventKeyDown(event) {
         event.preventDefault();
     }
-    return(
-       <div className='ingredientBox'>
-           <div className='servingSizeDiv'>
-                <h4 className='whiteFont bigCol'>For how many people you are cooking?</h4>
-                <input type="number" className="servingSizeBox" step="1" min="2" defaultValue={ServingSize} onChange={changeServingSize} onKeyDown={preventKeyDown}></input>
-           </div>
-           <hr className='whiteFont'/>
-           <div className='ingredientChanger'>
-            <h5 className="whiteFont boldFont">Ingredients needed for {ServingSize} people:</h5>
-            <div className="ScrollableContent">
-                { ingredientsNeeded.map(ing => <Ingredient id={ing.ingredientID}  key={ing.ingredientID} cartHandler={shoppingCartHandler} ingredient={ing} servingSize={ServingSize/2}/> )}
-            </div>
-            <div className="totalPrice">
-                <ul className="totalPriceList">
-                    <li><span className="whiteFont boldFont">Total</span> <span className="whiteFont boldFont">{totalPrice} €</span></li>
-                </ul>
-            </div>
-            
-           </div>
-           <div className="d-flex justify-content-center">
-                <Button className="btn btn-success btn-block" onClick={addToCart} type="submit" disabled={!buttonEnabled}>
-                            Order
+
+    render() {
+        return (
+            <div className='ingredientBox'>
+                <div className='servingSizeDiv'>
+                    <h4 className='whiteFont bigCol'>For how many people you are cooking?</h4>
+                    <input type="number" id="servingSizeInput" className="servingSizeBox" step="1" min="2"
+
+                        ref={this.servingSizeInput} defaultValue={this.state.ServingSize} onChange={this.changeServingSize} onKeyDown={this.preventKeyDown}></input>
+                </div>
+                <hr className='whiteFont' />
+                <div className='ingredientChanger'>
+                    <h5 className="whiteFont boldFont">Ingredients needed for {this.state.ServingSize} people:</h5>
+                    <div className="ScrollableContent">
+                        {this.state.cartItems.map(ing => <Ingredient onBrandChange={this.handleBrandChange} onAmountChange={this.handleAmountChange} id={ing.id} key={ing.id} ingredient={ing} />)}
+
+                    </div>
+                    <div className="totalPrice">
+                        <ul className="totalPriceList">
+                            <li><span className="whiteFont boldFont">Total</span> <span className="whiteFont boldFont">{this.state.totalPrice} €</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div className="d-flex justify-content-center">
+                    <Button className="btn btn-success btn-block" onClick={this.addToCart} type="submit" disabled={!this.state.buttonEnabled}>
+                        Order
                     </Button>
-           </div>
-           
-       </div> 
-    )
+                </div>
+
+            </div>
+
+
+
+        );
+    }
 }
 
-export default IngredientCustomizer
+export default IngredientCustomizer;
