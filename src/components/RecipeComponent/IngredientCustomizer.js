@@ -194,7 +194,7 @@ class IngredientCustomizer extends Component {
 
                 <Row className="pb-2">
                     <Col xs={12} md={12}>
-                        {this.state.cartItems.map(ing => <Ingredient onBrandChange={this.handleBrandChange} onAmountChange={this.handleAmountChange} id={ing.id} key={ing.id} ingredient={ing} />)}
+                        {this.state.cartItems.map(ing => <Ingredient onBrandChange={this.handleBrandChange} key={ing.id} onAmountChange={this.handleAmountChange} id={ing.id} ingredient={ing} />)}
 
                     </Col>
                 </Row>
