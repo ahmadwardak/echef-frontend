@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './Recipe.css';
 import '../../App.css';
 import Ingredient from './Ingredient.js'
-import { Container, Button } from 'react-bootstrap';
 import IngredientsService from '../../services/IngredientsService';
+
+import { Container, Row, Col, Form, FormControl, InputGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap';
 
 class IngredientCustomizer extends Component {
 
@@ -165,32 +166,56 @@ class IngredientCustomizer extends Component {
 
     render() {
         return (
-            <div className='ingredientBox'>
-                <div className='servingSizeDiv'>
-                    <h4 className='whiteFont bigCol'>For how many people you are cooking?</h4>
-                    <input type="number" id="servingSizeInput" className="servingSizeBox" step="1" min="2"
 
-                        ref={this.servingSizeInput} defaultValue={this.state.ServingSize} onChange={this.changeServingSize} onKeyDown={this.preventKeyDown}></input>
-                </div>
-                <hr className='whiteFont' />
-                <div className='ingredientChanger'>
-                    <h5 className="whiteFont boldFont">Ingredients needed for {this.state.ServingSize} people:</h5>
-                    <div className="ScrollableContent">
+            <div className="container-fluid pt-2" style={{ backgroundColor: '#393432' }}>
+
+                <Row className="pb-2" style={{ borderBottom: '1px solid white' }}>
+                    <Col xs={12} md={9}>
+                        <h6 className='whiteFont'>For how many people you are cooking?</h6>
+                    </Col>
+                    <Col xs={12} md={3}>
+                        <FormControl
+                            defaultValue={this.state.ServingSize} onChange={this.changeServingSize} onKeyDown={this.preventKeyDown}
+                            ref={this.servingSizeInput}
+                            name="servingSizeInput"
+                            id="servingSizeInput"
+                            type="number"
+                            min="2"
+                            step="1"
+                        />
+                    </Col>
+                </Row>
+
+                <Row className="py-2">
+                    <Col xs={12} md={12}>
+                        <h6 className="whiteFont">Ingredients needed for {this.state.ServingSize} people:</h6>
+                    </Col>
+                </Row>
+
+                <Row className="pb-2">
+                    <Col xs={12} md={12}>
                         {this.state.cartItems.map(ing => <Ingredient onBrandChange={this.handleBrandChange} onAmountChange={this.handleAmountChange} id={ing.id} key={ing.id} ingredient={ing} />)}
 
-                    </div>
-                    <div className="totalPrice">
-                        <ul className="totalPriceList">
-                            <li><span className="whiteFont boldFont">Total</span> <span className="whiteFont boldFont">{this.state.totalPrice} €</span></li>
-                        </ul>
-                    </div>
+                    </Col>
+                </Row>
+                <Row className="pt-2" style={{ borderTop: '1px solid white', borderBottom: '1px solid white' }}>
+                    <Col xs={12} md={10}>
 
-                </div>
-                <div className="d-flex justify-content-center">
-                    <Button className="btn btn-success btn-block" onClick={this.addToCart} type="submit" disabled={!this.state.buttonEnabled}>
-                        Order
+                        <h6 className="whiteFont">Total Price: </h6>
+                    </Col>
+                    <Col xs={12} md={2}>
+
+                        <h6 className="whiteFont">{this.state.totalPrice} €</h6>
+                    </Col>
+                </Row>
+
+                <Row className="py-2">
+                    <Col xs={12} md={12}>
+                        <Button className="btn btn-success btn-block" onClick={this.addToCart} type="submit" disabled={!this.state.buttonEnabled}>
+                            Order
                     </Button>
-                </div>
+                    </Col>
+                </Row>
 
             </div>
 
