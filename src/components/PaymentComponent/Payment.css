@@ -50,6 +50,13 @@ button.StripeCheckout{
     background-color: #393432;
     padding: 20px 20px 40px;
     box-shadow: 0 0 10px;
+
+}
+
+.fullBasket{
+    height:95%;
+    padding:0px;
+
 }
 
 .greenText{
@@ -104,4 +111,16 @@ input[type=number].amountBox::-webkit-inner-spin-button,
 }
 .paymentTitle{
     margin-bottom:20px;
+}
+.disabledSection{
+    pointer-events: none;
+    opacity: 0.4;
+}
+.emptyCart{
+    text-align: center;
+    height:85%;
+    margin:auto;
+    padding:60px 50px;
+    background-color: #fff;
+    border-radius: 10px;
 }

@@ -48,4 +48,14 @@ export default class ShoppingCartService {
             });
         });
     }
+
+    static getShoppingCartRecipeNumber(id){
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${ShoppingCartService.baseURL()}/count/${id}`, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

@@ -65,7 +65,7 @@ const PaymentInfo = ({user,shoppingCart})=>{
     }
 
     return(
-       <div className="scrollable">
+       <div className={shoppingCart ? "" : "disabledSection"}>
                 <div className='shipmentDiv'>
                     <h4 className='paymentTitle'>Shipping Information</h4>
                     <div className="inputGroup">
@@ -108,10 +108,9 @@ const PaymentInfo = ({user,shoppingCart})=>{
                 </div>
                 <div className="paymentButton">
                     <StripeCheckout 
-                    type='button'
                     stripeKey="pk_test_51H3MpiKYLWJclmfxNXVgxmAS7PAxf0tRVed9JiuCFEauDnJx39PuLpxHaYWWXaJfAFxVj87yo5WG7HDhouYx9cWn00Eok2TOdY"
                     token={handleToken}
-                    amount={shoppingCart.totalPrice*100}
+                    amount={shoppingCart?shoppingCart.totalPrice*100:0}
                     currency='EUR'
                     />
                 </div>

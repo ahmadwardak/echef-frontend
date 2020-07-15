@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Nav, NavDropdown, Navbar, Form, FormControl, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faShoppingCart, faCircle } from "@fortawesome/free-solid-svg-icons";
 
 import Logo from '../../Assets/echef-logo.png';
 import CategoryService from '../../services/CategoryService';
@@ -14,6 +14,8 @@ import './Header.css';
 
 import UserService from '../../services/UserService';
 
+import shoppingCartService from '../../services/ShoppingCartService';
+
 
 class Header extends Component {
 
@@ -22,7 +24,8 @@ class Header extends Component {
     this.state = {
       user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined,
       dropDownValue: "All Categories",
-      categories: []
+      categories: [],
+      cartItemsCount:0
     }
     //console.log(this.state.user);
     // this.state.user ? console.log(1) : console.log(0);
@@ -36,6 +39,13 @@ class Header extends Component {
     }).catch((e) => {
       console.error(e);
     });
+    if(this.state.user != undefined){
+      shoppingCartService.getShoppingCartRecipeNumber(this.state.user._id).then((data)=>{
+        this.setState({cartItemsCount:data})
+      }).catch((e) => {
+        console.error(e);
+      });
+    }
   }
   changeValue(text) {
     this.setState({ dropDownValue: text });
@@ -93,8 +103,17 @@ class Header extends Component {
             {this.state.user ?
               <Nav className="marginLeft">
 
-                <Nav.Link href="#cart">
-                  <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+                <Nav.Link href="#checkout">
+                  <div className='shoppingCartGroup'>
+                    <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+                    <span className="numberBack">
+                      <span className="cartCount">
+                          {this.state.cartItemsCount}    
+                      </span>
+                    </span>
+                  </div>
+                  
+                    
                 </Nav.Link>
                 <NavDropdown id="dropdown-menu-align-right" alignRight title={
                   <FontAwesomeIcon style={{ marginRight: '5px' }} icon={faUserCircle} size="lg" />} >
