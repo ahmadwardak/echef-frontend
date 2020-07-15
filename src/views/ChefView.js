@@ -17,8 +17,6 @@ export class ChefView extends React.Component {
         }
         this.createRecipe = this.createRecipe.bind(this);
         this.deleteRecipe = this.deleteRecipe.bind(this);
-
-        console.log(this.props);
     };
     // Normal React component Lifecycle
     componentWillMount() {

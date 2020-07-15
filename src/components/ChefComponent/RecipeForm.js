@@ -13,22 +13,21 @@ class RecipeForm extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.recipe);
         if (this.props.recipe != undefined) {
             this.state = {
-                title: props.recipe.title,
-                description: props.recipe.description,
-                servingSize: props.recipe.servingSize,
-                category: props.recipe.category,
-                difficulty: props.recipe.difficulty,
-                recipeImageURL: props.recipe.recipeImageURL,
-                createdByChef: props.recipe.createdByChef,
+                title: props.recipe.recipe.title,
+                description: props.recipe.recipe.description,
+                servingSize: props.recipe.recipe.servingSize,
+                category: props.recipe.recipe.category,
+                difficulty: props.recipe.recipe.difficulty,
+                recipeImageURL: props.recipe.recipe.recipeImageURL,
+                createdByChef: props.recipe.recipe.createdByChef,
                 ingredients: [{
-                    ingredientID: props.recipe.ingredients.ingredientID,
+                    ingredientID: props.recipe.recipe.ingredients.ingredientID,
                     //ingredientName: props.recipe.ingredients.ingredientName,
-                    ingredientQuantity: props.recipe.ingredients.ingredientQuantity,
+                    ingredientQuantity: props.recipe.recipe.ingredients.ingredientQuantity,
                     //ingredientUnit: props.recipe.ingredients.ingredientUnit,
-                    ingredientBrand: props.recipe.ingredients.ingredientBrand,
+                    ingredientBrand: props.recipe.recipe.ingredients.ingredientBrand,
                 }],
                 loading: true
             };
@@ -36,7 +35,7 @@ class RecipeForm extends React.Component {
             this.state = {
                 title: '',
                 description: '',
-                servingSize: '',
+                servingSize: '2',
                 category: '',
                 difficulty: '',
                 recipeImageURL:'',
@@ -155,8 +154,9 @@ class RecipeForm extends React.Component {
                 <Card>
                     <Form onSubmit={this.handleSubmit}>
                         <Card.Header>
-                        <Form.Row>
-                            <Form.Group as={Col}>
+                        <Row>
+                            <Col xs={12} md={4}>
+                            <Form.Group>
                             <Form.Label>Recipe Title</Form.Label>
                             <Form.Control 
                                 placeholder="recipe name here..." 
@@ -169,13 +169,9 @@ class RecipeForm extends React.Component {
                                 onChange={(e) => { this.handleInputChange(e) }}
                                 errortext="Recipe title is required"/>
                             </Form.Group>
-
-                            <Form.Group as={Col}>
-                            <Form.Label>Select a Category</Form.Label>
-                            <Categories category={this.state.category} onChange={this.handleCategoryChange} />
-                            </Form.Group>
-
-                            <Form.Group as={Col}>
+                            </Col>
+                            <Col xs={12} md={2}>
+                            <Form.Group>
                             <Form.Label>Serving Size</Form.Label>
                             <Form.Control
                                 label="Serving Size"
@@ -183,17 +179,26 @@ class RecipeForm extends React.Component {
                                 type="number"
                                 name="servingSize"
                                 required={false}
+                                min="2"
                                 value={this.state.servingSize}
                                 onChange={(e) => { this.handleInputChange(e) }}
                                 errortext="Serving Size is required"
                                 variant="outlined" />
                             </Form.Group>
-
-                            <Form.Group as={Col}>
+                            </Col>
+                            <Col xs={12} md={3}>
+                            <Form.Group>
+                            <Form.Label>All Categories</Form.Label>
+                            <Categories category={this.state.category} onChange={this.handleCategoryChange} />
+                            </Form.Group>
+                            </Col>
+                            <Col xs={12} md={3}>
+                            <Form.Group>
                             <Form.Label>Cooking difficulty level</Form.Label>
                             <CookingLevels difficulty={this.state.difficulty} onChange={this.handleDifficultyChange}/>
                             </Form.Group>
-                        </Form.Row>
+                            </Col>
+                        </Row>
                         </Card.Header>
                         <Card.Body>
                             <Form.Group>
@@ -215,7 +220,7 @@ class RecipeForm extends React.Component {
                             <Form.Label>Select ingredients</Form.Label>
                                 {this.state.ingredients.map((x, i) => {
                                     return (
-                                        <Card style={style} className="md-block-centered">
+                                        <Card key={i} style={style} className="md-block-centered">
                                             <div className="box">
                                                 <IngredientListRow ingredients={this.state.ingredients} name="ingredientName" onChange={(e) => { this.handleIngredientChange(e, i) }} />
                                                 <div className="btn-box">

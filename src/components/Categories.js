@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CategoryService from '../services/CategoryService'; 
+import {Form, Col} from "react-bootstrap"
  
  const Categories = (props) => {
         const [Data,setData] =useState([])
@@ -12,13 +13,14 @@ import CategoryService from '../services/CategoryService';
             console.error(e);
         });
     },[])
-        return (
-            
+        return ( 
             <div>
-               <select value={props.value} className="categoryDropdown" name="category" onChange={props.onChange} >
-                   <option key={0}>All Categories</option>
-                   { Data.map((dt,i) => <option key={i}>{dt} </option> )}
-                </select>
+                <Form.Group>
+                <Form.Control as="select" value={props.category} className="categoryDropdown" name="category" onChange={props.onChange} >
+                <option >Select a category </option>
+                    { Data.map((dt,i) => <option key={i}>{dt} </option> )}
+                </Form.Control>
+                </Form.Group>
             </div>
         )
     }
