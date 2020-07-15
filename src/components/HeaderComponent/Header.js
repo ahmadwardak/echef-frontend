@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Nav, NavDropdown, Navbar, Form, FormControl, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faShoppingCart, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Logo from '../../Assets/echef-logo.png';
 import CategoryService from '../../services/CategoryService';
@@ -102,7 +102,7 @@ class Header extends Component {
             <Nav className="mr-auto">
               <Nav.Link href="#/">Home</Nav.Link>
               <Nav.Link href="#about">About</Nav.Link>
-              <Nav.Link href="#contact">Contact</Nav.Link>
+              <Nav.Link href="#our-team">Our Team</Nav.Link>
             </Nav>
             <Form inline onSubmit={(e)=>{this.handleSearchSubmit(e)}}>
               <InputGroup>

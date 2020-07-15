@@ -86,8 +86,8 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<ContactView {...props} title={"Contact"} />)
-                    }, path: '/contact'
+                        return (<ContactView {...props} title={"Our Team"} />)
+                    }, path: '/our-team'
                 },
                 {
                     render: (props) => {
