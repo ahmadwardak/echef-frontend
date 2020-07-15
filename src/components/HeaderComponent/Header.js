@@ -25,12 +25,16 @@ class Header extends Component {
       user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined,
       dropDownValue: "All Categories",
       categories: [],
-      cartItemsCount:0
+      cartItemsCount:0,
+      searchValue: "",
     }
     //console.log(this.state.user);
     // this.state.user ? console.log(1) : console.log(0);
 
     this.logout = this.logout.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+
   }
 
   componentWillMount(props) {
@@ -56,6 +60,7 @@ class Header extends Component {
     this.state = {
       user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
     };
+  
 
     window.location = '/#login';
     window.location.reload(false);
@@ -64,6 +69,28 @@ class Header extends Component {
   goToLogin() {
     window.location = '/#login';
   }
+
+  handleSearchSubmit(e){
+    e.preventDefault();
+    console.log("This category?", e.target.innerText)
+    //innerText adds a whitepsace to category?
+    const category = e.target.innerText.trim()
+    const title = this.state.searchValue
+    console.log("Searching these values:", category, title)
+    this.props.history.push({
+      pathname: "/search",
+      title:title,
+      category: category
+    });
+  }
+  // inputField change for search
+  handleChange(e){
+    console.log(e.target.value, "is Changing")
+    this.setState({
+      searchValue: e.target.value
+    })
+  }
+
 
   render() {
     return (
@@ -77,21 +104,24 @@ class Header extends Component {
               <Nav.Link href="#about">About</Nav.Link>
               <Nav.Link href="#contact">Contact</Nav.Link>
             </Nav>
-            <Form inline>
+            <Form inline onSubmit={(e)=>{this.handleSearchSubmit(e)}}>
               <InputGroup>
                 <FormControl
                   placeholder="Search"
                   aria-label="Search"
+                  name="title"
+                  onChange = {(e) => {this.handleChange(e)}}
                   aria-describedby="basic-addon2"
                 />
-
+                  {/* On selecting this actually submits the form */}
                 <DropdownButton
                   as={InputGroup.Append}
                   variant="outline-secondary"
+                  name="dropdownCategories"  
                   title={this.state.dropDownValue}
                   id="input-group-dropdown-2"
                 >
-                  <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>All Categories</Dropdown.Item>
+                  <Dropdown.Item as="button" >All Categories</Dropdown.Item>
                   {this.state.categories.map((category, i) => <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)} key={i}>{category} </Dropdown.Item>)}
                   {/* <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Italian</Dropdown.Item>
                   <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Indian</Dropdown.Item>

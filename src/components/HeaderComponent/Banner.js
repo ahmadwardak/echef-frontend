@@ -11,7 +11,7 @@ class Banner extends Component {
         this.state = {
             backgroundImage: 'url(' + RecipeHeader + ')'
         }
-        console.log(this.props.recipeImageURL);
+        console.log(this.props.recipeImageURL); // This is undefined
     }
 
     componentWillMount(props) {

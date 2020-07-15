@@ -15,7 +15,7 @@ import CategoryService from '../services/CategoryService';
         return (
             
             <div>
-               <select className="categoryDropdown" name="category" onChange={props.onChange} >
+               <select value={props.value} className="categoryDropdown" name="category" onChange={props.onChange} >
                    <option key={0}>All Categories</option>
                    { Data.map((dt,i) => <option key={i}>{dt} </option> )}
                 </select>
