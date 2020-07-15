@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CategoryService from '../services/CategoryService'; 
+import {Form, Col} from "react-bootstrap"
  
  const CookingLevels = (props) => {
         const [Data,setData] =useState([])
@@ -15,10 +16,12 @@ import CategoryService from '../services/CategoryService';
         return (
             
             <div>
-               <select className="difficultyDropdown" name="difficulty" onChange={props.onChange} >
-                   <option key={0}>Select any level</option>
-                   { Data.map((dt,i) => <option key={i}>{dt} </option> )}
-                </select>
+                <Form.Group>
+                <Form.Control as="select" value={props.difficulty} name="level" onChange={props.onChange} >
+                <option >Select a level</option>
+                    { Data.map((dt,i) => <option key={i}>{dt} </option> )}
+                </Form.Control>
+                </Form.Group>
             </div>
         )
     }
