@@ -81,7 +81,7 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<AboutView {...props} title={"About"} />)
+                        return (<AboutView {...props} title={"About our project"} />)
                     }, path: '/about'
                 },
                 {

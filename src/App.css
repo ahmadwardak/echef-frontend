@@ -8,9 +8,10 @@ html {
 }
 
 .content{
-    padding:30px 40px 120px;
+    padding:50px 40px 120px;
     overflow-y: auto;
     background-color: #f6f6f6;
+    height:100%
 
 }
 
@@ -51,4 +52,9 @@ html {
 .InfiniteCarousel button:focus {
     outline: 0;
     border: none;
+}
+
+.section{
+    margin-bottom:100px;
+    margin-top:50px;
 }
