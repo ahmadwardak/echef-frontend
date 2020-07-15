@@ -99,13 +99,13 @@ class RecipeForm extends React.Component {
     }
 
     handleRemoveClick(index) {
-        const list = [...this.state.components];
+        const list = [...this.state.ingredients];
         //    console.log("this is index", index)
         //      console.log("The list", list)
         list.splice(index, 1);
         //        console.log("spliced list", list)
         this.setState({
-            components: list
+            ingredients: list
         })
     };
 
