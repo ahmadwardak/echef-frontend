@@ -13,7 +13,7 @@ export const RecipeList = ({ recipes }) => {
         {recipes.map((rec, i) => {
           return (
             <Col key={i} >
-              <Recipe key={rec._id} Title={rec.title} id={rec._id} difficulty={rec.difficulty} />
+              <Recipe key={rec._id} Title={rec.title} id={rec._id} difficulty={rec.difficulty} imageUrl={rec.recipeImageURL} />
             </Col>
           )
         }

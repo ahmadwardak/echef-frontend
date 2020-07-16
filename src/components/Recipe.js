@@ -1,24 +1,29 @@
-import React from 'react'
-import Logo from './../Assets/echef-logo.png';
+import React from "react";
+import Logo from "./../Assets/echef-logo.png";
 import Card from "react-bootstrap/Card";
-import { Link } from 'react-router-dom';
-const Recipe = ({ Title, Servings, id, difficulty }) => {
- // let recipeAddr = "http://localhost:8000/#/recipe/" + id
+import { Link } from "react-router-dom";
+const Recipe = ({ Title, Servings, id, difficulty, imageUrl }) => {
+  // let recipeAddr = "http://localhost:8000/#/recipe/" + id
+  console.log("imageUrl", imageUrl)
+  let usedImg = Logo
+  if(imageUrl == undefined){
+     usedImg = imageUrl
+  }
   return (
-<div>
-    
-      <Card style={{margin:"4px", minWidth:"5rem"}}className="Recipe" key={id}>
-        <Link to={"recipe/"+id}>
-          <Card.Header style={{whitespace:"nowrap"}}>
-            {Title}
-          </Card.Header>
-          <Card.Img src={Logo}>
-          </Card.Img>
+    <div>
+      <Card
+        style={{ margin: "4px", minWidth: "5rem" }}
+        className="Recipe"
+        key={id}
+      >
+        <Link to={"recipe/" + id}>
+          <Card.Header style={{ whitespace: "nowrap" }}>{Title}</Card.Header>
+          <Card.Img src={usedImg}></Card.Img>
           {difficulty}
-          </Link>
+        </Link>
       </Card>
-</div>
-  )
-}
+    </div>
+  );
+};
 
-export default Recipe
+export default Recipe;

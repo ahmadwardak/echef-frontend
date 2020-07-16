@@ -18,9 +18,9 @@ export class SearchView extends React.Component {
         super(props);
         //console.log("Props lcoation",props.location.aboutProps.category)
         let categories = props.location.category || "All Categories";
-        console.log("Props location", props.location)
+        // console.log("Props location", props.location)
         let inputData = props.location.title || "";
-        console.log("Categories", categories)
+        // console.log("Categories", categories)
         this.state = {
             //data: [{ "title": "If you see this, the DB is not connected", "difficulty": "Easy", "_id": "FooBar", "category": "All Categories", "tags":"" }],
             data: [],
@@ -48,7 +48,7 @@ export class SearchView extends React.Component {
         RecipeService.getAll().then((data) => {
             // Get all viable tags 
             let tempTags = data.reduce((tmp, tag) => {
-                 console.log(" Tag: ", tag.tags, tag._id)
+                //  console.log(" Tag: ", tag.tags, tag._id)
                 if(tag.tags)
                     return (tmp = [...tmp, ...tag.tags]);
                 else{
