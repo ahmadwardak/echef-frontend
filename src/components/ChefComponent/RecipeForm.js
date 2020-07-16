@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Form, Button, Row, Col, Alert } from "react-bootstrap";
+import { Card, Form, ButtonGroup, Button, Row, Col, Alert } from "react-bootstrap";
 import Categories from '../Categories';
 import CookingLevels from '../CookingLevels';
 import '../RecipeComponent/Recipe.css';
@@ -13,43 +13,18 @@ class RecipeForm extends React.Component {
 
     constructor(props) {
         super(props);
-        if (this.props.recipe != undefined) {
-            this.state = {
-                title: props.recipe.recipe.title,
-                description: props.recipe.recipe.description,
-                servingSize: props.recipe.recipe.servingSize,
-                category: props.recipe.recipe.category,
-                difficulty: props.recipe.recipe.difficulty,
-                recipeImageURL: props.recipe.recipe.recipeImageURL,
-                createdByChef: props.recipe.recipe.createdByChef,
-                ingredients: [{
-                    ingredientID: props.recipe.recipe.ingredients.ingredientID,
-                    //ingredientName: props.recipe.ingredients.ingredientName,
-                    ingredientQuantity: props.recipe.recipe.ingredients.ingredientQuantity,
-                    //ingredientUnit: props.recipe.ingredients.ingredientUnit,
-                    ingredientBrand: props.recipe.recipe.ingredients.ingredientBrand,
-                }],
-                loading: true
-            };
-        } else {
-            this.state = {
-                title: '',
-                description: '',
-                servingSize: '2',
-                category: '',
-                difficulty: '',
-                recipeImageURL:'',
-                createdByChef:'',
-                ingredients: [{
-                    ingredientID: '',
-                    //ingredientName: '',
-                    ingredientQuantity: '',
-                    //ingredientUnit: '',
-                    ingredientBrand: ''
-                }],
-                loading: false
-            };
-        }
+        this.state = {
+            title: '',
+            description: '',
+            servingSize: '2',
+            category: '',
+            difficulty: '',
+            recipeImageURL: '',
+            createdByChef: '',
+            ingredients: '',
+            loading: false
+        };
+
 
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
@@ -62,6 +37,27 @@ class RecipeForm extends React.Component {
         this.handleRemoveClick = this.handleRemoveClick.bind(this);
 
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+
+    componentWillMount(props) {
+
+        let recipe = this.props.recipe.recipe;
+        if (recipe != undefined) {
+            console.log(recipe)
+            this.state = {
+                title: recipe.title,
+                description: recipe.description,
+                servingSize: recipe.servingSize,
+                category: recipe.category,
+                difficulty: recipe.difficulty,
+                recipeImageURL: recipe.recipeImageURL,
+                createdByChef: recipe.createdByChef,
+                ingredients: recipe.ingredients,
+                loading: true
+            };
+        }
+        console.log(this.state.ingredients)
     }
 
     handleChangeTitle(event) {
@@ -98,7 +94,8 @@ class RecipeForm extends React.Component {
 
     }
 
-    handleRemoveClick(index) {
+    handleRemoveClick(event, index) {
+        event.preventDefault();
         const list = [...this.state.ingredients];
         //    console.log("this is index", index)
         //      console.log("The list", list)
@@ -154,99 +151,123 @@ class RecipeForm extends React.Component {
                 <Card>
                     <Form onSubmit={this.handleSubmit}>
                         <Card.Header>
-                        <Row>
-                            <Col xs={12} md={4}>
-                            <Form.Group>
-                            <Form.Label>Recipe Title</Form.Label>
-                            <Form.Control 
-                                placeholder="recipe name here..." 
-                                label="Recipe Title"
-                                id="RecipeTitle"
-                                type="text"
-                                name="title"
-                                required={true}
-                                value={this.state.title}
-                                onChange={(e) => { this.handleInputChange(e) }}
-                                errortext="Recipe title is required"/>
-                            </Form.Group>
-                            </Col>
-                            <Col xs={12} md={2}>
-                            <Form.Group>
-                            <Form.Label>Serving Size</Form.Label>
-                            <Form.Control
-                                label="Serving Size"
-                                id="ServingSize"
-                                type="number"
-                                name="servingSize"
-                                required={false}
-                                min="2"
-                                value={this.state.servingSize}
-                                onChange={(e) => { this.handleInputChange(e) }}
-                                errortext="Serving Size is required"
-                                variant="outlined" />
-                            </Form.Group>
-                            </Col>
-                            <Col xs={12} md={3}>
-                            <Form.Group>
-                            <Form.Label>All Categories</Form.Label>
-                            <Categories category={this.state.category} onChange={this.handleCategoryChange} />
-                            </Form.Group>
-                            </Col>
-                            <Col xs={12} md={3}>
-                            <Form.Group>
-                            <Form.Label>Cooking difficulty level</Form.Label>
-                            <CookingLevels difficulty={this.state.difficulty} onChange={this.handleDifficultyChange}/>
-                            </Form.Group>
-                            </Col>
-                        </Row>
+                            <Row>
+                                <Col xs={12} md={4}>
+                                    <Form.Group>
+                                        <Form.Label>Recipe Title</Form.Label>
+                                        <Form.Control
+                                            placeholder="recipe name here..."
+                                            label="Recipe Title"
+                                            id="RecipeTitle"
+                                            type="text"
+                                            name="title"
+                                            required={true}
+                                            value={this.state.title}
+                                            onChange={(e) => { this.handleInputChange(e) }}
+                                            errortext="Recipe title is required" />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} md={2}>
+                                    <Form.Group>
+                                        <Form.Label>Serving Size</Form.Label>
+                                        <Form.Control
+                                            label="Serving Size"
+                                            id="ServingSize"
+                                            type="number"
+                                            name="servingSize"
+                                            required={false}
+                                            min="2"
+                                            value={this.state.servingSize}
+                                            onChange={(e) => { this.handleInputChange(e) }}
+                                            errortext="Serving Size is required"
+                                            variant="outlined" />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} md={3}>
+                                    <Form.Group>
+                                        <Form.Label>All Categories</Form.Label>
+                                        <Categories category={this.state.category} onChange={this.handleCategoryChange} />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12} md={3}>
+                                    <Form.Group>
+                                        <Form.Label>Cooking difficulty level</Form.Label>
+                                        <CookingLevels difficulty={this.state.difficulty} onChange={this.handleDifficultyChange} />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={12} md={8}>
+                                    <Form.Group>
+                                        <Form.Label>Recipe Description</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            placeholder="recipe description goes here..."
+                                            label="Recipe Description"
+                                            id="RecipeDescription"
+                                            type="text"
+                                            rows="6"
+                                            name="description"
+                                            required={true}
+                                            value={this.state.description}
+                                            onChange={(e) => { this.handleInputChange(e) }}
+                                            errortext="Recipe title is required" />
+                                    </Form.Group>
+                                </Col>
+
+                                <Col xs={12} md={4}>
+                                    <Form.Group>
+                                        <Form.File
+                                            className="position-relative"
+                                            accept=".jpg,.gif,.png,.jpeg"
+                                            ref={this.recipeImageURL}
+                                            name="recipeImageURL"
+                                            label="Add photo"
+                                            id="recipeImageURL"
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
                         </Card.Header>
                         <Card.Body>
-                            <Form.Group>
-                            <Form.Label>Recipe Description</Form.Label>
-                            <Form.Control
-                                as="textarea"
-                                placeholder="recipe description goes here..." 
-                                label="Recipe Description"
-                                id="RecipeDescription"
-                                type="text"
-                                name="description"
-                                required={true}
-                                value={this.state.description}
-                                onChange={(e) => { this.handleInputChange(e) }}
-                                errortext="Recipe title is required"/>
-                            </Form.Group>
-                            <Form.Row>
-                            <Form.Group as={Col}>
-                            <Form.Label>Select ingredients</Form.Label>
-                                {this.state.ingredients.map((x, i) => {
-                                    return (
-                                        <Card key={i} style={style} className="md-block-centered">
-                                            <div className="box">
-                                                <IngredientListRow ingredients={this.state.ingredients} name="ingredientName" onChange={(e) => { this.handleIngredientChange(e, i) }} />
-                                                <div className="btn-box">
-                                                    {this.state.ingredients.length !== 1 && <button onClick={(e) => { this.handleRemoveClick(i) }}>-</button>}
-                                                    {this.state.ingredients.length - 1 === i && <button onClick={this.handleAddClick}>+</button>}
-                                                </div>
-                                            </div>
-                                        </Card>
-                                    );
-                                })}
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                            <Form.File
-                                className="position-relative"
-                                accept=".jpg,.gif,.png,.jpeg"
-                                ref={this.recipeImageURL}
-                                name="recipeImageURL"
-                                label="Add photo"
-                                id="recipeImageURL"
-                            />
-                            </Form.Group>
-                            </Form.Row>
+                            <Row>
+
+                                <Col xs={12} md={12}>
+                                    <Form.Group>
+                                        <Row>
+                                            <Col xs={12} md={12}>
+                                                <Form.Label>Select ingredients</Form.Label>
+                                            </Col>
+                                        </Row>
+                                        {this.state.ingredients.map((ing, i) => {
+                                            return (
+                                                <Card key={i} className="mb-1" style={{ backgroundColor: i % 2 ? '#d3e9d3' : '#eee' }}>
+                                                    <Row className="p-2">
+                                                        <Col className="pr-0" xs={2} md={2}>
+                                                            <ButtonGroup className="mr-2">
+                                                                {this.state.ingredients.length !== 1 && <Button onClick={(e) => { this.handleRemoveClick(e, i) }} variant="danger">-</Button>}
+                                                                {this.state.ingredients.length - 1 === i && <Button onClick={this.handleAddClick} variant="success">+</Button>}
+                                                            </ButtonGroup>
+                                                        </Col>
+
+                                                        <Col className="pl-0" xs={10} md={10}>
+                                                            <IngredientListRow ingredient={ing} onChange={(e) => { this.handleIngredientChange(e, i) }} />
+                                                        </Col>
+                                                    </Row>
+                                                </Card>
+                                            );
+                                        })}
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={12} md={12}>
+                                    <Button variant="success" id="submit" type="submit"
+                                        disabled={this.state.title == undefined || this.state.title == '' || this.state.category == undefined || this.state.category == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}
+                                    >Publish</Button>
+                                </Col>
+                            </Row>
                         </Card.Body>
-                        <Button variant="success" id="submit" type="submit"
-                                disabled={this.state.title == undefined || this.state.title == '' || this.state.category == undefined || this.state.category == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}
-                                >Publish</Button>
                     </Form>
                 </Card>
             </div>
