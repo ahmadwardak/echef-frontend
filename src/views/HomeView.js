@@ -5,12 +5,12 @@ import InfiniteCarousel from 'react-leaf-carousel';
 import CategoryService from "../services/CategoryService";
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Banner from '../components/HeaderComponent/Banner';
 import ReactCountryFlag from "react-country-flag";
 import '../App.css';
 
-let countryCodes = {Italian:"IT", Indian:"IN", Spanish:"ES", Mexican:"MX", American:"US", German:"DE", Iranian:"IR", Brazilian:"BR", Japanese:"JP", Chinese:"CN"};
+let countryCodes = { Italian: "IT", Indian: "IN", Spanish: "ES", Mexican: "MX", American: "US", German: "DE", Iranian: "IR", Brazilian: "BR", Japanese: "JP", Chinese: "CN" };
 
 export class HomeView extends React.Component {
 
@@ -107,18 +107,25 @@ export class HomeView extends React.Component {
                                         scrollOnDevice={false}
                                     >
                                         {cats.map((cat, i) =>
-                                            <div key={i}>
-                                                <Link to={{ pathname: '/search',  category: cat  }}>
-                                                <ReactCountryFlag
-                                                    className="emojiFlag"
-                                                    countryCode={countryCodes[cat]}
-                                                    style={{
-                                                        fontSize: '5em',
-                                                        lineHeight: '2em',
-                                                        borderRadius: '50%'
-                                                    }}
-                                                />
-                                                <h3>{cat}</h3>
+                                            <div key={i} className="px-4" >
+                                                <Link style={{ fontSize: '90%' }} to={{ pathname: '/search', category: cat }}>
+                                                    <ReactCountryFlag
+                                                        svg
+                                                        countryCode={countryCodes[cat]}
+                                                        style={{
+                                                            fontSize: '5em',
+                                                            lineHeight: '2em',
+                                                            borderRadius: '1em',
+                                                            height: '100%',
+                                                            width: '100%',
+                                                            objectFit: 'contain',
+                                                            border: '1px solid #ccc',
+
+                                                        }}
+                                                        title="US"
+
+                                                    />
+                                                    <h3>{cat}</h3>
                                                 </Link>
                                             </div>
 
