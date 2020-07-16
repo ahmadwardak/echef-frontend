@@ -22,15 +22,15 @@ export class HomeView extends React.Component {
             categories: [],
             newRecipes: []
         }
-
-        //console.log(this.props);
-    }
-
-
-    componentWillMount() {
-        this.setState({
-            loading: true
+        CategoryService.getCategories().then((data) => {
+            this.setState({
+                categories: data,
+                loading: false
+            });
+        }).catch((e) => {
+            console.error(e);
         });
+
         RecipeService.getNew().then((data) => {
             this.setState({
                 newRecipes: [...data],
@@ -41,22 +41,6 @@ export class HomeView extends React.Component {
             console.error(e)
         })
     }
-    componentDidMount() {
-
-        CategoryService.getCategories().then((data) => {
-            this.setState({
-                categories: data,
-                loading: false
-            }
-            )
-            // console.log("Got this", data)
-            //console.log("Current array:", Data);
-        }).catch((e) => {
-            console.error(e);
-        });
-
-
-    };
 
     //Home View
     render() {
