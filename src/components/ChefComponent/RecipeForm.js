@@ -5,12 +5,12 @@ import CookingLevels from '../CookingLevels';
 import '../RecipeComponent/Recipe.css';
 import IngredientListRow from './IngredientListRow';
 import UserService from '../../services/UserService';
+import IngredientsService from '../../services/IngredientsService';
 
 const style = { maxWidth: 1500 };
 
 
 class RecipeForm extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -41,9 +41,9 @@ class RecipeForm extends React.Component {
 
 
     componentWillMount(props) {
-
-        let recipe = this.props.recipe.recipe;
-        if (recipe != undefined) {
+        console.log(this.props.recipe)
+        if (this.props.recipe != undefined) {
+            let recipe = this.props.recipe.recipe;
             console.log(recipe)
             this.state = {
                 title: recipe.title,
@@ -57,7 +57,14 @@ class RecipeForm extends React.Component {
                 loading: true
             };
         }
-        console.log(this.state.ingredients)
+        // A blank ingredient for Ingredient Map (ingredient list row component)
+        let ing = [{
+            ingredientID: "",
+            ingredientQuantity: '',
+            ingredientBrand: ''
+        }]
+        this.setState({ ingredients: [ing] });
+
     }
 
     handleChangeTitle(event) {
