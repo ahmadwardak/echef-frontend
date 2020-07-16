@@ -15,8 +15,9 @@ import { SearchView } from "./views/SearchView";
 import { RecipeView } from "./views/RecipeView";
 import { RecipeReviewFormView } from './views/RecipeReviewFormView';
 import { CheckoutView } from './views/CheckoutView';
-import Footer from './components/FooterComponent/Footer.js';
 import Header from './views/HeaderView';
+import Footer from './components/FooterComponent/Footer.js';
+import { NotFoundView } from './views/NotFoundView.js';
 import './App.css';
 import UserService from './services/UserService';
 
@@ -98,6 +99,10 @@ export default class App extends React.Component {
                     render: (props) => {
                         return (<CheckoutView {...props} title={"Purchase"} />)
                     }, path: '/checkout'
+                }, {
+                    render: (props) => {
+                        return (<NotFoundView {...props} title={"Not Found"} />)
+                    }, path: '/404'
                 }
             ]
         };
@@ -118,6 +123,7 @@ export default class App extends React.Component {
                         <Header />
                         <Switch>
                             {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
+                            <Redirect from='*' to="/404" />
                         </Switch>
 
                     </div>
