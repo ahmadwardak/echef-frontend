@@ -6,12 +6,11 @@ import CategoryService from "../services/CategoryService";
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
 import {Link} from "react-router-dom";
-import Logo from "../Assets/echef-logo.png";
 import Banner from '../components/HeaderComponent/Banner';
-
+import ReactCountryFlag from "react-country-flag";
 import '../App.css';
 
-
+let countryCodes = {Italian:"IT", Indian:"IN", Spanish:"ES", Mexican:"MX", American:"US", German:"DE", Iranian:"IR", Brazilian:"BR", Japanese:"JP", Chinese:"CN"};
 
 export class HomeView extends React.Component {
 
@@ -71,7 +70,6 @@ export class HomeView extends React.Component {
             <div>
                 <Banner pageTitle={this.props.title} />
                 <div className="content">
-                    <h1>Home Page</h1>
                     <Container fluid>
                         <Row>
                             <Col>
@@ -111,9 +109,14 @@ export class HomeView extends React.Component {
                                         {cats.map((cat, i) =>
                                             <div key={i}>
                                                 <Link to={{ pathname: '/search',  category: cat  }}>
-                                                <img
-                                                    alt=""
-                                                    src={Logo}
+                                                <ReactCountryFlag
+                                                    className="emojiFlag"
+                                                    countryCode={countryCodes[cat]}
+                                                    style={{
+                                                        fontSize: '5em',
+                                                        lineHeight: '2em',
+                                                        borderRadius: '50%'
+                                                    }}
                                                 />
                                                 <h3>{cat}</h3>
                                                 </Link>
