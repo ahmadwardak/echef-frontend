@@ -20,7 +20,6 @@ class IngredientListRow extends React.Component {
     }
 
     componentWillMount(props) {
-        console.log(props);
         IngredientsService.getAll().then((data) => {
             this.setState({ Ingredients: data });
             //console.log(data);
@@ -28,13 +27,17 @@ class IngredientListRow extends React.Component {
 
             //this.setState({ IngredientBrands: data.ingredientBrands })
 
-            let ingr = this.state.Ingredients.find(dt => dt._id == this.props.ingredient.ingredientID)
-            //console.log("ingr",ingr)
-            this.setState({ IngredientBrands: ingr.ingredientBrands })
-            this.setState({ IngredientUnit: ingr.ingredientUnit })
+            console.log(this.props.ingredient.ingredientID);
+            if (this.props.ingredient.ingredientID !== undefined) {
+                let ingr = this.state.Ingredients.find(dt => dt._id == this.props.ingredient.ingredientID)
+                //console.log("ingr",ingr)
+                this.setState({ IngredientBrands: ingr.ingredientBrands })
+                this.setState({ IngredientUnit: ingr.ingredientUnit })
+            }
         }).catch((e) => {
             console.error(e);
         });
+
     }
 
 
