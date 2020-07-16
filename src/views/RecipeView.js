@@ -122,6 +122,11 @@ export class RecipeView extends React.Component {
         });
     }
 
+    goToLogin() {
+        window.location = '/#login';
+        window.location.reload(false);
+    }
+
     render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
@@ -163,10 +168,17 @@ export class RecipeView extends React.Component {
                         <Row>
                             <Col xs={12} md={12}>
                                 <div className='row mb-2'>
-                                    <Button variant="primary" type="button"
-                                        onClick={() => this.goToAddRecipeReview()}>
-                                        Write a review
+                                    {UserService.getCurrentUser()._id ?
+
+                                        <Button variant="primary" type="button"
+                                            onClick={() => this.goToAddRecipeReview()}>
+                                            Write a review
+                                    </Button> :
+
+                                        <Button className="btn btn-warning" onClick={this.goToLogin} type="button">
+                                            Sign In to write a Review
                                     </Button>
+                                    }
                                 </div>
                                 <RecipeReviews recipeId={this.state.recipe._id} ></RecipeReviews>
                             </Col>

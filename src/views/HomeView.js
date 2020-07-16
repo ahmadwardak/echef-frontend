@@ -61,10 +61,17 @@ export class HomeView extends React.Component {
                                     <InfiniteCarousel
                                         breakpoints={[
                                             {
-                                                breakpoint: 500,
+                                                breakpoint: 550,
                                                 settings: {
                                                     slidesToShow: 2,
                                                     slidesToScroll: 2,
+                                                },
+                                            },
+                                            {
+                                                breakpoint: 580,
+                                                settings: {
+                                                    slidesToShow: 3,
+                                                    slidesToScroll: 3,
                                                 },
                                             },
                                             {
@@ -85,13 +92,14 @@ export class HomeView extends React.Component {
                                         dots={false}
                                         showSides={true}
                                         sidesOpacity={0.5}
+                                        slideSpacing={0}
                                         sideSize={0.1}
                                         slidesToScroll={4}
                                         slidesToShow={6}
                                         scrollOnDevice={false}
                                     >
                                         {cats.map((cat, i) =>
-                                            <div key={i} className="px-4" >
+                                            <div key={i} className="px-0" >
                                                 <Link style={{ fontSize: '90%' }} to={{ pathname: '/search', category: cat }}>
                                                     <ReactCountryFlag
                                                         svg
@@ -99,9 +107,9 @@ export class HomeView extends React.Component {
                                                         style={{
                                                             fontSize: '5em',
                                                             lineHeight: '2em',
-                                                            borderRadius: '1em',
-                                                            height: '100%',
-                                                            width: '100%',
+                                                            borderRadius: '0.3em',
+                                                            height: '70%',
+                                                            width: '70%',
                                                             objectFit: 'contain',
                                                             border: '1px solid #ccc',
 

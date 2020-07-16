@@ -63,7 +63,7 @@ class RecipeForm extends React.Component {
             ingredientQuantity: '',
             ingredientBrand: ''
         }]
-        this.setState({ ingredients: [ing] });
+        this.setState({ ingredients: ing });
 
     }
 
@@ -93,7 +93,7 @@ class RecipeForm extends React.Component {
         //console.log("Received event name", name, "value", value, "index", index)
         let ingrList = this.state.ingredients
         ingrList[index][name] = value
-        //console.log("ingrList", ingrList)
+        console.log("ingrList.....", ingrList)
         this.setState({
             ingredients: ingrList
             //ingredients.ingredientUnit:

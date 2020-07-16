@@ -25,7 +25,7 @@ class Header extends Component {
       user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined,
       dropDownValue: "All Categories",
       categories: [],
-      cartItemsCount:0,
+      cartItemsCount: 0,
       searchValue: "",
     }
     //console.log(this.state.user);
@@ -43,9 +43,9 @@ class Header extends Component {
     }).catch((e) => {
       console.error(e);
     });
-    if(this.state.user != undefined){
-      shoppingCartService.getShoppingCartRecipeNumber(this.state.user._id).then((data)=>{
-        this.setState({cartItemsCount:data})
+    if (this.state.user != undefined) {
+      shoppingCartService.getShoppingCartRecipeNumber(this.state.user._id).then((data) => {
+        this.setState({ cartItemsCount: data })
       }).catch((e) => {
         console.error(e);
       });
@@ -60,7 +60,7 @@ class Header extends Component {
     this.state = {
       user: UserService.isAuthenticated() ? UserService.getCurrentUser() : undefined
     };
-  
+
 
     window.location = '/#login';
     window.location.reload(false);
@@ -68,9 +68,10 @@ class Header extends Component {
   }
   goToLogin() {
     window.location = '/#login';
+    window.location.reload(false);
   }
 
-  handleSearchSubmit(e){
+  handleSearchSubmit(e) {
     e.preventDefault();
     console.log("This category?", e.target.innerText)
     //innerText adds a whitepsace to category?
@@ -79,12 +80,12 @@ class Header extends Component {
     console.log("Searching these values:", category, title)
     this.props.history.push({
       pathname: "/search",
-      title:title,
+      title: title,
       category: category
     });
   }
   // inputField change for search
-  handleChange(e){
+  handleChange(e) {
     console.log(e.target.value, "is Changing")
     this.setState({
       searchValue: e.target.value
@@ -104,26 +105,26 @@ class Header extends Component {
               <Nav.Link href="#about">About</Nav.Link>
               <Nav.Link href="#our-team">Our Team</Nav.Link>
             </Nav>
-            <Form inline onSubmit={(e)=>{this.handleSearchSubmit(e)}}>
+            <Form inline onSubmit={(e) => { this.handleSearchSubmit(e) }}>
               <InputGroup>
                 <FormControl
                   placeholder="Search"
                   aria-label="Search"
                   name="title"
-                  onChange = {(e) => {this.handleChange(e)}}
-                  onSubmit={(e)=>{this.handleSearchSubmit(e)}}
+                  onChange={(e) => { this.handleChange(e) }}
+                  onSubmit={(e) => { this.handleSearchSubmit(e) }}
                   aria-describedby="basic-addon2"
                 />
-                  {/* On selecting this actually submits the form */}
+                {/* On selecting this actually submits the form */}
                 <DropdownButton
                   as={InputGroup.Append}
                   variant="outline-secondary"
-                  name="dropdownCategories"  
+                  name="dropdownCategories"
                   title={this.state.dropDownValue}
                   id="input-group-dropdown-2"
                 >
-                  <Dropdown.Item onClick={(e)=>{e.preventDefault()}} >All Categories</Dropdown.Item>
-                  {this.state.categories.map((category, i) => <Dropdown.Item  onClick={(e) => {this.changeValue(e.target.textContent); }} key={i}>{category} </Dropdown.Item>)}
+                  <Dropdown.Item onClick={(e) => { e.preventDefault() }} >All Categories</Dropdown.Item>
+                  {this.state.categories.map((category, i) => <Dropdown.Item onClick={(e) => { this.changeValue(e.target.textContent); }} key={i}>{category} </Dropdown.Item>)}
                   {/* <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Italian</Dropdown.Item>
                   <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Indian</Dropdown.Item>
                   <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>German</Dropdown.Item> */}
@@ -139,12 +140,12 @@ class Header extends Component {
                     <FontAwesomeIcon icon={faShoppingCart} size="lg" />
                     <span className="numberBack">
                       <span className="cartCount">
-                          {this.state.cartItemsCount}    
+                        {this.state.cartItemsCount}
                       </span>
                     </span>
                   </div>
-                  
-                    
+
+
                 </Nav.Link>
                 <NavDropdown id="dropdown-menu-align-right" alignRight title={
                   <FontAwesomeIcon style={{ marginRight: '5px' }} icon={faUserCircle} size="lg" />} >

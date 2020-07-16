@@ -5,6 +5,8 @@ import Ingredient from './Ingredient.js'
 import IngredientsService from '../../services/IngredientsService';
 
 import { Container, Row, Col, Form, FormControl, InputGroup, Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import UserService from '../../services/UserService';
+import { CenterFocusStrongFontIcon } from 'react-md';
 
 class IngredientCustomizer extends Component {
 
@@ -164,6 +166,10 @@ class IngredientCustomizer extends Component {
         event.preventDefault();
     }
 
+    goToLogin() {
+        window.location = '/#login';
+        window.location.reload(false);
+    }
     render() {
         return (
 
@@ -211,9 +217,15 @@ class IngredientCustomizer extends Component {
 
                 <Row className="py-2">
                     <Col xs={12} md={12}>
-                        <Button className="btn btn-success btn-block" onClick={this.addToCart} type="submit" disabled={!this.state.buttonEnabled}>
-                            Order
+                        {UserService.getCurrentUser()._id ?
+                            <Button className="btn btn-success btn-block" onClick={this.addToCart} type="submit" disabled={!this.state.buttonEnabled}>
+                                Order
+                    </Button> :
+
+                            <Button className="btn btn-warning btn-block" onClick={this.goToLogin} type="button">
+                                Sign In to place an Order
                     </Button>
+                        }
                     </Col>
                 </Row>
 

@@ -28,7 +28,7 @@ class IngredientListRow extends React.Component {
             //this.setState({ IngredientBrands: data.ingredientBrands })
 
             console.log(this.props.ingredient.ingredientID);
-            if (this.props.ingredient.ingredientID !== undefined) {
+            if (this.props.ingredient.ingredientID !== "") {
                 let ingr = this.state.Ingredients.find(dt => dt._id == this.props.ingredient.ingredientID)
                 //console.log("ingr",ingr)
                 this.setState({ IngredientBrands: ingr.ingredientBrands })
