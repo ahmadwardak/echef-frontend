@@ -111,6 +111,7 @@ class Header extends Component {
                   aria-label="Search"
                   name="title"
                   onChange = {(e) => {this.handleChange(e)}}
+                  onSubmit={(e)=>{this.handleSearchSubmit(e)}}
                   aria-describedby="basic-addon2"
                 />
                   {/* On selecting this actually submits the form */}
@@ -121,8 +122,8 @@ class Header extends Component {
                   title={this.state.dropDownValue}
                   id="input-group-dropdown-2"
                 >
-                  <Dropdown.Item as="button" >All Categories</Dropdown.Item>
-                  {this.state.categories.map((category, i) => <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)} key={i}>{category} </Dropdown.Item>)}
+                  <Dropdown.Item onClick={(e)=>{e.preventDefault()}} >All Categories</Dropdown.Item>
+                  {this.state.categories.map((category, i) => <Dropdown.Item  onClick={(e) => {this.changeValue(e.target.textContent); }} key={i}>{category} </Dropdown.Item>)}
                   {/* <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Italian</Dropdown.Item>
                   <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>Indian</Dropdown.Item>
                   <Dropdown.Item as="button" onClick={(e) => this.changeValue(e.target.textContent)}>German</Dropdown.Item> */}

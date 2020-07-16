@@ -6,7 +6,7 @@ const Recipe = ({ Title, Servings, id, difficulty, imageUrl }) => {
   // let recipeAddr = "http://localhost:8000/#/recipe/" + id
   console.log("imageUrl", imageUrl)
   let usedImg = Logo
-  if(imageUrl == undefined){
+  if(imageUrl !== undefined && imageUrl !== ""){
      usedImg = imageUrl
   }
   return (
