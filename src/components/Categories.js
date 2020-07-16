@@ -3,6 +3,7 @@ import CategoryService from '../services/CategoryService';
 import {Form, Col} from "react-bootstrap"
  
  const Categories = (props) => {
+        const val = props.value || props.category;
         const [Data,setData] =useState([])
         console.log("props.category",props)
         useEffect(() => {
@@ -16,7 +17,7 @@ import {Form, Col} from "react-bootstrap"
         return ( 
             <div>
                 <Form.Group>
-                <Form.Control as="select" value={props.value} className="categoryDropdown" name="category" onChange={props.onChange} >
+                <Form.Control as="select" value={val} className="categoryDropdown" name="category" onChange={props.onChange} >
                 <option >All Categories</option>
                     { Data.map((dt,i) => <option key={i}>{dt} </option> )}
                 </Form.Control>
