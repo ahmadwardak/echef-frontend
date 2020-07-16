@@ -56,9 +56,9 @@ class IngredientCustomizer extends Component {
         this.setState({ ServingSize: newServingSize });
         let newItems = [];
         this.state.cartItems.forEach(element => {
-            var newPrice = (element.basePrice * newServingSize) / this.props.servingSize;
-            newPrice = Math.round(newPrice * 100) / 100;
             var newAmount = (newServingSize * element.baseAmount) / this.props.servingSize;
+            var newPrice = element.basePrice * newAmount;
+            newPrice = Math.round(newPrice * 100) / 100;
             element.price = newPrice;
             element.amount = newAmount;
             newItems.push(element);
@@ -102,7 +102,7 @@ class IngredientCustomizer extends Component {
         //console.log(newItems);
         let itemIndex = newItems.findIndex(it => it.id == ingredientID);
         newItems[itemIndex].amount = parseInt(value);
-        newItems[itemIndex].price = newItems[itemIndex].basePrice / newItems[itemIndex].baseAmount * newItems[itemIndex].amount;
+        newItems[itemIndex].price = newItems[itemIndex].basePrice * newItems[itemIndex].amount;
 
         this.setState({ cartItems: newItems });
         console.log('amount handler', newItems);
@@ -122,7 +122,7 @@ class IngredientCustomizer extends Component {
                 newItems[itemIndex].basePrice = basePrice;
                 newItems[itemIndex].brand = value;
                 newItems[itemIndex].isActive = true;
-                newItems[itemIndex].price = (basePrice / this.servingSizeInput.current.value) * newItems[itemIndex].amount;
+                newItems[itemIndex].price = basePrice  * newItems[itemIndex].amount;
 
                 this.setState({ isActive: true });
                 this.setState({ cartItems: newItems });

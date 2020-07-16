@@ -1,6 +1,7 @@
 "use strict";
 
 import HttpService from './HttpService';
+import { ShoppingCartFontIcon } from 'react-md';
 
 export default class ShoppingCartService {
 
@@ -58,4 +59,5 @@ export default class ShoppingCartService {
             });
         });
     }
+
 }

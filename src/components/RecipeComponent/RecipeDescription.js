@@ -6,8 +6,6 @@ const RecipeDescription = ({recipeTitle, recipeDescription})=>{
        <div className='recipeDescriptionBack'>
            <h1>Recipe</h1>
            <p>{recipeDescription}</p>
-           <p>{recipeDescription}</p>
-           <p>{recipeDescription}</p>
        </div> 
     )
 }
