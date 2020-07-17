@@ -1,29 +1,49 @@
-import React, { useState } from "react";
-import Logo from "./../Assets/echef-logo.png";
-import Card from "react-bootstrap/Card";
+import React from "react";
+import { Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import RecipeReviewService from '../services/RecipeReviewService';
-const Recipe = ({ Title, Servings, id, difficulty, imageUrl }) => {
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComments, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import Rating from 'react-rating';
+const Recipe = ({ Title, Servings, id, difficulty, imageUrl, overallRating }) => {
+  // let recipeAddr = "http://localhost:8000/#/recipe/" + id
   console.log("imageUrl", imageUrl)
-  let usedImg = Logo
-  if(  imageUrl  && imageUrl !== "" && imageUrl !== "undefined"){
-     usedImg = imageUrl
+  let usedImg;
+  if (imageUrl !== undefined && imageUrl !== "") {
+    usedImg = imageUrl
   }
   return (
-    <div>
-      <Card
-        style={{ margin: "4px", minWidth: "5rem" }}
-        className="Recipe"
-        key={id}
-      >
-        <Link to={"recipe/" + id}>
-          <Card.Header style={{ whitespace: "nowrap" }}>{Title}</Card.Header>
-          <Card.Img src={usedImg}></Card.Img>
-          <Card.Footer>Difficulty level: {difficulty} </Card.Footer>
-        </Link>
-      </Card>
-    </div>
+    <Card key={id} className="bg-white mb-3 font-weight-light">
+      <Link style={{ textDecoration: 'none' }} className="text-dark" to={"recipe/" + id}>
+        <Card.Header className="bg-white p-2">
+          <Row>
+            <Col xs={12} md={12}>{Title}
+            </Col>
+          </Row>
+        </Card.Header>
+        <Card.Body className="p-0 m-0">
+
+          <Card.Img style={{ maxWidth: '100%' }} src={usedImg}></Card.Img>
+        </Card.Body>
+        <Card.Footer className="bg-white py-2 px-2" >
+          <div className="p-0 mb-2" style={{ fontSize: '90%' }}>
+            <span style={{ float: 'left' }}>{difficulty}</span>
+
+            <span style={{ float: 'right' }}>
+              <Rating style={{ color: 'green' }}
+                emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
+                fullSymbol={<FontAwesomeIcon icon={faStar} />}
+                fractions={2}
+                initialRating={overallRating}
+                readonly
+              />
+            </span>
+
+          </div>
+          <div style={{ clear: 'both' }}></div>
+        </Card.Footer>
+      </Link>
+    </Card>
   );
 };
 
