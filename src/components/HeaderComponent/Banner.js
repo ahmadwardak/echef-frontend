@@ -37,7 +37,7 @@ class Banner extends Component {
                     :
                     <div className='header' style={{ backgroundImage: this.state.backgroundImage, backgroundSize: 'cover', height: '300px' }}>
                         <div className='blackTransparency'>
-                            <h1 className='pageTitle'>{this.props.pageTitle}</h1>
+                            <h1 className='pageTitle font-weight-light'>{this.props.pageTitle}</h1>
                         </div>
                     </div>
                 }</div>

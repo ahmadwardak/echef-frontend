@@ -22,7 +22,7 @@ export default class RecipeService {
 
     static getNew() {
         return new Promise((resolve, reject) => {
-            HttpService.get(`${this.baseURL()}/new/4`, function (data) {
+            HttpService.get(`${this.baseURL()}/new/10`, function (data) {
                 resolve(data);
                 console.log("Received", data)
             }, function (textStatus) {

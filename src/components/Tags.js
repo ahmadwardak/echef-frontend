@@ -1,5 +1,5 @@
 "use strict";
-
+/*Tags have not been used */
 import React from 'react';
 import Tag from "./Tag";
 
