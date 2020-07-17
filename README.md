@@ -9,13 +9,14 @@ Both for the front end and the back end, check:
 
 ## Getting Started
 
-You need git to clone the our repository.
+You need git to clone our frontend and [backend](https://github.com/ahmadwardak/echef-backend.git) repository.
 
 Do not forget to install and run the backend including MongoDB first.
 
+For the frontend, clone our repository here.
 ```
-git clone 
-cd eChef/frontend/
+git clone https://github.com/ahmadwardak/echef-frontend.git
+cd echef-frontend/
 ```
 
 ### Install Dependencies
