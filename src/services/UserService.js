@@ -32,6 +32,17 @@ export default class UserService {
         });
     }
 
+
+    static update(user) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(`${UserService.baseURL()}/update`, user, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
     static login(username, password) {
 
         return new Promise((resolve, reject) => {

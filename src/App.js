@@ -7,7 +7,7 @@ import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
 import { AboutView } from "./views/AboutView";
 import { ContactView } from "./views/ContactView";
-import { AccountView } from "./views/AccountView";
+import { AccountDetailView } from "./views/AccountDetailView";
 import { ChefView } from "./views/ChefView";
 import { RecipeFormView } from './views/RecipeFormView';
 import { HomeView } from "./views/HomeView";
@@ -47,35 +47,35 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        if(UserService.isAuthenticated()){
+                        if (UserService.isAuthenticated()) {
                             return (<ChefView {...props} title={"Chef"} />)
                         }
-                        else{
-                            return (<Redirect to={'login'}/>)
+                        else {
+                            return (<Redirect to={'login'} />)
                         }
-                        
+
                     }, path: '/chef'
                 },
                 {
                     render: (props) => {
-                        if(UserService.isAuthenticated()){
+                        if (UserService.isAuthenticated()) {
                             return (<RecipeFormView {...props} title={"Add Recipe"} />)
                         }
-                        else{
-                            return (<Redirect to={'login'}/>)
+                        else {
+                            return (<Redirect to={'login'} />)
                         }
-                        
+
                     }, path: '/add'
                 },
                 {
                     render: (props) => {
-                        if(UserService.isAuthenticated()){
+                        if (UserService.isAuthenticated()) {
                             return (<RecipeFormView {...props} title={"Update Recipe"} />)
                         }
-                        else{
-                            return (<Redirect to={'login'}/>)
+                        else {
+                            return (<Redirect to={'login'} />)
                         }
-                        
+
                     }, path: '/edit/:id'
                 },
                 {
@@ -90,13 +90,13 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        if(UserService.isAuthenticated()){
-                            return (<AccountView {...props} title={"Account"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<AccountDetailView {...props} title={"My Account"} />)
                         }
-                        else{
-                            return (<Redirect to={'login'}/>)
+                        else {
+                            return (<Redirect to={'login'} />)
                         }
-                        
+
                     }, path: '/account'
                 },
                 {
@@ -121,15 +121,15 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        if(UserService.isAuthenticated()){
+                        if (UserService.isAuthenticated()) {
                             return (<CheckoutView {...props} title={"Purchase"} />)
                         }
-                        else{
-                            return (<Redirect to={'login'}/>)
+                        else {
+                            return (<Redirect to={'login'} />)
                         }
-                        
+
                     }, path: '/checkout'
-                }, 
+                },
                 {
                     render: (props) => {
                         return (<NotFoundView {...props} title={"Not Found"} />)
