@@ -16,6 +16,7 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
     toast.configure();
     const[country,setCountry]=useState('');
     const[region,setRegion]=useState('');
+    const[showButton,setShowButton]=useState(false);
     const[orderDetails,setOrderDetails]=useState({
         User:user._id,
         FirstName:'',
@@ -34,9 +35,12 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
 
     function selectCountry(val){
         setCountry(val);
+        checkShowButton();
     }
     function selectRegion (val) {
+        console.log("KKKKK");
         setRegion(val);
+        checkShowButton();
     }
     function setUserDetails(event){
         var details=orderDetails;
@@ -60,7 +64,25 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
             details.Zipcode=event.target.value;
         }
         setOrderDetails(details);
+        checkShowButton();
         
+    }
+    function checkShowButton(){
+        var result = false;
+        if(
+        orderDetails.FirstName!=''&&
+        orderDetails.LastName!='' &&
+        orderDetails.AddressLine1!=''&&
+        orderDetails.AddressLine2!=''&&
+        orderDetails.City!=''&&
+        orderDetails.Zipcode!=''&&
+        country!=''){
+            result=true;
+        }
+        console.log("show button?",result);
+        console.log("order details",orderDetails);
+        console.log("Country and region", country, region);
+        setShowButton(result);
     }
     
     function handleToken(token){
@@ -116,26 +138,26 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
                     <div className="inputGroup">
                     <Row>
                         <Col>
-                            <input className='formStyle' type="text" value={orderDetails.FirstName} name='FirstName' onChange={setUserDetails} placeholder='First Name'/>
+                            <input className='formStyle' required type="text" value={orderDetails.FirstName} name='FirstName' onChange={setUserDetails} placeholder='First Name'/>
                         </Col>
                         <Col>
-                            <input className='formStyle' type="text" value={orderDetails.LastName} name='LastName' onChange={setUserDetails} placeholder="Last Name" />
+                            <input className='formStyle' required type="text" value={orderDetails.LastName} name='LastName' onChange={setUserDetails} placeholder="Last Name*" />
                         </Col>
                     </Row>
                     </div>
                     <div className="inputGroup">
-                        <input className='formStyle' type="text" defaultValue={user.shippingAddress} name='AddressLine1' value={orderDetails.AddressLine1} onChange={setUserDetails} placeholder="Address" />
+                        <input className='formStyle'required type="text" defaultValue={user.shippingAddress} name='AddressLine1' value={orderDetails.AddressLine1} onChange={setUserDetails} placeholder="Address" />
                     </div>
                     <div className="inputGroup">
-                        <input className='formStyle' type="text" name='AddressLine2' value={orderDetails.AddressLine2} onChange={setUserDetails} placeholder="Apartment number, suite, etc(optional)" />
+                        <input className='formStyle' required type="text" name='AddressLine2' value={orderDetails.AddressLine2} onChange={setUserDetails} placeholder="Apartment number, suite, etc" />
                     </div>
                     <div className="inputGroup">
                     <Row>
                         <Col>
-                            <input className='formStyle' type="text" name='City' value={orderDetails.City} onChange={setUserDetails} placeholder="City" />
+                            <input className='formStyle' required type="text" name='City' value={orderDetails.City} onChange={setUserDetails} placeholder="City" />
                         </Col>
                         <Col>
-                                <CountryDropdown defaultOptionLabel="Country" value={country} onChange={selectCountry} />
+                                <CountryDropdown required defaultOptionLabel="Country" value={country} onChange={selectCountry} />
                         </Col>
                     </Row>
                     </div>
@@ -143,21 +165,26 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
                         <Row>
                             
                             <Col>
-                                <RegionDropdown blankOptionLabel="Region" defaultOptionLabel="Region" country={country} value={region} onChange={selectRegion} />
+                                <RegionDropdown required blankOptionLabel="Region" defaultOptionLabel="Region" country={country} value={region} onChange={selectRegion} />
                             </Col>
                             <Col>
-                                <input className='formStyle' type="number" placeholder="Zipcode" name='Zipcode' value={orderDetails.Zipcode} onChange={setUserDetails} />
+                                <input className='formStyle' required type="number" placeholder="Zipcode" name='Zipcode' value={orderDetails.Zipcode} onChange={setUserDetails} />
                             </Col>
                         </Row>
                     </div>
                 </div>
                 <div className="paymentButton">
-                    <StripeCheckout 
+                    {
+                        showButton?
+                        <StripeCheckout 
                     stripeKey="pk_test_51H3MpiKYLWJclmfxNXVgxmAS7PAxf0tRVed9JiuCFEauDnJx39PuLpxHaYWWXaJfAFxVj87yo5WG7HDhouYx9cWn00Eok2TOdY"
                     token={handleToken}
                     amount={shoppingCart?(shoppingCart.totalPrice*1.2)*100:0}
                     currency='EUR'
                     />
+                    :
+                    null
+                    }
                 </div>
                 
        </div> 
