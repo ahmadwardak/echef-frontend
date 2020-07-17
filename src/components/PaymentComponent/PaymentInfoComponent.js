@@ -12,11 +12,12 @@ import './Payment.css';
 
 
 
-const PaymentInfo = ({user,shoppingCart})=>{
-    console.log("USER:",user);
+const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
+    toast.configure();
     const[country,setCountry]=useState('');
     const[region,setRegion]=useState('');
     const[orderDetails,setOrderDetails]=useState({
+        User:user._id,
         FirstName:'',
         LastName:'',
         AddressLine1:'',
@@ -26,38 +27,63 @@ const PaymentInfo = ({user,shoppingCart})=>{
         Region:'',
         Zipcode:''
     });
+    const [cart]=useState({
+        id:shoppingCart._id,
+        totalPrice:shoppingCart.totalPrice,
+        shipmentCost:Math.round((shoppingCart.totalPrice*0.2)*100)/100
+    });
     
 
 
     function selectCountry(val){
-        setOrderDetails({
-            Country:val
-        });
+        setCountry(val);
     }
     function selectRegion (val) {
-        setOrderDetails({
-            Region:val
-        });
+        setRegion(val);
     }
     function setUserDetails(event){
+        console.log("order details",orderDetails);
+        var details=orderDetails;
         var name= event.target.name;
-        setOrderDetails({
-            [name]:event.target.value
-        });
+        if(name==='FirstName'){
+            details.FirstName=event.target.value;
+        }
+        else if(name==='LastName'){
+            details.LastName=event.target.value;
+        }
+        else if(name==='AddressLine1'){
+            details.AddressLine1=event.target.value;
+        }
+        else if(name==='AddressLine2'){
+            details.AddressLine2=event.target.value;
+        }
+        else if(name==='City'){
+            details.City=event.target.value;
+        }
+        else if(name==='Zipcode'){
+            details.Zipcode=event.target.value;
+        }
+        setOrderDetails(details);
+        
     }
     
     function handleToken(token){
+        let finalDetails=orderDetails;
+        finalDetails.Country=country;
+        finalDetails.Region=region;
+        setOrderDetails(finalDetails);
         OrderService.createOrder({
-            shoppingCart,
+            cart,
+            orderDetails,
             token
         }).then((data) => {
-            console.log('response:', data.status);
+            console.log('response:', data);
             if(data.status == 'success'){
                 toast('You paid successfully!',{type: 'success'});
-
+                orderCompleted();
             }
             else{
-                toast('Something went wrong',{type: 'error'});
+                toast('Something went wrong!',{type: 'error'});
             }
         }).catch(err => {
             console.error(err);
@@ -71,7 +97,7 @@ const PaymentInfo = ({user,shoppingCart})=>{
                     <div className="inputGroup">
                     <Row>
                         <Col>
-                            <input className='formStyle' type="text" value={orderDetails.FirstName} name='FirstName' onChange={setUserDetails} placeholder="First Name" />
+                            <input className='formStyle' type="text" value={orderDetails.FirstName} name='FirstName' onChange={setUserDetails} placeholder='First Name'/>
                         </Col>
                         <Col>
                             <input className='formStyle' type="text" value={orderDetails.LastName} name='LastName' onChange={setUserDetails} placeholder="Last Name" />
@@ -90,7 +116,7 @@ const PaymentInfo = ({user,shoppingCart})=>{
                             <input className='formStyle' type="text" name='City' value={orderDetails.City} onChange={setUserDetails} placeholder="City" />
                         </Col>
                         <Col>
-                                <CountryDropdown defaultOptionLabel="Country" value={orderDetails.Country} onChange={selectCountry} />
+                                <CountryDropdown defaultOptionLabel="Country" value={country} onChange={selectCountry} />
                         </Col>
                     </Row>
                     </div>
@@ -98,7 +124,7 @@ const PaymentInfo = ({user,shoppingCart})=>{
                         <Row>
                             
                             <Col>
-                                <RegionDropdown blankOptionLabel="Region" defaultOptionLabel="Region" country={orderDetails.Country} value={orderDetails.Region} onChange={selectRegion} />
+                                <RegionDropdown blankOptionLabel="Region" defaultOptionLabel="Region" country={country} value={region} onChange={selectRegion} />
                             </Col>
                             <Col>
                                 <input className='formStyle' type="number" placeholder="Zipcode" name='Zipcode' value={orderDetails.Zipcode} onChange={setUserDetails} />

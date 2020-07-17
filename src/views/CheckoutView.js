@@ -21,6 +21,7 @@ export class CheckoutView extends React.Component {
             shoppingCart: {}
         };
         this.updateShoppingCart=this.updateShoppingCart.bind(this);
+        this.removeShoppingCart=this.removeShoppingCart.bind(this);
     }
     componentWillMount(props) {
         this.setState({
@@ -46,6 +47,14 @@ export class CheckoutView extends React.Component {
         });
     }
 
+    removeShoppingCart(){
+        var newShoppingCart = this.state.shoppingCart;
+        newShoppingCart.customerID = "-1";
+        ShoppingCartService.updateShoppingCart(newShoppingCart,this.state.user._id).then((data)=>{
+            window.location.reload();
+        });
+    }
+
    
 
     //Home View
@@ -60,7 +69,7 @@ export class CheckoutView extends React.Component {
                 <Container fluid>
                 <Row xs={1} md={2}>
                     <Col>
-                        <PaymentInfo user={this.state.user} shoppingCart={this.state.shoppingCart}/>
+                        <PaymentInfo user={this.state.user} shoppingCart={this.state.shoppingCart} orderCompleted={this.removeShoppingCart}/>
                     </Col>
                     <Col>
                         <ShoppingBasket shoppingCart={this.state.shoppingCart} updateCart={this.updateShoppingCart}/>
