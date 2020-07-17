@@ -5,7 +5,7 @@ import { Form, Col } from "react-bootstrap"
 const Categories = (props) => {
     const val = props.value || props.category;
     const [Data, setData] = useState([])
-    console.log("props.category", props)
+    // console.log("props.category", props)
     useEffect(() => {
         CategoryService.getCategories().then((data) => {
             setData(data)

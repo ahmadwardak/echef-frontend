@@ -7,7 +7,7 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import Rating from 'react-rating';
 const Recipe = ({ Title, Servings, id, difficulty, imageUrl, overallRating }) => {
   // let recipeAddr = "http://localhost:8000/#/recipe/" + id
-  console.log("imageUrl", imageUrl)
+  // console.log("imageUrl", imageUrl)
   let usedImg;
   if (imageUrl !== undefined && imageUrl !== "") {
     usedImg = imageUrl

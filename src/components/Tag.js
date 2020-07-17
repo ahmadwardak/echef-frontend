@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form } from "react-bootstrap";
+/*Tags have not been used */
 
 const Tag = ({ onChange, tagName, id }) => {
   //console.log("I got a new tag:", tagName)
