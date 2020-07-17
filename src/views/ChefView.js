@@ -45,9 +45,11 @@ export class ChefView extends React.Component {
             data: [...this.state.data],
             loading: true
         });
-        RecipeService.deleteRecipe(id).catch((e) => window.confirm(e));
-        //window.location = "/#chef";
-        //windows.reload(false);
+        RecipeService.deleteRecipe(id).then((data) => {
+            window.location = "/#chef";
+            window.location.reload(false);
+        }).catch((e) => window.confirm(e));
+
     }
 
     render() {

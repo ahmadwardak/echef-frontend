@@ -68,8 +68,7 @@ export default class RecipeService {
                 }
             })
                 .then(res => {
-                    window.location = '/#chef/';
-                    window.reload(false);
+                    resolve('success');
                 })
                 .catch(err => {
                     console.log(err);
