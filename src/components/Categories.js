@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import CategoryService from '../services/CategoryService';
 import { Form, Col } from "react-bootstrap"
 
+//Category selection for search and recipe form
 const Categories = (props) => {
+
     const val = props.value || props.category;
     const [Data, setData] = useState([])
-    // console.log("props.category", props)
+
     useEffect(() => {
         CategoryService.getCategories().then((data) => {
             setData(data)
-            //console.log("Current array:", Data);
         }).catch((e) => {
             console.error(e);
         });
     }, [])
+
     return (
         <div>
             <Form.Group >
@@ -25,6 +27,5 @@ const Categories = (props) => {
         </div>
     )
 }
-
 
 export default Categories;

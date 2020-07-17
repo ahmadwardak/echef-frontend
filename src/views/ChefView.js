@@ -1,9 +1,8 @@
-import { render } from "react-dom"
-import React, { useState } from "react"
+import React from "react"
 import RecipeService from "../services/RecipeService"
 import { ChefViewList } from '../components/ChefComponent/ChefViewList';
 import UserService from '../services/UserService'
-import { Button, ListGroup, Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import Banner from '../components/HeaderComponent/Banner';
 
 export class ChefView extends React.Component {
@@ -18,12 +17,13 @@ export class ChefView extends React.Component {
         this.createRecipe = this.createRecipe.bind(this);
         this.deleteRecipe = this.deleteRecipe.bind(this);
     };
-    // Normal React component Lifecycle
+    
     componentWillMount() {
         this.setState({
             loading: true
         });
 
+        //Recipes specific to chef are fetched
         let chefID = UserService.getCurrentUser()._id;
         RecipeService.getRecipesByChefID(chefID).then((data) => {
             this.setState({
@@ -52,6 +52,7 @@ export class ChefView extends React.Component {
 
     }
 
+    //Home page for chefs
     render() {
 
         if (this.state.loading) {

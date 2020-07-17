@@ -11,6 +11,7 @@ export class RecipeListRow extends React.Component {
         super(props);
     }
 
+    //Each row appears with an image, link to recipe and edit-delete options
     render() {
         return (
             <tr>

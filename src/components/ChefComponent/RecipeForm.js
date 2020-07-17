@@ -44,7 +44,8 @@ class RecipeForm extends React.Component {
         console.log(this.props.recipe)
         if (this.props.recipe != undefined) {
             let recipe = this.props.recipe.recipe;
-            console.log(recipe)
+            //console.log(recipe)
+            //If recipe is already defined then setting the values
             this.state = {
                 title: recipe.title,
                 description: recipe.description,
@@ -87,13 +88,15 @@ class RecipeForm extends React.Component {
             { [name]: value }
         )
     }
+
+    //Ingredient changes are handled 
     handleIngredientChange(event, index) {
         const name = event.target.name
         const value = event.target.value
         //console.log("Received event name", name, "value", value, "index", index)
         let ingrList = this.state.ingredients
         ingrList[index][name] = value
-        console.log("ingrList.....", ingrList)
+        //console.log("ingrList.....", ingrList)
         this.setState({
             ingredients: ingrList
             //ingredients.ingredientUnit:
@@ -101,6 +104,7 @@ class RecipeForm extends React.Component {
 
     }
 
+    //Selected Ingredient will be deleted
     handleRemoveClick(event, index) {
         event.preventDefault();
         const list = [...this.state.ingredients];
@@ -113,7 +117,7 @@ class RecipeForm extends React.Component {
         })
     };
 
-    // handle click event of the Add button
+    //Adding a new ingredient row to the screen and to the Ingredients value
     handleAddClick() {
         this.setState(
             {
@@ -192,7 +196,7 @@ class RecipeForm extends React.Component {
                                 </Col>
                                 <Col xs={12} md={3}>
                                     <Form.Group>
-                                        <Form.Label>All Categories</Form.Label>
+                                        <Form.Label>Category</Form.Label>
                                         <Categories category={this.state.category} onChange={this.handleCategoryChange} />
                                     </Form.Group>
                                 </Col>
@@ -246,6 +250,7 @@ class RecipeForm extends React.Component {
                                                 <Form.Label>Select ingredients</Form.Label>
                                             </Col>
                                         </Row>
+                                        {/*Array of ingredients selected by providing an option to add and delete a row */}
                                         {this.state.ingredients.map((ing, i) => {
                                             return (
                                                 <Card key={i} className="mb-1" style={{ backgroundColor: i % 2 ? '#d3e9d3' : '#eee' }}>
@@ -270,7 +275,8 @@ class RecipeForm extends React.Component {
                             <Row>
                                 <Col xs={12} md={12}>
                                     <Button variant="success" id="submit" type="submit"
-                                        disabled={this.state.title == undefined || this.state.title == '' || this.state.category == undefined || this.state.category == '' || this.state.servingSize == undefined || this.state.servingSize == '' || this.state.description == undefined || this.state.description == ''}
+                                        disabled={this.state.title == undefined || this.state.title == '' || this.state.category == undefined || this.state.category == '' || this.state.servingSize == undefined || this.state.servingSize == '' 
+                                        || this.state.description == undefined || this.state.description == '' || this.state.difficulty == '' || this.state.difficulty == undefined || this.state.ingredients == '' || this.state.ingredients == undefined}
                                     >Publish</Button>
                                 </Col>
                             </Row>

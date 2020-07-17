@@ -1,12 +1,9 @@
 "use strict";
 
 import React from 'react';
-
 import RecipeForm from '../components/ChefComponent/RecipeForm';
-
 import RecipeService from '../services/RecipeService';
 import Banner from '../components/HeaderComponent/Banner';
-
 
 export class RecipeFormView extends React.Component {
 
@@ -67,8 +64,8 @@ export class RecipeFormView extends React.Component {
                 <Banner pageTitle={this.props.title} />
                 <div className="content">
                     <RecipeForm recipe={this.state.recipe} onSubmit={(recipe) => this.updateRecipe(recipe)} error={this.state.error} />
-                </div></div>
-
+                </div>
+            </div>
         );
     }
 }

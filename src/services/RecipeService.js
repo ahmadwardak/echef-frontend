@@ -10,6 +10,7 @@ export default class RecipeService {
 
     static baseURL() { return "http://localhost:3000/recipes" }
 
+    //A HTTP Request sent to fetch all the recipes present in the backend
     static getAll() {
         return new Promise((resolve, reject) => {
             HttpService.get(this.baseURL(), function (data) {
@@ -20,6 +21,7 @@ export default class RecipeService {
         });
     }
 
+    //Fetch only the latest recipes
     static getNew() {
         return new Promise((resolve, reject) => {
             HttpService.get(`${this.baseURL()}/new/10`, function (data) {
@@ -31,6 +33,7 @@ export default class RecipeService {
         });
     }
 
+    // To fetch recipes created by a specific chef
     static getRecipesByChefID(chefID) {
         return new Promise((resolve, reject) => {
             HttpService.get(`${this.baseURL()}/chef/${chefID}`, function (data) {
@@ -41,7 +44,7 @@ export default class RecipeService {
         });
     }
 
-
+    // Fetching a single recipe information
     static getRecipe(id) {
         return new Promise((resolve, reject) => {
             HttpService.get(`${RecipeService.baseURL()}/${id}`, function (data) {
@@ -57,7 +60,7 @@ export default class RecipeService {
         });
     }
 
-
+    //Deleting a recipe from the backend
     static deleteRecipe(id) {
         return new Promise((resolve, reject) => {
             let token = window.localStorage['jwtToken'];
@@ -76,6 +79,7 @@ export default class RecipeService {
         });
     }
 
+    // Updating the existing recipe with new information
     static updateRecipe(recipe) {
         return new Promise((resolve, reject) => {
             var formData = new FormData();
@@ -106,6 +110,7 @@ export default class RecipeService {
         });
     }
 
+    //Creating a new recipe
     static createRecipe(recipe) {
         return new Promise((resolve, reject) => {
             var formData = new FormData();
@@ -134,8 +139,7 @@ export default class RecipeService {
         });
     }
 
-
-
+    // To fetch just the name of a recipe
     static getRecipeName(recipeId) {
         return new Promise((resolve, reject) => {
             HttpService.get(`${this.baseURL()}/recipeName/${recipeId}`, function (data) {

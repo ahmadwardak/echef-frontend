@@ -4,7 +4,7 @@ import { Card, Form, ButtonGroup, Button, Row, Col, Alert } from "react-bootstra
 import '../../App.css';
 import IngredientsService from '../../services/IngredientsService';
 
-
+//Single row of ingredient selection in the recipe form
 class IngredientListRow extends React.Component {
 
     constructor(props) {
@@ -22,15 +22,8 @@ class IngredientListRow extends React.Component {
     componentWillMount(props) {
         IngredientsService.getAll().then((data) => {
             this.setState({ Ingredients: data });
-            //console.log(data);
-            //  console.log("I've set the following", data)
-
-            //this.setState({ IngredientBrands: data.ingredientBrands })
-
-            console.log(this.props.ingredient.ingredientID);
             if (this.props.ingredient.ingredientID !== "") {
                 let ingr = this.state.Ingredients.find(dt => dt._id == this.props.ingredient.ingredientID)
-                //console.log("ingr",ingr)
                 this.setState({ IngredientBrands: ingr.ingredientBrands })
                 this.setState({ IngredientUnit: ingr.ingredientUnit })
             }

@@ -9,6 +9,7 @@ export default class RecipeService {
 
     static baseURL() {return "http://localhost:3000" }
 
+    //Sending HTTP Request to get all categories from the backend
     static getCategories(){
        return new Promise((resolve, reject) => {
            HttpService.get(`${this.baseURL()}/categories`, function(data) {
@@ -19,6 +20,7 @@ export default class RecipeService {
        });
     }
 
+    //Sending HTTP Request to get all cooking levels from backend
     static getCookingLevels(){
         return new Promise((resolve, reject) => {
             HttpService.get(`${this.baseURL()}/levels`, function(data) {

@@ -4,6 +4,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import { RecipeListRow } from './RecipeListRow';
 
+/*All recipes are mapped and sent to list as rows*/
 export const ChefViewList = ({ recipes, onDelete }) => {
     return (
         recipes.length === 0 ?
