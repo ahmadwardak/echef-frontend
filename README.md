@@ -16,7 +16,7 @@ Do not forget to install and run the backend including MongoDB first.
 For the frontend, clone our repository here.
 ```
 git clone https://github.com/ahmadwardak/echef-frontend.git
-cd frontend/
+cd echef-frontend/
 ```
 
 ### Install Dependencies
