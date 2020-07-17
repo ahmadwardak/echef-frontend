@@ -80,7 +80,7 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<LoginView {...props} title={"Login"} />)
+                        return (<LoginView {...props} title={"Log In"} />)
                     }, path: '/login'
                 },
                 {

@@ -156,7 +156,7 @@ class Header extends Component {
               </Nav>
               :
               <Nav>
-                <Nav.Link onClick={() => this.goToLogin()}>Sign In</Nav.Link>
+                <Nav.Link onClick={() => this.goToLogin()}>Log In</Nav.Link>
               </Nav>
             }
           </Navbar.Collapse>
