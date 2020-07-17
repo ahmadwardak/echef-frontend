@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComments, faStar } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,7 @@ import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import Rating from 'react-rating';
 const Recipe = ({ Title, Servings, id, difficulty, imageUrl, overallRating }) => {
   // let recipeAddr = "http://localhost:8000/#/recipe/" + id
-  console.log("imageUrl", imageUrl)
+  // console.log("imageUrl", overallRating)
   let usedImg;
   if (imageUrl !== undefined && imageUrl !== "") {
     usedImg = imageUrl
@@ -22,8 +22,8 @@ const Recipe = ({ Title, Servings, id, difficulty, imageUrl, overallRating }) =>
           </Row>
         </Card.Header>
         <Card.Body className="p-0 m-0">
-
-          <Card.Img style={{ maxWidth: '100%' }} src={usedImg}></Card.Img>
+          <Image style={{ maxWidth: '100%', width: '100%', height: 'auto', backgroundSize: 'contain' }}
+            src={usedImg}></Image>
         </Card.Body>
         <Card.Footer className="bg-white py-2 px-2" >
           <div className="p-0 mb-2" style={{ fontSize: '90%' }}>

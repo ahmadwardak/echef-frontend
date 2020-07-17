@@ -15,7 +15,7 @@ export const RecipeList = ({ recipes }) => {
             Title={rec.title}
             id={rec._id}
             difficulty={rec.difficulty}
-            overallRating={rec.overallRating}
+            overallRating={rec.OverallRating}
             imageUrl={rec.recipeImageURL} />
         </Col>
       )
