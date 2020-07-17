@@ -176,7 +176,7 @@ export class RecipeView extends React.Component {
                                     </Button> :
 
                                         <Button className="btn btn-warning" onClick={this.goToLogin} type="button">
-                                            Sign In to write a Review
+                                            Log In to write a Review
                                     </Button>
                                     }
                                 </div>

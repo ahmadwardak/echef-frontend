@@ -51,7 +51,7 @@ export default class App extends React.Component {
                             return (<ChefView {...props} title={"Chef"} />)
                         }
                         else {
-                            return (<Redirect to={'login'} />)
+                            return (<Redirect to={'/login'} />)
                         }
 
                     }, path: '/chef'
@@ -62,7 +62,7 @@ export default class App extends React.Component {
                             return (<RecipeFormView {...props} title={"Add Recipe"} />)
                         }
                         else {
-                            return (<Redirect to={'login'} />)
+                            return (<Redirect to={'/login'} />)
                         }
 
                     }, path: '/add'
@@ -73,7 +73,7 @@ export default class App extends React.Component {
                             return (<RecipeFormView {...props} title={"Update Recipe"} />)
                         }
                         else {
-                            return (<Redirect to={'login'} />)
+                            return (<Redirect to={'/login'} />)
                         }
 
                     }, path: '/edit/:id'
@@ -94,7 +94,7 @@ export default class App extends React.Component {
                             return (<AccountDetailView {...props} title={"My Account"} />)
                         }
                         else {
-                            return (<Redirect to={'login'} />)
+                            return (<Redirect to={'/login'} />)
                         }
 
                     }, path: '/account'
@@ -116,7 +116,12 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<RecipeReviewFormView {...props} title={"Recipe Review"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<RecipeReviewFormView {...props} title={"Recipe Review"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
                     }, path: '/reviews/:id'
                 },
                 {
@@ -125,7 +130,7 @@ export default class App extends React.Component {
                             return (<CheckoutView {...props} title={"Purchase"} />)
                         }
                         else {
-                            return (<Redirect to={'login'} />)
+                            return (<Redirect to={'/login'} />)
                         }
 
                     }, path: '/checkout'

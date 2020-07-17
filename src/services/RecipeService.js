@@ -60,13 +60,16 @@ export default class RecipeService {
 
     static deleteRecipe(id) {
         return new Promise((resolve, reject) => {
-            var formData = new FormData();
-            formData.append('id', id);
-
-            axios.delete(`${RecipeService.baseURL()}/${id}`, formData)
+            let token = window.localStorage['jwtToken'];
+            //reject(token);
+            axios.delete(`${RecipeService.baseURL()}/${id}`, {
+                headers: {
+                    'Authorization': `JWT ${token}`
+                }
+            })
                 .then(res => {
                     window.location = '/#chef/';
-                    window.location.reload(false);
+                    window.reload(false);
                 })
                 .catch(err => {
                     console.log(err);
@@ -87,7 +90,14 @@ export default class RecipeService {
             formData.append('recipeImageURL', recipe.recipeImageURL);
             console.log(recipe.recipe._id);
             console.log(...formData);
-            axios.put(`${RecipeService.baseURL()}/${recipe.recipe._id}`, formData)
+
+            let token = window.localStorage['jwtToken'];
+
+            axios.put(`${RecipeService.baseURL()}/${recipe.recipe._id}`, formData, {
+                headers: {
+                    'Authorization': `JWT ${token}`
+                }
+            })
                 .then(res => {
                     window.location = '/#chef/';
                 })
@@ -108,7 +118,14 @@ export default class RecipeService {
             formData.append('category', recipe.category);
             formData.append('ingredients', JSON.stringify(recipe.ingredients));
             formData.append('recipeImageURL', recipe.recipeImageURL);
-            axios.post(this.baseURL(), formData)
+
+            let token = window.localStorage['jwtToken'];
+
+            axios.post(this.baseURL(), formData, {
+                headers: {
+                    'Authorization': `JWT ${token}`
+                }
+            })
                 .then(res => {
                     window.location = '/#chef/';
                 })
