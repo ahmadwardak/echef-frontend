@@ -272,7 +272,6 @@ class Signup extends Component {
                             <Form.Label>Address</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Address"
-                                required
                                 className="form-control"
                                 defaultValue={this.state.address}
                                 onChange={this.handleChangeAddress} />
@@ -285,7 +284,6 @@ class Signup extends Component {
                             <Form.Label>Shipping Address</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Shipping Address"
-                                required
                                 className="form-control"
                                 defaultValue={this.state.shippingAddress}
                                 onChange={this.handleChangeShippingAddress} />
@@ -298,7 +296,6 @@ class Signup extends Component {
                             <Form.Label>Billing Address</Form.Label>
                             <Form.Control type="text"
                                 placeholder="Billing Address"
-                                required
                                 className="form-control"
                                 defaultValue={this.state.billingAddress}
                                 onChange={this.handleChangeBillingAddress} />
