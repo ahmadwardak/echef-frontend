@@ -7,7 +7,7 @@ import { LoginView } from "./views/LoginView";
 import { SignupView } from "./views/SignupView";
 import { AboutView } from "./views/AboutView";
 import { ContactView } from "./views/ContactView";
-import { AccountView } from "./views/AccountView";
+import { AccountDetailView } from "./views/AccountDetailView";
 import { ChefView } from "./views/ChefView";
 import { RecipeFormView } from './views/RecipeFormView';
 import { HomeView } from "./views/HomeView";
@@ -15,8 +15,9 @@ import { SearchView } from "./views/SearchView";
 import { RecipeView } from "./views/RecipeView";
 import { RecipeReviewFormView } from './views/RecipeReviewFormView';
 import { CheckoutView } from './views/CheckoutView';
-import Footer from './components/FooterComponent/Footer.js';
 import Header from './views/HeaderView';
+import Footer from './components/FooterComponent/Footer.js';
+import { NotFoundView } from './views/NotFoundView.js';
 import './App.css';
 import UserService from './services/UserService';
 
@@ -46,22 +47,40 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<ChefView {...props} title={"Chef"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<ChefView {...props} title={"Chef"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
+
                     }, path: '/chef'
                 },
                 {
                     render: (props) => {
-                        return (<RecipeFormView {...props} title={"Add Recipe"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<RecipeFormView {...props} title={"Add Recipe"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
+
                     }, path: '/add'
                 },
                 {
                     render: (props) => {
-                        return (<RecipeFormView {...props} title={"Update Recipe"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<RecipeFormView {...props} title={"Update Recipe"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
+
                     }, path: '/edit/:id'
                 },
                 {
                     render: (props) => {
-                        return (<LoginView {...props} title={"Login"} />)
+                        return (<LoginView {...props} title={"Log In"} />)
                     }, path: '/login'
                 },
                 {
@@ -71,7 +90,13 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<AccountView {...props} title={"Account"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<AccountDetailView {...props} title={"My Account"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
+
                     }, path: '/account'
                 },
                 {
@@ -91,13 +116,29 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        return (<RecipeReviewFormView {...props} title={"Recipe Review"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<RecipeReviewFormView {...props} title={"Recipe Review"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
                     }, path: '/reviews/:id'
                 },
                 {
                     render: (props) => {
-                        return (<CheckoutView {...props} title={"Purchase"} />)
+                        if (UserService.isAuthenticated()) {
+                            return (<CheckoutView {...props} title={"Purchase"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
+
                     }, path: '/checkout'
+                },
+                {
+                    render: (props) => {
+                        return (<NotFoundView {...props} title={"Not Found"} />)
+                    }, path: '/404'
                 }
             ]
         };
@@ -118,6 +159,7 @@ export default class App extends React.Component {
                         <Header />
                         <Switch>
                             {this.state.routes.map((route, i) => (<Route key={i} {...route} />))}
+                            <Redirect from='*' to="/404" />
                         </Switch>
 
                     </div>

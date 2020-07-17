@@ -34,41 +34,12 @@ class Ingredient extends Component {
         });
     }
 
-    // amountChanged(event) {
-    //     this.setState({ Amount: this.pointsInput.current.value });
-    //     console.log(this.pointsInput.current.value)
-    //     this.props.cartHandler(this.pointsInput.current.value, this.props.id, "amount");
-
-    // }
-
-
-    // priceChanged(event) {
-    //     console.log("eventttt", event.target.value);
-    //     var price = 0;
-    //     if (event.target.value != 0) {
-    //         price = this.state.Brands.find(br => br.brandName == event.target.value).price;
-    //         this.props.cartHandler(event.target.value, this.props.id, "brand");
-    //         this.props.cartHandler(true, this.props.id, "isActive");
-    //     }
-    //     else {
-    //         this.props.cartHandler(this.props.ingredient.ingredientBrand, this.props.id, "brand");
-    //         this.props.cartHandler(false, this.props.id, "isActive");
-
-    //     }
-    //     this.props.cartHandler(price, this.props.id, "basePrice");
-    //     this.props.cartHandler(price * this.props.servingSize, this.props.id, "price");
-
-
-    //     this.setState({ selectedBrand: event.target.value });
-    //     console.log("SELECTED:", event.target.value);
-    //     this.setState({ Price: price });
-    // }
     fixFloat(original) {
         if (isNaN(original))
             return 0;
 
         var result = Math.round(original * 100) / 100;
-        return result;
+        return result.toFixed(2);
     }
 
 

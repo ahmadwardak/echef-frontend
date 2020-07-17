@@ -16,11 +16,10 @@ export class SearchView extends React.Component {
 
     constructor(props) {
         super(props);
-        //console.log("Props lcoation",props.location.aboutProps.category)
         let categories = props.location.category || "All Categories";
-        console.log("Props location", props.location)
+        // console.log("Props location", props.location)
         let inputData = props.location.title || "";
-        console.log("Categories", categories)
+         console.log("Categories", categories)
         this.state = {
             //data: [{ "title": "If you see this, the DB is not connected", "difficulty": "Easy", "_id": "FooBar", "category": "All Categories", "tags":"" }],
             data: [],
@@ -48,7 +47,7 @@ export class SearchView extends React.Component {
         RecipeService.getAll().then((data) => {
             // Get all viable tags 
             let tempTags = data.reduce((tmp, tag) => {
-                 console.log(" Tag: ", tag.tags, tag._id)
+                //  console.log(" Tag: ", tag.tags, tag._id)
                 if(tag.tags)
                     return (tmp = [...tmp, ...tag.tags]);
                 else{
@@ -120,7 +119,7 @@ export class SearchView extends React.Component {
             //console.log("Active tags", this.state.activeTags)
             if (this.state.category == "All Categories") {
                 return (
-                    recipe["title"].includes(this.state.title)
+                    recipe["title"].toLowerCase().includes(this.state.title.toLowerCase())
                     && recipe["difficulty"].includes(this.state.difficulty)
                     && recipe["tags"].some(r => this.state.activeTags.includes(r))
 
@@ -128,13 +127,14 @@ export class SearchView extends React.Component {
             }
             else {
                 return (
-                    recipe["title"].includes(this.state.title)
+                    recipe["title"].toLowerCase().includes(this.state.title.toLowerCase())          
                     && recipe["difficulty"].includes(this.state.difficulty)
                     && recipe["category"] == this.state.category
                     && recipe["tags"].some(r => this.state.activeTags.includes(r))
                 )
             }
         })
+        
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }

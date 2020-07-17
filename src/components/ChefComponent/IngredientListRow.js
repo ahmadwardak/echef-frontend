@@ -1,54 +1,104 @@
 import React, { useState, useEffect } from 'react';
 import '../RecipeComponent/Recipe.css';
+import { Card, Form, ButtonGroup, Button, Row, Col, Alert } from "react-bootstrap";
 import '../../App.css';
 import IngredientsService from '../../services/IngredientsService';
 
-const IngredientListRow = ({ onChange, ingredients }) => {
-    const [Ingredients, setIngredients] = useState([]);
-    const [IngredientUnit, setIngredientUnit] = useState(ingredients.ingredientUnit);
-    const [IngredientBrands, setIngredientBrands] = useState([]);
 
-    useEffect(() => {
+class IngredientListRow extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            Ingredients: [],
+            IngredientUnit: '',
+            IngredientQuantity: this.props.ingredient.ingredientQuantity,
+            IngredientBrands: []
+        }
+
+        this.selectedIngredient = this.selectedIngredient.bind(this);
+    }
+
+    componentWillMount(props) {
         IngredientsService.getAll().then((data) => {
-            setIngredients(data);
+            this.setState({ Ingredients: data });
             //console.log(data);
             //  console.log("I've set the following", data)
+
+            //this.setState({ IngredientBrands: data.ingredientBrands })
+
+            console.log(this.props.ingredient.ingredientID);
+            if (this.props.ingredient.ingredientID !== "") {
+                let ingr = this.state.Ingredients.find(dt => dt._id == this.props.ingredient.ingredientID)
+                //console.log("ingr",ingr)
+                this.setState({ IngredientBrands: ingr.ingredientBrands })
+                this.setState({ IngredientUnit: ingr.ingredientUnit })
+            }
         }).catch((e) => {
             console.error(e);
         });
-    }, []);
 
-    function selectedIngredient(event) {
-        
-        var id = event.target.value;
-        //console.log("called", id);
-        let ingr = Ingredients.find(dt => dt._id==id)
-        //console.log("ingr",ingr)
-        setIngredientBrands(ingr.ingredientBrands)
-        setIngredientUnit(ingr.ingredientUnit)
     }
 
-    return (
 
-        <div>
-            <select className="brandDropdown" name="ingredientID" onChange={(e, i) => {
-                onChange(e, i);
-                selectedIngredient(e)
-            }}
-            >
-                <option value="0">--Select ingredient--</option>
-                {Ingredients.map((dt, i) =>
-                    <option key={dt._id} value={dt._id}  >{dt.name}
-                    </option>)}
-            </select>
-            <input type="number" name="ingredientQuantity" step="1" value={ingredients.Amount} className="amountBox" onChange={onChange} />
-            <label name="ingredientUnit"   >{IngredientUnit} </label>
-            <select className="brandDropdown" name="ingredientBrand" onChange={onChange}>
-                <option>--Select brand--</option>
-                {IngredientBrands.map((dt, i) => <option key={i}>{dt.brandName} </option>)}
-            </select>
-        </div>
-    )
+    selectedIngredient(event) {
+
+        var id = event.target.value;
+        console.log("called", this.state.Ingredients);
+        let ingr = this.state.Ingredients.find(dt => dt._id == id)
+        //console.log("ingr",ingr)
+        this.setState({ IngredientBrands: ingr.ingredientBrands })
+        this.setState({ IngredientUnit: ingr.ingredientUnit })
+
+    }
+
+    render() {
+        return (
+            <Row>
+
+                <Col xs={12} md={4}>
+
+                    <Form.Group className="mb-1">
+                        <Form.Control as="select" value={this.props.ingredient.ingredientID} name="ingredientID" onChange={(e, i) => {
+                            this.props.onChange(e, i);
+                            this.selectedIngredient(e)
+                        }}
+                        >
+                            <option value="0">--Select ingredient--</option>
+                            {this.state.Ingredients.map((dt, i) =>
+                                <option key={dt._id} value={dt._id}  >{dt.name}
+                                </option>)}
+
+                        </Form.Control>
+                    </Form.Group>
+                </Col>
+                <Col xs={12} md={2}>
+
+                    <Form.Group className="mb-1">
+                        <Form.Control type="number" name="ingredientQuantity" step="1" defaultValue={this.state.IngredientQuantity} onChange={this.props.onChange} />
+
+                    </Form.Group>
+                </Col>
+                <Col xs={12} md={2}>
+                    <Form.Group className="mb-1">
+                        <Form.Label name="ingredientUnit"   >{this.state.IngredientUnit} </Form.Label>
+                    </Form.Group>
+                </Col>
+                <Col xs={12} md={4}>
+
+                    <Form.Group className="mb-1">
+                        <Form.Control as="select" value={this.props.ingredient.ingredientBrand} name="ingredientBrand" onChange={this.props.onChange}>
+                            <option>--Select brand--</option>
+                            {this.state.IngredientBrands.map((dt, i) => <option key={i} value={dt.brandName}>{dt.brandName} </option>)}
+
+                        </Form.Control>
+                    </Form.Group>
+                </Col>
+            </Row>
+
+        )
+    }
 }
 
-export default IngredientListRow
+
+export default IngredientListRow;

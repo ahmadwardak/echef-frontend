@@ -5,13 +5,12 @@ import InfiniteCarousel from 'react-leaf-carousel';
 import CategoryService from "../services/CategoryService";
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
-import {Link} from "react-router-dom";
-import Logo from "../Assets/echef-logo.png";
+import { Link } from "react-router-dom";
 import Banner from '../components/HeaderComponent/Banner';
-
+import ReactCountryFlag from "react-country-flag";
 import '../App.css';
 
-
+let countryCodes = { Italian: "IT", Indian: "IN", Spanish: "ES", Mexican: "MX", American: "US", German: "DE", Iranian: "IR", Brazilian: "BR", Japanese: "JP", Chinese: "CN" };
 
 export class HomeView extends React.Component {
 
@@ -21,17 +20,18 @@ export class HomeView extends React.Component {
         this.state = {
             loading: true,
             categories: [],
-            newRecipes: []
+            newRecipes: [],
+            someOtherRecipes: []
         }
-
-        //console.log(this.props);
-    }
-
-
-    componentWillMount() {
-        this.setState({
-            loading: true
+        CategoryService.getCategories().then((data) => {
+            this.setState({
+                categories: data,
+                loading: false
+            });
+        }).catch((e) => {
+            console.error(e);
         });
+
         RecipeService.getNew().then((data) => {
             this.setState({
                 newRecipes: [...data],
@@ -41,37 +41,33 @@ export class HomeView extends React.Component {
         }).catch((e) => {
             console.error(e)
         })
-    }
-    componentDidMount() {
-
-        CategoryService.getCategories().then((data) => {
+        RecipeService.getAll().then((data) => {
             this.setState({
-                categories: data,
-                loading: false
-            }
-            )
-            // console.log("Got this", data)
-            //console.log("Current array:", Data);
+                someOtherRecipes: [...data],
+                loading: false,
+
+            })
         }).catch((e) => {
-            console.error(e);
-        });
-
-
-    };
+            console.error(e)
+        })
+    }
 
     //Home View
     render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
-        const recs = this.state.newRecipes
-        const cats = this.state.categories
+        const recs = this.state.newRecipes;
+        const cats = this.state.categories;
+        // randomize recipes
+        let rand = this.state.someOtherRecipes.sort(() => 0.5 - Math.random());
+        rand = rand.slice(0,4)
+
 
         return (
             <div>
                 <Banner pageTitle={this.props.title} />
                 <div className="content">
-                    <h1>Home Page</h1>
                     <Container fluid>
                         <Row>
                             <Col>
@@ -79,10 +75,17 @@ export class HomeView extends React.Component {
                                     <InfiniteCarousel
                                         breakpoints={[
                                             {
-                                                breakpoint: 500,
+                                                breakpoint: 550,
                                                 settings: {
                                                     slidesToShow: 2,
                                                     slidesToScroll: 2,
+                                                },
+                                            },
+                                            {
+                                                breakpoint: 580,
+                                                settings: {
+                                                    slidesToShow: 3,
+                                                    slidesToScroll: 3,
                                                 },
                                             },
                                             {
@@ -103,19 +106,32 @@ export class HomeView extends React.Component {
                                         dots={false}
                                         showSides={true}
                                         sidesOpacity={0.5}
+                                        slideSpacing={0}
                                         sideSize={0.1}
                                         slidesToScroll={4}
                                         slidesToShow={6}
                                         scrollOnDevice={false}
                                     >
                                         {cats.map((cat, i) =>
-                                            <div key={i}>
-                                                <Link to={{ pathname: '/search',  category: cat  }}>
-                                                <img
-                                                    alt=""
-                                                    src={Logo}
-                                                />
-                                                <h3>{cat}</h3>
+                                            <div key={i} className="px-0" >
+                                                <Link style={{ fontSize: '90%' }} to={{ pathname: '/search', category: cat }}>
+                                                    <ReactCountryFlag
+                                                        svg
+                                                        countryCode={countryCodes[cat]}
+                                                        style={{
+                                                            fontSize: '5em',
+                                                            lineHeight: '2em',
+                                                            borderRadius: '0.3em',
+                                                            height: '70%',
+                                                            width: '70%',
+                                                            objectFit: 'contain',
+                                                            border: '1px solid #ccc',
+
+                                                        }}
+                                                        title="US"
+
+                                                    />
+                                                    <h3>{cat}</h3>
                                                 </Link>
                                             </div>
 
@@ -135,8 +151,8 @@ export class HomeView extends React.Component {
                         <Row xs={12}>
                             <Col >
                                 <Card>
-                                    <Card.Header><span>Want to try something new?</span></Card.Header>
-                                    {<RecipeList recipes={recs} />}
+                                    <Card.Header><span>Or why don't you try...</span></Card.Header>
+                                    {<RecipeList recipes={rand} />}
                                 </Card>
                             </Col>
                         </Row>

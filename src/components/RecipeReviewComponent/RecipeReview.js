@@ -90,8 +90,8 @@ class RecipeReview extends Component {
 
                                     <Container>
                                         <Row>
-                                            {review.imageCollection.map(image => (
-                                                <Col md={3}><Image
+                                            {review.imageCollection.map((image, i) => (
+                                                <Col key={i} md={3}><Image
                                                     width={180}
                                                     onClick={() => {
                                                         this.setState({ showImgModal: true, imgModalSrc: image });
@@ -100,8 +100,8 @@ class RecipeReview extends Component {
                                                     src={image} fluid />
                                                 </Col>
                                             ))}
-                                            {review.videoCollection.map(video => (
-                                                <Col md={3} >
+                                            {review.videoCollection.map((video, i) => (
+                                                <Col key={i} md={3} >
                                                     <ReactPlayer playing={true} light={true}
 
                                                         width={240}

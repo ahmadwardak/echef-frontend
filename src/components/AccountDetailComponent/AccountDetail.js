@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import { Form, Button, Col, } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert'
+import UserService from '../../services/UserService';
 
-import './Signup.css';
-
-class Signup extends Component {
+class AccountDetail extends Component {
 
     constructor(props) {
         super(props);
+        let user = UserService.getCurrentUser();
         this.state = {
-            fullName: '',
-            username: '',
-            accountType: '',
+            fullName: user.fullname,
+            username: user.username,
+            accountType: user.accounttype,
             password: '',
-            email: '',
-            address: '',
-            shippingAddress: '',
-            billingAddress: '',
+            email: user.email,
+            address: user.address,
+            shippingAddress: user.shippingaddress,
+            billingAddress: user.billingaddress,
             hasError: false,
             fullNameError: '',
             emailError: '',
             usernameError: '',
             accountTypeError: '',
-            passwordError: ''
+            passwordError: '',
+            showChangePassword: false
         };
 
         this.handleChangeFullName = this.handleChangeFullName.bind(this);
@@ -33,6 +34,7 @@ class Signup extends Component {
         this.handleChangeAddress = this.handleChangeAddress.bind(this);
         this.handleChangeShippingAddress = this.handleChangeShippingAddress.bind(this);
         this.handleChangeBillingAddress = this.handleChangeBillingAddress.bind(this);
+        this.handleToggleChangePassword = this.handleToggleChangePassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateFullName = this.validateFullName.bind(this);
         this.validateEmail = this.validateEmail.bind(this);
@@ -67,6 +69,11 @@ class Signup extends Component {
     }
     handleChangeBillingAddress(event) {
         this.setState({ billingAddress: event.target.value });
+    }
+    handleToggleChangePassword(event) {
+        console.log(event.target.checked);
+        this.setState({ showChangePassword: event.target.checked });
+
     }
 
 
@@ -126,18 +133,20 @@ class Signup extends Component {
     }
 
     validatePassword() {
-        let password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-        if (password_pattern.test(this.state.password)) {
-            this.setState({ passwordError: '' });
-            this.setState({ hasError: false });
-        }
-        else if (this.state.password === '') {
-            this.setState({ passwordError: 'Password required' });
-            this.setState({ hasError: true });
-        }
-        else {
-            this.setState({ passwordError: 'Password complexity (1 lowercase, 1 uppercase, 1 special character and minimum 8 length).' });
-            this.setState({ hasError: true });
+        if (this.state.showChangePassword) {
+            let password_pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+            if (password_pattern.test(this.state.password)) {
+                this.setState({ passwordError: '' });
+                this.setState({ hasError: false });
+            }
+            else if (this.state.password === '') {
+                this.setState({ passwordError: 'Password required' });
+                this.setState({ hasError: true });
+            }
+            else {
+                this.setState({ passwordError: 'Password complexity (1 lowercase, 1 uppercase, 1 special character and minimum 8 length).' });
+                this.setState({ hasError: true });
+            }
         }
     }
 
@@ -151,15 +160,17 @@ class Signup extends Component {
         } else {
 
             let user = {
+                username: UserService.getCurrentUser().username,
                 fullName: this.state.fullName,
-                username: this.state.username,
-                password: this.state.password,
                 accountType: this.state.accountType,
-                email: this.state.email,
                 address: this.state.address,
                 shippingAddress: this.state.shippingAddress,
                 billingAddress: this.state.billingAddress,
             };
+            if (this.state.showChangePassword) {
+                user.password = this.state.password
+            }
+            //console.log(user)
             this.props.onSubmit(user);
         }
     }
@@ -200,6 +211,7 @@ class Signup extends Component {
                             <Form.Control type="text"
                                 placeholder="Email"
                                 required
+                                disabled
                                 className={this.state.emailError ? "form-control is-invalid" : "form-control"}
                                 defaultValue={this.state.email}
                                 onChange={this.handleChangeEmail} />
@@ -217,6 +229,7 @@ class Signup extends Component {
                             <Form.Control type="text"
                                 placeholder="Username"
                                 required
+                                disabled
                                 className={this.state.usernameError ? "form-control is-invalid" : "form-control"}
                                 defaultValue={this.state.username}
                                 onChange={this.handleChangeUsername} />
@@ -230,11 +243,13 @@ class Signup extends Component {
                 <Form.Row className="align-items-center">
                     <Col xs={7}>
                         <Form.Group controlId="password">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Check id="checkboxChangePassword" style={{ marginBottom: '0.5rem' }} type="checkbox"
+                                onChange={this.handleToggleChangePassword} label="Change Password" />
                             <Form.Control
                                 type="password"
-                                placeholder="Password"
+                                placeholder=""
                                 required
+                                disabled={!this.state.showChangePassword}
                                 className={this.state.passwordError ? "form-control is-invalid" : "form-control"}
                                 defaultValue={this.state.password}
                                 onChange={this.handleChangePassword} />
@@ -251,6 +266,7 @@ class Signup extends Component {
                             <Form.Label>Account Type</Form.Label>
                             <Form.Control as="select"
                                 required
+                                value={this.state.accountType}
                                 className={this.state.accountTypeError ? "form-control is-invalid" : "form-control"}
                                 onChange={this.handleChangeAccountType} >
                                 <option value="">Select Account Type</option>
@@ -308,8 +324,8 @@ class Signup extends Component {
 
                 <Form.Row className="align-items-center">
                     <Col xs="auto">
-                        <Button variant="primary" onClick={() => this.validate()} type="submit">
-                            Register
+                        <Button variant="success" onClick={() => this.validate()} type="submit">
+                            Update
                     </Button>
                     </Col>
                 </Form.Row>
@@ -331,4 +347,4 @@ class Signup extends Component {
     }
 }
 
-export default Signup;
+export default AccountDetail;

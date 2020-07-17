@@ -45,19 +45,11 @@ export class ChefView extends React.Component {
             data: [...this.state.data],
             loading: true
         });
-        RecipeService.deleteRecipe(id).then((message) => {
+        RecipeService.deleteRecipe(id).then((data) => {
+            window.location = "/#chef";
+            window.location.reload(false);
+        }).catch((e) => window.confirm(e));
 
-            let recipeIndex = this.state.data.map(recipe => recipe['_id']).indexOf(id);
-            let recipes = this.state.data;
-            recipes.splice(recipeIndex, 1);
-            this.setState({
-                data: [...recipes],
-                loading: false
-            });
-            this.props.history.push('/');
-        }).catch((e) => {
-            console.error(e);
-        });
     }
 
     render() {

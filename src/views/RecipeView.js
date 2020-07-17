@@ -2,8 +2,7 @@ import React from 'react';
 import RecipeService from '../services/RecipeService';
 import ShoppingCartService from '../services/ShoppingCartService';
 import UserService from '../services/UserService';
-import RecipeDescription from '../components/RecipeComponent/RecipeDescription'
-import IngredientCustomizer from '../components/RecipeComponent/IngredientCustomizer'
+import IngredientCustomizer from '../components/RecipeComponent/IngredientCustomizer';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { toast } from 'react-toastify';
@@ -123,6 +122,11 @@ export class RecipeView extends React.Component {
         });
     }
 
+    goToLogin() {
+        window.location = '/#login';
+        window.location.reload(false);
+    }
+
     render() {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
@@ -133,41 +137,57 @@ export class RecipeView extends React.Component {
             <div>
                 <Banner pageTitle={this.state.recipe.title} recipeImageURL={this.state.recipe.recipeImageURL} />
                 <div className="content">
-                    <Row>
-                        <Col>
-                            <RecipeDescription recipeTitle={this.state.recipe.title} recipeDescription={this.state.recipe.description} />
-                        </Col>
-                        <Col>
-                            <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} addToShoppingCart={this.handleShoppingCart} />
-                        </Col>
-                    </Row>
+                    <div className="container-fluid">
+                        <Row className="pb-4">
+                            <Col xs={12} md={6}>
+                                <h3><span className="pr-3">{this.state.recipe.title}</span>
+                                    <span>
+                                        <Rating style={{ color: 'green', fontSize: '70%' }}
+                                            emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
+                                            fullSymbol={<FontAwesomeIcon icon={faStar} />}
+                                            fractions={2}
+                                            initialRating={this.state.overallRating}
+                                            readonly
+                                        />
+                                    </span>
+                                </h3>
+                                <p>{Math.round(this.state.overallRating * 10) / 10} out of 5</p>
+                                <p>{this.state.recipe.description} </p>
+                            </Col>
+                            <Col xs={12} md={6}>
+                                <IngredientCustomizer servingSize={2} ingredientsNeeded={this.state.recipe.ingredients} addToShoppingCart={this.handleShoppingCart} />
+                            </Col>
+                        </Row>
 
-                    <br />
-                    <br />
-                    <br />
-                    <div className="container">
-                        {/* Recipe Review Section */}
+                        <Row className="pt-2" style={{ borderTop: '1px solid #ccc' }}>
+                            <Col xs={12} md={12}>
+                                <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews </h3>
+                            </Col>
+                        </Row>
 
-                        <div className='row'>
-                            <h3><FontAwesomeIcon icon={faComments} /> Customer Reviews <span><Rating style={{ color: 'green' }}
-                                emptySymbol={<FontAwesomeIcon icon={faStarEmpty} />}
-                                fullSymbol={<FontAwesomeIcon icon={faStar} />}
-                                fractions={2}
-                                initialRating={this.state.overallRating}
-                                readonly
-                            /></span></h3>
-                        </div>
+                        <Row>
+                            <Col xs={12} md={12}>
+                                <div className='row mb-2'>
+                                    {UserService.getCurrentUser()._id ?
 
-                        <div className='row mb-2'>
-                            <Button variant="primary" type="button"
-                                onClick={() => this.goToAddRecipeReview()}>
-                                Write a review
-                    </Button>
-                        </div>
-                        <RecipeReviews recipeId={this.state.recipe._id} ></RecipeReviews>
+                                        <Button variant="primary" type="button"
+                                            onClick={() => this.goToAddRecipeReview()}>
+                                            Write a review
+                                    </Button> :
+
+                                        <Button className="btn btn-warning" onClick={this.goToLogin} type="button">
+                                            Log In to write a Review
+                                    </Button>
+                                    }
+                                </div>
+                                <RecipeReviews recipeId={this.state.recipe._id} ></RecipeReviews>
+                            </Col>
+                        </Row>
+
                     </div>
 
-                </div></div>
+                </div>
+            </div>
         );
     }
 }

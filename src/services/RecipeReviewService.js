@@ -64,7 +64,14 @@ export default class RecipeReviewService {
 
             //console.log(review.fileCollection);
             //return false;
-            axios.post(`${this.baseURL()}/${recipeID}`, formData)
+            let token = window.localStorage['jwtToken'];
+            // if (!token) reject("aaa");
+
+            axios.post(`${this.baseURL()}/${recipeID}`, formData, {
+                headers: {
+                    'Authorization': `JWT ${token}`
+                }
+            })
                 .then(res => {
                     window.location = '/#recipe/' + res.data.recipeID;
                 })

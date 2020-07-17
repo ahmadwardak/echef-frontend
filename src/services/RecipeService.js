@@ -60,26 +60,49 @@ export default class RecipeService {
 
     static deleteRecipe(id) {
         return new Promise((resolve, reject) => {
-            HttpService.remove(`${RecipeService.baseURL()}/${id}`, function (data) {
-                if (data.message != undefined) {
-                    resolve(data.message);
+            let token = window.localStorage['jwtToken'];
+            //reject(token);
+            axios.delete(`${RecipeService.baseURL()}/${id}`, {
+                headers: {
+                    'Authorization': `JWT ${token}`
                 }
-                else {
-                    reject('Error while deleting');
-                }
-            }, function (textStatus) {
-                reject(textStatus);
-            });
+            })
+                .then(res => {
+                    resolve('success');
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         });
     }
 
     static updateRecipe(recipe) {
         return new Promise((resolve, reject) => {
-            HttpService.put(`${this.baseURL()}/${recipe._id}`, recipe, function (data) {
-                resolve(data);
-            }, function (textStatus) {
-                reject(textStatus);
-            });
+            var formData = new FormData();
+            formData.append('title', recipe.title);
+            formData.append('description', recipe.description);
+            formData.append('createdByChef', recipe.createdByChef);
+            formData.append('servingSize', recipe.servingSize);
+            formData.append('difficulty', recipe.difficulty);
+            formData.append('category', recipe.category);
+            formData.append('ingredients', JSON.stringify(recipe.ingredients));
+            formData.append('recipeImageURL', recipe.recipeImageURL);
+            console.log(recipe.recipe._id);
+            console.log(...formData);
+
+            let token = window.localStorage['jwtToken'];
+
+            axios.put(`${RecipeService.baseURL()}/${recipe.recipe._id}`, formData, {
+                headers: {
+                    'Authorization': `JWT ${token}`
+                }
+            })
+                .then(res => {
+                    window.location = '/#chef/';
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         });
     }
 
@@ -94,7 +117,14 @@ export default class RecipeService {
             formData.append('category', recipe.category);
             formData.append('ingredients', JSON.stringify(recipe.ingredients));
             formData.append('recipeImageURL', recipe.recipeImageURL);
-            axios.post(this.baseURL(), formData)
+
+            let token = window.localStorage['jwtToken'];
+
+            axios.post(this.baseURL(), formData, {
+                headers: {
+                    'Authorization': `JWT ${token}`
+                }
+            })
                 .then(res => {
                     window.location = '/#chef/';
                 })

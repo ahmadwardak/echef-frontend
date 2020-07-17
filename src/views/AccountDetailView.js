@@ -1,10 +1,10 @@
 import { render } from "react-dom"
 import React from "react"
-import Signup from '../components/SignupComponent/Signup';
+import AccountDetail from '../components/AccountDetailComponent/AccountDetail';
 import UserService from '../services/UserService';
 import Banner from '../components/HeaderComponent/Banner';
 
-export class SignupView extends React.Component {
+export class AccountDetailView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -15,12 +15,13 @@ export class SignupView extends React.Component {
         };
     }
 
-    signup(user) {
-        UserService.register(user).then((data) => {
+    update(user) {
+        UserService.update(user).then((data) => {
 
-            window.location = '/#/';
-            window.location.reload();
-            console.log('registered.....');
+            UserService.logout();
+
+            window.location = '/#login';
+            window.location.reload(false);
         }).catch(err => {
             console.error(err);
             this.setState({
@@ -38,7 +39,7 @@ export class SignupView extends React.Component {
             <div>
                 <Banner pageTitle={this.props.title} />
                 <div className="content">
-                    <Signup onSubmit={(user) => this.signup(user)} error={this.state.error} /></div></div>
+                    <AccountDetail onSubmit={(user) => this.update(user)} error={this.state.error} /></div></div>
         );
     }
 
