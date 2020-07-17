@@ -12,6 +12,7 @@ export const ChefViewList = ({ recipes, onDelete }) => {
             <Table>
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Recipe Name</th>
                         <th>Edit</th>
                         <th>Delete</th>
