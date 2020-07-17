@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import RecipeService from "../services/RecipeService"
 import { RecipeList } from '../components/RecipeList';
 import Categories from "../components/Categories";
-import { Tags } from "../components/Tags";
+// import { Tags } from "../components/Tags";
 import { Form, FormGroup, FormControl, Card, ListGroup, Container, Row, Col, Collapse, Button } from "react-bootstrap";
 import Banner from '../components/HeaderComponent/Banner';
 
@@ -14,7 +14,7 @@ export class SearchView extends React.Component {
         let categories = props.location.category || "All Categories";
         // console.log("Props location", props.location)
         let inputData = props.location.title || "";
-        console.log("Categories", categories)
+        // console.log("Categories", categories)
         this.state = {
             //data: [{ "title": "If you see this, the DB is not connected", "difficulty": "Easy", "_id": "FooBar", "category": "All Categories", "tags":"" }],
             data: [],
@@ -22,15 +22,15 @@ export class SearchView extends React.Component {
             title: inputData,
             difficulty: "",
             category: categories,
-            tags: [],
-            showTags: true,
-            activeTags: [],
+            // tags: [],
+            // showTags: true,
+            // activeTags: [],
             showFilters: false
         }
         //Connects the onChange event to the function
         this.handleSearchChange = this.handleSearchChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.toggleTags = this.toggleTags.bind(this);
+        // this.handleChange = this.handleChange.bind(this);
+        // this.toggleTags = this.toggleTags.bind(this);
 
 
     };
@@ -42,21 +42,21 @@ export class SearchView extends React.Component {
         });
         RecipeService.getAll().then((data) => {
             // Get all viable tags 
-            let tempTags = data.reduce((tmp, tag) => {
-                //  console.log(" Tag: ", tag.tags, tag._id)
-                if (tag.tags)
-                    return (tmp = [...tmp, ...tag.tags]);
-                else {
-                    return tmp = [...tmp];
-                }
-            }, [])
-            //Remove duplicates
-            tempTags = [...new Set(tempTags)]
+            // let tempTags = data.reduce((tmp, tag) => {
+            //     //  console.log(" Tag: ", tag.tags, tag._id)
+            //     if (tag.tags)
+            //         return (tmp = [...tmp, ...tag.tags]);
+            //     else {
+            //         return tmp = [...tmp];
+            //     }
+            // }, [])
+            // //Remove duplicates
+            // tempTags = [...new Set(tempTags)]
             //console.log("tempTags",tempTags)
             this.setState({
                 data: [...data],
-                tags: tempTags,
-                activeTags: tempTags,
+                // tags: tempTags,
+                // activeTags: tempTags,
                 loading: false
             })
         }).catch((e) => {
@@ -65,27 +65,27 @@ export class SearchView extends React.Component {
     }
 
 
-    handleChange(event) {
-        // console.log("", event.target.value, "checked", event.target.checked)
-        let tmpTags = this.state.activeTags
-        let value = event.target.value
-        let checked = event.target.checked
-        if (checked) {//Selecting: add a value
-            this.setState({
-                activeTags: [...this.state.activeTags, value]
-            })
-        }// Remove a value
-        else {
-            tmpTags = tmpTags.filter(tag => {
-                //console.log("No want this:", value, "I am: ", tag)
-                //console.log(tag === value)
-                return (tag !== value)
-            })
-            this.setState({
-                activeTags: [... new Set(tmpTags)]
-            })
-        }
-    }
+    // handleChange(event) {
+    //     // console.log("", event.target.value, "checked", event.target.checked)
+    //     // let tmpTags = this.state.activeTags
+    //     let value = event.target.value
+    //     let checked = event.target.checked
+    //     if (checked) {//Selecting: add a value
+    //         this.setState({
+    //             activeTags: [...this.state.activeTags, value]
+    //         })
+    //     }// Remove a value
+    //     else {
+    //         tmpTags = tmpTags.filter(tag => {
+    //             //console.log("No want this:", value, "I am: ", tag)
+    //             //console.log(tag === value)
+    //             return (tag !== value)
+    //         })
+    //         this.setState({
+    //             activeTags: [... new Set(tmpTags)]
+    //         })
+    //     }
+    // }
     // Handles the filter search
     handleSearchChange(event) {
         event.preventDefault()
@@ -97,14 +97,14 @@ export class SearchView extends React.Component {
             [nameVal]: val  // this.state{something:value}
         })
     }
-    toggleTags() {
-        //console.log("showTags?", !this.state.showTags)
-        let show = this.state.showTags
-        this.setState({
-            showTags: !show
-        }
-        )
-    }
+    // toggleTags() {
+    //     //console.log("showTags?", !this.state.showTags)
+    //     let show = this.state.showTags
+    //     this.setState({
+    //         showTags: !show
+    //     }
+    //     )
+    // }
 
 
     //Home View
@@ -117,7 +117,7 @@ export class SearchView extends React.Component {
                 return (
                     recipe["title"].toLowerCase().includes(this.state.title.toLowerCase())
                     && recipe["difficulty"].includes(this.state.difficulty)
-                    && recipe["tags"].some(r => this.state.activeTags.includes(r))
+                    // && recipe["tags"].some(r => this.state.activeTags.includes(r))
 
                 )
             }
@@ -126,7 +126,7 @@ export class SearchView extends React.Component {
                     recipe["title"].toLowerCase().includes(this.state.title.toLowerCase())
                     && recipe["difficulty"].includes(this.state.difficulty)
                     && recipe["category"] == this.state.category
-                    && recipe["tags"].some(r => this.state.activeTags.includes(r))
+                    // && recipe["tags"].some(r => this.state.activeTags.includes(r))
                 )
             }
         })
@@ -177,7 +177,7 @@ export class SearchView extends React.Component {
 
                                         </Col>
                                     </Row>
-                                    <Row>
+                                    {/* <Row>
                                         <Col xs={12} md={12}>
                                             <Form.Group>
                                                 <Button variant="primary btn-block" onClick={this.toggleTags}>
@@ -190,7 +190,7 @@ export class SearchView extends React.Component {
                                                 </div>
                                             </Form.Group>
                                         </Col>
-                                    </Row>
+                                    </Row> */}
                                 </Card.Body>
                             </Card>
                         </Col>
