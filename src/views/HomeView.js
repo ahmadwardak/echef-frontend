@@ -61,7 +61,7 @@ export class HomeView extends React.Component {
         const cats = this.state.categories;
         // randomize recipes
         let rand = this.state.someOtherRecipes.sort(() => 0.5 - Math.random());
-        rand = rand.slice(0,4)
+        rand = rand.slice(0, 4)
 
 
         return (
@@ -140,19 +140,38 @@ export class HomeView extends React.Component {
                                 </Card>
                             </Col>
                         </Row>
-                        <Row xs={12}>
-                            <Col >
+
+                        <Row className="mt-3" >
+                            <Col xs={12} md={12}>
                                 <Card>
-                                    <Card.Header><span>Want to try something new?</span></Card.Header>
-                                    {<RecipeList recipes={recs} />}
+                                    <Card.Header className="bg-success text-white">
+                                        <Row>
+                                            <Col xs={12} md={12}>
+                                                <h5 className="m-1  font-weight-light">
+                                                    Want to try something new?</h5>
+                                            </Col>
+                                        </Row>
+                                    </Card.Header>
+                                    <Card.Body className="bg-light">
+                                        <RecipeList recipes={recs} />
+                                    </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
-                        <Row xs={12}>
-                            <Col >
+                        <Row className="mt-3" >
+                            <Col xs={12} md={12}>
                                 <Card>
-                                    <Card.Header><span>Or why don't you try...</span></Card.Header>
-                                    {<RecipeList recipes={rand} />}
+                                    <Card.Header className="bg-primary text-white">
+                                        <Row>
+                                            <Col xs={12} md={12}>
+                                                <h5 className="m-1  font-weight-light">
+                                                    Or why don't you try...</h5>
+                                            </Col>
+                                        </Row>
+                                    </Card.Header>
+                                    <Card.Body className="bg-light">
+                                        <RecipeList recipes={rand} />
+                                    </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
