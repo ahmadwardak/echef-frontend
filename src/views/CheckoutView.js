@@ -48,11 +48,9 @@ export class CheckoutView extends React.Component {
     }
 
     removeShoppingCart(){
-        var newShoppingCart = this.state.shoppingCart;
-        newShoppingCart.customerID = "-1";
-        ShoppingCartService.updateShoppingCart(newShoppingCart,this.state.user._id).then((data)=>{
+        ShoppingCartService.deleteShoppingCartByUserID(this.state.user._id).then((data) => {
             window.location.reload();
-        });
+        }).catch((e) => window.confirm(e));
     }
 
    

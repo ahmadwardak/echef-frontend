@@ -27,11 +27,8 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
         Region:'',
         Zipcode:''
     });
-    const [cart]=useState({
-        id:shoppingCart._id,
-        totalPrice:shoppingCart.totalPrice,
-        shipmentCost:Math.round((shoppingCart.totalPrice*0.2)*100)/100
-    });
+
+    
     
 
 
@@ -42,7 +39,6 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
         setRegion(val);
     }
     function setUserDetails(event){
-        console.log("order details",orderDetails);
         var details=orderDetails;
         var name= event.target.name;
         if(name==='FirstName'){
@@ -72,6 +68,29 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
         finalDetails.Country=country;
         finalDetails.Region=region;
         setOrderDetails(finalDetails);
+        var items=[];
+        if(shoppingCart!=undefined && shoppingCart.cartItems.length>0){
+            shoppingCart.cartItems.map(recipe=>{
+                var ings = [];
+                recipe.recipeIngredients.map(ingredient=>{
+                    ings.push({
+                        ingredientID:ingredient.ingredientID,
+                        ingredientQuantity:ingredient.ingredientQuantity,
+                        ingredientBrand:ingredient.ingredientBrand,
+                        price:ingredient.price
+                    });
+                });
+                items.push({
+                    recipeID:recipe.recipeID,
+                    recipeIngredients:ings
+                });
+            });
+        }
+        var cart={
+            cartItems:items,
+            totalPrice:shoppingCart.totalPrice,
+            shipmentCost:Math.round((shoppingCart.totalPrice*0.2)*100)/100
+        };
         OrderService.createOrder({
             cart,
             orderDetails,
@@ -136,7 +155,7 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
                     <StripeCheckout 
                     stripeKey="pk_test_51H3MpiKYLWJclmfxNXVgxmAS7PAxf0tRVed9JiuCFEauDnJx39PuLpxHaYWWXaJfAFxVj87yo5WG7HDhouYx9cWn00Eok2TOdY"
                     token={handleToken}
-                    amount={shoppingCart?shoppingCart.totalPrice*100:0}
+                    amount={shoppingCart?(shoppingCart.totalPrice*1.2)*100:0}
                     currency='EUR'
                     />
                 </div>

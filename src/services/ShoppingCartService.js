@@ -1,6 +1,8 @@
 "use strict";
 
 import HttpService from './HttpService';
+import axios from 'axios';
+
 import { ShoppingCartFontIcon } from 'react-md';
 
 export default class ShoppingCartService {
@@ -60,4 +62,17 @@ export default class ShoppingCartService {
         });
     }
 
+    static deleteShoppingCartByUserID(id) {
+        return new Promise((resolve, reject) => {
+            
+            //reject(token);
+            axios.delete(`${ShoppingCartService.baseURL()}/${id}`)
+                .then(res => {
+                    resolve('success');
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        });
+    }
 }

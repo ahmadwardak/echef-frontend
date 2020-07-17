@@ -94,7 +94,7 @@ input[type=number].amountBox::-webkit-inner-spin-button,
     margin-bottom: 20px;
 }
 .itemsBox{
-    height: 85%;
+    height: 75%;
     overflow-y: auto;
     
 }
