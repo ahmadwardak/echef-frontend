@@ -150,6 +150,7 @@ class Header extends Component {
                 <NavDropdown id="dropdown-menu-align-right" alignRight title={
                   <FontAwesomeIcon style={{ marginRight: '5px' }} icon={faUserCircle} size="lg" />} >
                   <NavDropdown.Item href="#account">My Account</NavDropdown.Item>
+                  <NavDropdown.Item href="#orders">My Orders</NavDropdown.Item>
                   <NavDropdown.Item href="#" onClick={() => this.logout()}>SignOut</NavDropdown.Item>
 
                 </NavDropdown>

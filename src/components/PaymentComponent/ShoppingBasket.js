@@ -78,7 +78,7 @@ const RecipeSection = ({recipe,handleDeleion})=>{
             <div className='greenBox'><p>recipe: {recipeName}</p></div>
             {recipe.recipeIngredients.map(
                 function(ing,key){
-                    return <BasketItem key={key} item={ing} DeleteFromCart={deleteFromCart}/>
+                    return <BasketItem key={key} item={ing} DeleteFromCart={deleteFromCart} showDeleteButtton={true}/>
                 }
             )}
         </div>

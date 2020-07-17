@@ -18,7 +18,7 @@ export default class OrderService {
                     resolve(data);
                 }
                 else {
-                    reject('Error while retrieving movie');
+                    reject('Error while retrieving order');
                 }
             }, function(textStatus) {
                 reject(textStatus);

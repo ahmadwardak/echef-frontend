@@ -6,7 +6,7 @@ import GroceryIcon from '../../Assets/grocery.png';
 import {  Button } from 'react-bootstrap';
 import IngredientsService from '../../services/IngredientsService';
 
-const BasketItem = ({item,DeleteFromCart})=>{ 
+const BasketItem = ({item,DeleteFromCart,showDeleteButtton})=>{ 
     const[title,setTitle]=useState('');
     const[parameter,setParameter]=useState('');
 
@@ -55,9 +55,15 @@ const BasketItem = ({item,DeleteFromCart})=>{
                     </Row>
                     <Row className='itemRow'>
                         <Col>
+                        {
+                            showDeleteButtton?
                             <Button variant="outline-success" onClick={DeleteItemFromCart} type="button">
                                 Delete from basket
                             </Button>
+                            :
+                            null
+                        }
+                            
                         </Col>                     
                     </Row>
                     

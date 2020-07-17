@@ -1,0 +1,44 @@
+.ordersTitle{
+    margin-bottom: 50px;
+    position: relative;
+}
+.statusBack{
+    background-color: #28a745;
+    color:#fff;
+    border-radius: 15px;
+    padding:5px;
+}
+
+.headerTitleBottom{
+    padding:10px 0;
+    background-color: #393432;
+    color:#fff;
+}
+
+.orderNumberBack{
+    background-color: #28a745;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    text-align: center;
+    padding: 0;
+  
+}
+
+.orderCount{
+    left: 10px;
+    top: 2px;
+    color: #fff;
+    position: absolute;
+}
+
+.ordersCartBack{
+    height:300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.orderRow{
+    margin-top:20px;
+    margin-bottom: 20px;
+}

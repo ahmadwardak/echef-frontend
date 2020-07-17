@@ -15,6 +15,7 @@ import { SearchView } from "./views/SearchView";
 import { RecipeView } from "./views/RecipeView";
 import { RecipeReviewFormView } from './views/RecipeReviewFormView';
 import { CheckoutView } from './views/CheckoutView';
+import { OrderView } from './views/OrderView';
 import Header from './views/HeaderView';
 import Footer from './components/FooterComponent/Footer.js';
 import { NotFoundView } from './views/NotFoundView.js';
@@ -98,6 +99,17 @@ export default class App extends React.Component {
                         }
 
                     }, path: '/account'
+                },
+                {
+                    render: (props) => {
+                        if (UserService.isAuthenticated()) {
+                            return (<OrderView {...props} title={"My Orders"} />)
+                        }
+                        else {
+                            return (<Redirect to={'/login'} />)
+                        }
+
+                    }, path: '/orders'
                 },
                 {
                     render: (props) => {
