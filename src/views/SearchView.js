@@ -134,6 +134,7 @@ export class SearchView extends React.Component {
                 )
             }
         })
+        
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }

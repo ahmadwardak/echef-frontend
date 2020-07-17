@@ -20,7 +20,8 @@ export class HomeView extends React.Component {
         this.state = {
             loading: true,
             categories: [],
-            newRecipes: []
+            newRecipes: [],
+            someOtherRecipes: []
         }
         CategoryService.getCategories().then((data) => {
             this.setState({
@@ -40,6 +41,15 @@ export class HomeView extends React.Component {
         }).catch((e) => {
             console.error(e)
         })
+        RecipeService.getAll().then((data) => {
+            this.setState({
+                someOtherRecipes: [...data],
+                loading: false,
+
+            })
+        }).catch((e) => {
+            console.error(e)
+        })
     }
 
     //Home View
@@ -47,8 +57,12 @@ export class HomeView extends React.Component {
         if (this.state.loading) {
             return (<h2>Loading...</h2>);
         }
-        const recs = this.state.newRecipes
-        const cats = this.state.categories
+        const recs = this.state.newRecipes;
+        const cats = this.state.categories;
+        // randomize recipes
+        let rand = this.state.someOtherRecipes.sort(() => 0.5 - Math.random());
+        rand = rand.slice(0,4)
+
 
         return (
             <div>
@@ -137,8 +151,8 @@ export class HomeView extends React.Component {
                         <Row xs={12}>
                             <Col >
                                 <Card>
-                                    <Card.Header><span>Want to try something new?</span></Card.Header>
-                                    {<RecipeList recipes={recs} />}
+                                    <Card.Header><span>Or why don't you try...</span></Card.Header>
+                                    {<RecipeList recipes={rand} />}
                                 </Card>
                             </Col>
                         </Row>

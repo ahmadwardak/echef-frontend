@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "./../Assets/echef-logo.png";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import RecipeReviewService from '../services/RecipeReviewService';
 const Recipe = ({ Title, Servings, id, difficulty, imageUrl }) => {
-  // let recipeAddr = "http://localhost:8000/#/recipe/" + id
+
   console.log("imageUrl", imageUrl)
   let usedImg = Logo
-  if(imageUrl !== undefined && imageUrl !== ""){
+  if(  imageUrl  && imageUrl !== "" && imageUrl !== "undefined"){
      usedImg = imageUrl
   }
   return (
@@ -19,7 +20,7 @@ const Recipe = ({ Title, Servings, id, difficulty, imageUrl }) => {
         <Link to={"recipe/" + id}>
           <Card.Header style={{ whitespace: "nowrap" }}>{Title}</Card.Header>
           <Card.Img src={usedImg}></Card.Img>
-          {difficulty}
+          <Card.Footer>Difficulty level: {difficulty} </Card.Footer>
         </Link>
       </Card>
     </div>
