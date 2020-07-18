@@ -54,8 +54,8 @@ const ShoppingBasket = ({shoppingCart,updateCart})=>{
                 <Button variant="btn btn-success btn-block" href="/#" type="button">
                     Go to home page
                 </Button>
-                <Button variant="btn btn-success btn-block" href="/#/search" type="button">
-                    Customize your search
+                <Button variant="btn btn-success btn-block" href="/#/orders" type="button">
+                    Check  out your orders
                 </Button>
             </div>
             }

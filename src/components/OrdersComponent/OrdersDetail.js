@@ -60,13 +60,13 @@ class OrderDetail extends Component {
                                     </Row>
                                     <Row className='text-center orderRow'>
                                         <Col>
-                                            <p><strong>Items Price:</strong> {this.props.order.itemsPrice}  €</p>
+                                            <p><strong>Items Price:</strong> <strong className='greenText'>{this.props.order.itemsPrice}  €</strong></p>
                                         </Col>
                                         <Col>
-                                            <p><strong>Shipment Cost:</strong> {this.props.order.shipmentCost}  €</p>
+                                            <p><strong>Shipment Cost:</strong> <strong className='greenText'>{this.props.order.shipmentCost}  €</strong></p>
                                         </Col>
                                         <Col>
-                                            <p><strong>Total Price:</strong> {this.props.order.totalCost}  €</p>
+                                            <p><strong>Total Price:</strong> <strong className='greenText'>{this.props.order.totalCost}  €</strong></p>
                                         </Col>
                                     </Row>
                                     <Row className='text-center orderRow'>
