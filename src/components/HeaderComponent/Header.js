@@ -104,6 +104,9 @@ class Header extends Component {
               <Nav.Link href="#/">Home</Nav.Link>
               <Nav.Link href="#about">About</Nav.Link>
               <Nav.Link href="#our-team">Our Team</Nav.Link>
+              {(UserService.isAuthenticated() && UserService.getCurrentUser().accounttype === 'chef') ?
+                <Nav.Link href="#chef">My Recipes</Nav.Link>
+                : ""}
             </Nav>
             <Form inline onSubmit={(e) => { this.handleSearchSubmit(e) }}>
               <InputGroup>
