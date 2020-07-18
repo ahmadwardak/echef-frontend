@@ -4,7 +4,7 @@ import OrderDetail from '../components/OrdersComponent/OrdersDetail';
 import OrderService from '../services/OrderService';
 import Banner from '../components/HeaderComponent/Banner';
 import UserService from '../services/UserService';
-import {Accordion} from 'react-bootstrap';
+import {Accordion, Alert} from 'react-bootstrap';
 
 
 export class OrderView extends React.Component {
@@ -46,9 +46,18 @@ export class OrderView extends React.Component {
             <div>
                 <Banner pageTitle={this.props.title} />
                 <div className="content">
-                    <Accordion>
-                        {this.state.orders.map((ord,index)=> <OrderDetail order={ord} key={ord._id} index={index}/>)}
-                    </Accordion>      
+                    {
+                        this.state.orders.length==0?
+                            <Alert variant='success'>
+                                You don't have any orders. {' '}
+                                <Alert.Link href="#/search">Check our recipes</Alert.Link> to make your first order.
+                            </Alert>                      
+                            :
+                            <Accordion>
+                                {this.state.orders.map((ord,index)=> <OrderDetail order={ord} key={ord._id} index={index}/>)}
+                            </Accordion> 
+                    }
+                         
                 </div>
             </div>
         );

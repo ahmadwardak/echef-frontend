@@ -1,5 +1,5 @@
 .ingredientBox{
-    background-color: #393432;
+    background-color: #333B3F;
     height: 480px;
     padding: 20px 20px 40px;
 }
@@ -80,13 +80,13 @@ ul.totalPriceList {
     
     ul.totalPriceList span:first-child {
     padding-right: 5px;
-    background-color: #393432;
+    background-color: #333B3F;
     }
     
     ul.totalPriceList span + span {
     float: right;
     padding-left: 5px;
-    background-color: #393432;
+    background-color: #333B3F;
     }
 
     input[type=number].servingSizeBox::-webkit-inner-spin-button, 
