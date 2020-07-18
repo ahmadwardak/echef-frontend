@@ -92,7 +92,7 @@ export default class RecipeService {
             formData.append('ingredients', JSON.stringify(recipe.ingredients));
             formData.append('recipeImageURL', recipe.recipeImageURL);
             console.log(recipe.recipe._id);
-            console.log(...formData);
+            // console.log(...formData);
 
             let token = window.localStorage['jwtToken'];
 
@@ -102,6 +102,7 @@ export default class RecipeService {
                 }
             })
                 .then(res => {
+                    // console.log(res);
                     window.location = '/#chef/';
                 })
                 .catch(err => {
