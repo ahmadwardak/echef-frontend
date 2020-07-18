@@ -6,22 +6,25 @@ import Categories from "../components/Categories";
 // import { Tags } from "../components/Tags";
 import { Form, FormGroup, FormControl, Card, ListGroup, Container, Row, Col, Collapse, Button } from "react-bootstrap";
 import Banner from '../components/HeaderComponent/Banner';
+/* SearchView handles all the searching needs.
+Passing props are category and title, which allow users to initiate the search from the navigation bar or from the proposed recipes
+in the home page.
 
+OnMounting, SearchView will load the recipes in the DB and show them accordingly to the existing filters
+Most of the Filter events are handled with the single handleSearchChange function*/
 export class SearchView extends React.Component {
 
     constructor(props) {
         super(props);
         let categories = props.location.category || "All Categories";
-        // console.log("Props location", props.location)
         let inputData = props.location.title || "";
-        // console.log("Categories", categories)
         this.state = {
-            //data: [{ "title": "If you see this, the DB is not connected", "difficulty": "Easy", "_id": "FooBar", "category": "All Categories", "tags":"" }],
             data: [],
             loading: false,
             title: inputData,
             difficulty: "",
             category: categories,
+            //Tags, while working, are not being used
             // tags: [],
             // showTags: true,
             // activeTags: [],
@@ -35,15 +38,14 @@ export class SearchView extends React.Component {
 
     };
     // Normal React component Lifecycle
-    componentWillMount(props) {
-        //  console.log("Is this here",props.location.aboutProps.category)
+    componentWillMount() {
         this.setState({
             loading: true
         });
         RecipeService.getAll().then((data) => {
+            //Tags, while working, are not being used
             // Get all viable tags 
             // let tempTags = data.reduce((tmp, tag) => {
-            //     //  console.log(" Tag: ", tag.tags, tag._id)
             //     if (tag.tags)
             //         return (tmp = [...tmp, ...tag.tags]);
             //     else {
@@ -52,7 +54,6 @@ export class SearchView extends React.Component {
             // }, [])
             // //Remove duplicates
             // tempTags = [...new Set(tempTags)]
-            //console.log("tempTags",tempTags)
             this.setState({
                 data: [...data],
                 // tags: tempTags,
@@ -64,7 +65,7 @@ export class SearchView extends React.Component {
         });
     }
 
-
+    //Tags, while working, are not being used
     // handleChange(event) {
     //     // console.log("", event.target.value, "checked", event.target.checked)
     //     // let tmpTags = this.state.activeTags
@@ -91,12 +92,12 @@ export class SearchView extends React.Component {
         event.preventDefault()
         let nameVal = event.target.name // input name = "something"
         let val = event.target.value // something = value
-        // console.log("nameVal", nameVal)
-        // console.log("val", val)
         this.setState({
-            [nameVal]: val  // this.state{something:value}
+            [nameVal]: val  
         })
     }
+
+    //Tags, while working, are not being used
     // toggleTags() {
     //     //console.log("showTags?", !this.state.showTags)
     //     let show = this.state.showTags
@@ -107,18 +108,13 @@ export class SearchView extends React.Component {
     // }
 
 
-    //Home View
     render() {
-        // console.log("Tags:", this.state.tags)
         const recipes = this.state.data.filter(recipe => {
-            //console.log("This is a recipe", recipe["tags"])
-            //console.log("Active tags", this.state.activeTags)
             if (this.state.category == "All Categories") {
                 return (
                     recipe["title"].toLowerCase().includes(this.state.title.toLowerCase())
                     && recipe["difficulty"].includes(this.state.difficulty)
                     // && recipe["tags"].some(r => this.state.activeTags.includes(r))
-
                 )
             }
             else {
@@ -153,6 +149,7 @@ export class SearchView extends React.Component {
                                         <Col xs={12} md={12}>
                                             <Form.Group>
                                                 <Form.Control
+                                                // Handle recipe Titles
                                                     type="text" className="filterInput" name="title"
                                                     value={this.state.title}
                                                     placeholder="Filter recipes" onChange={this.handleSearchChange} />
@@ -178,6 +175,7 @@ export class SearchView extends React.Component {
                                         </Col>
                                     </Row>
                                     {/* <Row>
+                                        //Tags, while working, are not being used
                                         <Col xs={12} md={12}>
                                             <Form.Group>
                                                 <Button variant="primary btn-block" onClick={this.toggleTags}>

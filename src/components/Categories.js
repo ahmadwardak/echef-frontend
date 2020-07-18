@@ -7,7 +7,7 @@ const Categories = (props) => {
 
     const val = props.value || props.category;
     const [Data, setData] = useState([])
-
+    // We use an effect because we need to set the data ONLY when the component has been fully mounted
     useEffect(() => {
         CategoryService.getCategories().then((data) => {
             setData(data)

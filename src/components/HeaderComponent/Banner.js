@@ -46,7 +46,7 @@ class Banner extends Component {
                                     <Row className="pt-1">
                                         <Col xs={12} md={12} className="d-flex justify-content-center text-weight-light">
                                             <div className=" justify-content-center" style={{ display: 'flex', flexWrap: 'wrap' }}>
-                                                <div className="item">eChef is a one-stop go-to platform to identify ingredients </div>
+                                                <div className="item">eChef is a one-stop platform to identify ingredients </div>
                                                 <div style={{ flexBasis: '100%', height: '0' }}> </div>
                                                 <div className="item" >of a recipe and buy them in a single click.</div>
                                                 <div style={{ flexBasis: '100%', height: '10px' }}> </div>
