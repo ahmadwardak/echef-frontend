@@ -23,6 +23,7 @@ export class SearchView extends React.Component {
             loading: false,
             title: inputData,
             difficulty: "",
+            OverallRating: "",
             category: categories,
             //Tags, while working, are not being used
             // tags: [],
@@ -93,7 +94,7 @@ export class SearchView extends React.Component {
         let nameVal = event.target.name // input name = "something"
         let val = event.target.value // something = value
         this.setState({
-            [nameVal]: val  
+            [nameVal]: val
         })
     }
 
@@ -115,6 +116,8 @@ export class SearchView extends React.Component {
                     recipe["title"].toLowerCase().includes(this.state.title.toLowerCase())
                     && recipe["difficulty"].includes(this.state.difficulty)
                     // && recipe["tags"].some(r => this.state.activeTags.includes(r))
+                    && recipe["OverallRating"] >= this.state.OverallRating
+
                 )
             }
             else {
@@ -149,7 +152,7 @@ export class SearchView extends React.Component {
                                         <Col xs={12} md={12}>
                                             <Form.Group>
                                                 <Form.Control
-                                                // Handle recipe Titles
+                                                    // Handle recipe Titles
                                                     type="text" className="filterInput" name="title"
                                                     value={this.state.title}
                                                     placeholder="Filter recipes" onChange={this.handleSearchChange} />
@@ -164,6 +167,21 @@ export class SearchView extends React.Component {
                                                     <option value="Easy">Easy</option>
                                                     <option value="Intermediate">Intermediate</option>
                                                     <option value="Hard">Hard</option>
+                                                </Form.Control>
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col xs={12} md={12}>
+                                            <Form.Group>
+                                                <Form.Control as="select" onChange={this.handleSearchChange} name="OverallRating">
+                                                    <option value="0">Any Rating</option>
+                                                    <option value="5">5 stars</option>
+                                                    <option value="4">4 stars and above</option>
+                                                    <option value="3">3 stars and above</option>
+                                                    <option value="2">2 stars and above</option>
+                                                    <option value="1">1 star nd above</option>
                                                 </Form.Control>
                                             </Form.Group>
                                         </Col>
