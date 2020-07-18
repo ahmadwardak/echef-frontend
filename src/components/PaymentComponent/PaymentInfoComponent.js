@@ -138,26 +138,26 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
                     <div className="inputGroup">
                     <Row>
                         <Col>
-                            <input className='formStyle' required type="text" value={orderDetails.FirstName} name='FirstName' onChange={setUserDetails} placeholder='First Name*'/>
+                            <input className='formStyle'  type="text" defaultValue={orderDetails.FirstName} name='FirstName' onChange={setUserDetails} placeholder='First Name*'/>
                         </Col>
                         <Col>
-                            <input className='formStyle' required type="text" value={orderDetails.LastName} name='LastName' onChange={setUserDetails} placeholder="Last Name*" />
+                            <input className='formStyle' type="text" defaultValue={orderDetails.LastName} name='LastName' onChange={setUserDetails} placeholder="Last Name*" />
                         </Col>
                     </Row>
                     </div>
                     <div className="inputGroup">
-                        <input className='formStyle'required type="text" defaultValue={user.shippingAddress} name='AddressLine1' value={orderDetails.AddressLine1} onChange={setUserDetails} placeholder="Address*" />
+                        <input className='formStyle' type="text" defaultValue={user.shippingAddress} name='AddressLine1' onChange={setUserDetails} placeholder="Address*" />
                     </div>
                     <div className="inputGroup">
-                        <input className='formStyle' required type="text" name='AddressLine2' value={orderDetails.AddressLine2} onChange={setUserDetails} placeholder="Apartment number, suite, etc*" />
+                        <input className='formStyle'  type="text" name='AddressLine2' defaultValue={orderDetails.AddressLine2} onChange={setUserDetails} placeholder="Apartment number, suite, etc*" />
                     </div>
                     <div className="inputGroup">
                     <Row>
                         <Col>
-                            <input className='formStyle' required type="text" name='City' value={orderDetails.City} onChange={setUserDetails} placeholder="City*" />
+                            <input className='formStyle'  type="text" name='City' defaultValue={orderDetails.City} onChange={setUserDetails} placeholder="City*" />
                         </Col>
                         <Col>
-                                <CountryDropdown required defaultOptionLabel="Country*" value={country} onChange={selectCountry} />
+                                <CountryDropdown  defaultOptionLabel="Country*" value={country} onChange={selectCountry} />
                         </Col>
                     </Row>
                     </div>
@@ -165,10 +165,10 @@ const PaymentInfo = ({user,shoppingCart,orderCompleted})=>{
                         <Row>
                             
                             <Col>
-                                <RegionDropdown required blankOptionLabel="Region" defaultOptionLabel="Region" country={country} value={region} onChange={selectRegion} />
+                                <RegionDropdown  blankOptionLabel="Region" defaultOptionLabel="Region" country={country} value={region} onChange={selectRegion} />
                             </Col>
                             <Col>
-                                <input className='formStyle' required type="number" placeholder="Zipcode*" name='Zipcode' value={orderDetails.Zipcode} onChange={setUserDetails} />
+                                <input className='formStyle'  type="number" placeholder="Zipcode*" name='Zipcode' defaultValue={orderDetails.Zipcode} onChange={setUserDetails} />
                             </Col>
                         </Row>
                     </div>
