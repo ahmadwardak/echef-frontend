@@ -37,7 +37,7 @@ class IngredientListRow extends React.Component {
     selectedIngredient(event) {
 
         var id = event.target.value;
-        console.log("called", this.state.Ingredients);
+        // console.log("called", this.state.Ingredients);
         let ingr = this.state.Ingredients.find(dt => dt._id == id)
         //console.log("ingr",ingr)
         this.setState({ IngredientBrands: ingr.ingredientBrands })

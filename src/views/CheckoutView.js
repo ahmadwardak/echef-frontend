@@ -20,8 +20,8 @@ export class CheckoutView extends React.Component {
             user: UserService.getCurrentUser(),
             shoppingCart: {}
         };
-        this.updateShoppingCart=this.updateShoppingCart.bind(this);
-        this.removeShoppingCart=this.removeShoppingCart.bind(this);
+        this.updateShoppingCart = this.updateShoppingCart.bind(this);
+        this.removeShoppingCart = this.removeShoppingCart.bind(this);
     }
     componentWillMount(props) {
         this.setState({
@@ -35,25 +35,25 @@ export class CheckoutView extends React.Component {
                 shoppingCart: data[0],
                 loading: false
             });
-            console.log("shopppp",this.state.shoppingCart);
+            // console.log("shopppp",this.state.shoppingCart);
         }).catch((e) => {
             console.error(e);
         });
     }
-    updateShoppingCart(shoppingCart){
-        ShoppingCartService.updateShoppingCart(shoppingCart,this.state.user._id).then((data)=>{
+    updateShoppingCart(shoppingCart) {
+        ShoppingCartService.updateShoppingCart(shoppingCart, this.state.user._id).then((data) => {
             window.location.reload();
 
         });
     }
 
-    removeShoppingCart(){
+    removeShoppingCart() {
         ShoppingCartService.deleteShoppingCartByUserID(this.state.user._id).then((data) => {
             window.location.reload();
         }).catch((e) => window.confirm(e));
     }
 
-   
+
 
     //Home View
     render() {
@@ -64,19 +64,19 @@ export class CheckoutView extends React.Component {
             <div>
                 <Banner pageTitle={this.props.title} />
                 <div className="content">
-                <Container fluid>
-                <Row xs={1} md={2}>
-                    <Col>
-                        <PaymentInfo user={this.state.user} shoppingCart={this.state.shoppingCart} orderCompleted={this.removeShoppingCart}/>
-                    </Col>
-                    <Col>
-                        <ShoppingBasket shoppingCart={this.state.shoppingCart} updateCart={this.updateShoppingCart}/>
-                    </Col>
-                </Row>
-                </Container>
+                    <Container fluid>
+                        <Row xs={1} md={2}>
+                            <Col>
+                                <PaymentInfo user={this.state.user} shoppingCart={this.state.shoppingCart} orderCompleted={this.removeShoppingCart} />
+                            </Col>
+                            <Col>
+                                <ShoppingBasket shoppingCart={this.state.shoppingCart} updateCart={this.updateShoppingCart} />
+                            </Col>
+                        </Row>
+                    </Container>
                 </div>
-                
-                
+
+
             </div>
         );
     }

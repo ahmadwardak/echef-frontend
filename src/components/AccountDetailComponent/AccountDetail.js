@@ -71,7 +71,7 @@ class AccountDetail extends Component {
         this.setState({ billingAddress: event.target.value });
     }
     handleToggleChangePassword(event) {
-        console.log(event.target.checked);
+        // console.log(event.target.checked);
         this.setState({ showChangePassword: event.target.checked });
 
     }

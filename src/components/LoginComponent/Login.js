@@ -40,7 +40,7 @@ class Login extends Component {
 
         this.props.onSubmit(user);
 
-        console.log('submit clicked');
+        // console.log('submit clicked');
 
     }
     goToRegister() {

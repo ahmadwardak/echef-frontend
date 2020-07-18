@@ -20,7 +20,7 @@ export class SignupView extends React.Component {
 
             window.location = '/#/';
             window.location.reload();
-            console.log('registered.....');
+            // console.log('registered.....');
         }).catch(err => {
             console.error(err);
             this.setState({

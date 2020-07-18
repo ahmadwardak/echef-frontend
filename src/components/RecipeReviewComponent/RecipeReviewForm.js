@@ -52,7 +52,7 @@ class RecipeReviewForm extends Component {
         }).catch((e) => {
             console.error(e);
         });
-        console.log(id)
+        // console.log(id)
     }
     handleChangeHeading(event) {
         this.setState({ heading: event.target.value });
