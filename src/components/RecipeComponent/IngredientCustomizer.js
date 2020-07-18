@@ -173,7 +173,7 @@ class IngredientCustomizer extends Component {
     render() {
         return (
 
-            <div className="container-fluid pt-2" style={{ backgroundColor: '#393432' }}>
+            <div className="container-fluid pt-2" style={{ backgroundColor: '#333B3F' }}>
 
                 <Row className="pb-2" style={{ borderBottom: '1px solid white' }}>
                     <Col xs={12} md={9}>
