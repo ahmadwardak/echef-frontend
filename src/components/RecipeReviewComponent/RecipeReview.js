@@ -88,15 +88,15 @@ class RecipeReview extends Component {
                                 </Card.Text>
                                 {Object.keys(review.videoCollection).length !== 0 || Object.keys(review.imageCollection).length !== 0 ?
 
-                                    <Container>
+                                    <Container className="ml-0">
                                         <Row>
                                             {review.imageCollection.map((image, i) => (
                                                 <Col key={i} md={3}><Image
-                                                    width={180}
+                                                    width='100%'
                                                     onClick={() => {
                                                         this.setState({ showImgModal: true, imgModalSrc: image });
                                                     }}
-                                                    style={{ border: "1px solid rgba(0,0,0,.125)" }}
+                                                    style={{ backgroundSize: 'contain', border: "1px solid rgba(0,0,0,.125)" }}
                                                     src={image} fluid />
                                                 </Col>
                                             ))}
@@ -107,7 +107,7 @@ class RecipeReview extends Component {
                                                         width={240}
                                                         style={{ border: "1px solid rgba(0,0,0,.125)" }}
                                                         controls={true}
-                                                        height={160}
+                                                        height={145}
                                                         url={video} />
                                                 </Col>
                                             ))}
