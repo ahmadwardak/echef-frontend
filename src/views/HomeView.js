@@ -61,7 +61,7 @@ export class HomeView extends React.Component {
         const cats = this.state.categories;
         // randomize recipes
         let rand = this.state.someOtherRecipes.sort(() => 0.5 - Math.random());
-        rand = rand.slice(0, 4)
+        rand = rand.slice(0, 6)
 
 
         return (
