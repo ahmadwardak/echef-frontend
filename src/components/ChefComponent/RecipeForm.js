@@ -24,6 +24,7 @@ class RecipeForm extends React.Component {
             ingredients: '',
             loading: false,
             showFileInput: true,
+            enablePublish: false
         };
 
 
@@ -31,6 +32,7 @@ class RecipeForm extends React.Component {
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
         this.recipeImageURL = React.createRef();
+        this.publishButton = React.createRef();
         // Dynamic values
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleIngredientChange = this.handleIngredientChange.bind(this);
@@ -38,17 +40,19 @@ class RecipeForm extends React.Component {
         this.handleRemoveClick = this.handleRemoveClick.bind(this);
 
         this.handleToggleChangeRecipeImage = this.handleToggleChangeRecipeImage.bind(this);
+        this.handleChangeRecipeImage = this.handleChangeRecipeImage.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.validate = this.validate.bind(this);
     }
 
 
     componentWillMount(props) {
-        console.log(this.props.recipe)
+        // console.log(this.props.recipe)
         if (this.props.recipe != undefined) {
             let recipe = this.props.recipe.recipe;
             //console.log(recipe)
             //If recipe is already defined then setting the values
-            this.state = {
+            this.setState({
                 title: recipe.title,
                 description: recipe.description,
                 servingSize: recipe.servingSize,
@@ -58,16 +62,18 @@ class RecipeForm extends React.Component {
                 createdByChef: recipe.createdByChef,
                 ingredients: recipe.ingredients,
                 loading: true,
-                showFileInput: false
-            };
+                showFileInput: false,
+                enablePublish: true
+            });
+        } else {
+            // A blank ingredient for Ingredient Map (ingredient list row component)
+            let ing = [{
+                ingredientID: "",
+                ingredientQuantity: '',
+                ingredientBrand: ''
+            }]
+            this.setState({ ingredients: ing });
         }
-        // A blank ingredient for Ingredient Map (ingredient list row component)
-        let ing = [{
-            ingredientID: "",
-            ingredientQuantity: '',
-            ingredientBrand: ''
-        }]
-        this.setState({ ingredients: ing });
 
     }
 
@@ -75,11 +81,24 @@ class RecipeForm extends React.Component {
         this.setState(Object.assign({}, this.state, { title: event.target.value }));
     }
     handleCategoryChange(event) {
-        //console.log("category", event.target.value)
+        // console.log(event.target.value);
+        if (event.target.value === 'All Categories') { this.publishButton.disabled = true; } else { this.publishButton.disabled = false; }
         this.setState(Object.assign({}, this.state, { category: event.target.value }));
+        this.validate();
     }
     handleDifficultyChange(event) {
+        // console.log(event.target.value);
+        if (event.target.value === 'Select a level') { this.publishButton.disabled = true; } else { this.publishButton.disabled = false; }
         this.setState(Object.assign({}, this.state, { difficulty: event.target.value }));
+        this.validate();
+    }
+
+    handleChangeRecipeImage(selectorFiles) {
+        this.setState(Object.assign({}, this.state, { recipeImageURL: selectorFiles }));
+        this.publishButton.disabled = false;
+        // console.log(selectorFiles[0]);
+        this.validate();
+
     }
     handleInputChange(event) {
         const name = event.target.name
@@ -90,12 +109,19 @@ class RecipeForm extends React.Component {
         this.setState(
             { [name]: value }
         )
+        if (event.target.value === '') { this.publishButton.disabled = true; }
+        this.validate();
     }
 
 
     handleToggleChangeRecipeImage(event) {
-        console.log(event.target.checked);
+        // console.log(event.target.checked);
+        // console.log(this.recipeImageURL.current.files[0]);
+        if (event.target.checked === true && this.recipeImageURL.current.files[0] === undefined) { this.publishButton.disabled = true; }
+        else { this.publishButton.disabled = false; }
+
         this.setState({ showFileInput: event.target.checked });
+        this.validate();
 
     }
 
@@ -111,6 +137,7 @@ class RecipeForm extends React.Component {
             ingredients: ingrList
             //ingredients.ingredientUnit:
         })
+        this.validate();
 
     }
 
@@ -125,6 +152,7 @@ class RecipeForm extends React.Component {
         this.setState({
             ingredients: list
         })
+        this.validate();
     };
 
     //Adding a new ingredient row to the screen and to the Ingredients value
@@ -141,8 +169,23 @@ class RecipeForm extends React.Component {
                 }
                 ]
             }
-        )
+        );
+        this.validate();
     };
+
+    validate() {
+        // console.log(this.state.recipeImageURL)
+        // console.log('enablePublish', this.state.enablePublish)
+        if (this.state.title == '' || this.state.category == '' || this.state.description == '' ||
+            this.state.difficulty == '' || this.state.ingredients == '' || this.state.recipeImageURL == ''
+            || this.state.ingredients == undefined) {
+            this.setState({ enablePublish: false });
+            this.publishButton.disabled = true;
+        } else {
+            this.setState({ enablePublish: true });
+        }
+
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -253,6 +296,7 @@ class RecipeForm extends React.Component {
                                             className="position-relative"
                                             accept=".jpg,.gif,.png,.jpeg"
                                             ref={this.recipeImageURL}
+                                            onChange={(e) => this.handleChangeRecipeImage(e.target.files)}
                                             disabled={!this.state.showFileInput}
                                             name="recipeImageURL"
                                             id="recipeImageURL"
@@ -296,8 +340,8 @@ class RecipeForm extends React.Component {
                             <Row>
                                 <Col xs={12} md={12}>
                                     <Button variant="success" id="submit" type="submit"
-                                        disabled={this.state.title == undefined || this.state.title == '' || this.state.category == undefined || this.state.category == '' || this.state.servingSize == undefined || this.state.servingSize == ''
-                                            || this.state.description == undefined || this.state.description == '' || this.state.difficulty == '' || this.state.difficulty == undefined || this.state.ingredients == '' || this.state.ingredients == undefined}
+                                        ref={(button) => this.publishButton = button}
+                                        disabled={!this.state.enablePublish}
                                     >Publish</Button>
                                 </Col>
                             </Row>
