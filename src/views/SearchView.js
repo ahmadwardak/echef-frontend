@@ -205,7 +205,7 @@ export class SearchView extends React.Component {
                                             </Row>
                                         </Card.Header>
                                         <Card.Body className="bg-light">
-                                            <RecipeList recipes={recipes} />
+                                            {recipes.length > 0 ? <RecipeList recipes={recipes} /> : <span> No results are available :(</span>}
                                         </Card.Body>
                                     </Card>
                                 </Col>
