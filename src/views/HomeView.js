@@ -146,8 +146,8 @@ export class HomeView extends React.Component {
                                     <Card.Header className="bg-success text-white">
                                         <Row>
                                             <Col xs={12} md={12}>
-                                                <h6 className="m-1  font-weight-light">
-                                                    Want to try something new?</h6>
+                                                <h5 className="m-1  font-weight-light">
+                                                    Want to try something new?</h5>
                                             </Col>
                                         </Row>
                                     </Card.Header>
@@ -163,8 +163,8 @@ export class HomeView extends React.Component {
                                     <Card.Header className="bg-primary text-white">
                                         <Row>
                                             <Col xs={12} md={12}>
-                                                <h6 className="m-1  font-weight-light">
-                                                    Or why don't you try...</h6>
+                                                <h5 className="m-1  font-weight-light">
+                                                    Or why don't you try...</h5>
                                             </Col>
                                         </Row>
                                     </Card.Header>
