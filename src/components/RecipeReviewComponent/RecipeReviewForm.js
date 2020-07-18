@@ -274,7 +274,7 @@ class RecipeReviewForm extends Component {
                                             ref={this.fileCollection}
                                             onChange={this.handleChangeFileCollection}
                                             name="fileCollection"
-                                            label="Add photo(s) or Video(s)"
+                                            label="Add photo(s) or Video(s) - Max 5MB per file"
                                             id="fileCollection"
 
                                         />

@@ -285,12 +285,12 @@ class RecipeForm extends React.Component {
                                 <Col xs={12} md={4}>
                                     <Form.Group>
                                         {this.props.recipe === undefined ?
-                                            <Form.Label id="recipeImageLabel">Recipe Image</Form.Label>
+                                            <Form.Label id="recipeImageLabel">Recipe Image (Max 5MB file)</Form.Label>
                                             :
                                             <Form.Check id="checkboxChangeRecipeImage"
                                                 style={{ marginBottom: '0.5rem' }} type="checkbox"
                                                 onChange={this.handleToggleChangeRecipeImage}
-                                                label='Update Recipe Image ?' />
+                                                label='Update Recipe Image ? - (Max 5MB file)' />
                                         }
                                         <Form.File
                                             className="position-relative"
