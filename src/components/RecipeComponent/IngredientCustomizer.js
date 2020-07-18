@@ -49,13 +49,13 @@ class IngredientCustomizer extends Component {
                 isActive: false
             });
         });
-        console.log('initial', initialItems)
+        // console.log('initial', initialItems)
         this.setState({ cartItems: initialItems });
     }
 
     changeServingSize(sSize) {
         var newServingSize = sSize.target.value;
-        console.log("newservs", newServingSize);
+        // console.log("newservs", newServingSize);
         this.setState({ ServingSize: newServingSize });
         let newItems = [];
         this.state.cartItems.forEach(element => {
@@ -68,7 +68,7 @@ class IngredientCustomizer extends Component {
         });
 
         this.setState({ cartItems: newItems });
-        console.log('serving changed', newItems);
+        // console.log('serving changed', newItems);
         this.calculateTotalPrice();
 
     }
@@ -93,14 +93,14 @@ class IngredientCustomizer extends Component {
         this.state.cartItems.forEach(item => {
             total = parseFloat(total) + parseFloat(item.price);
         });
-        console.log("total", total);
+        // console.log("total", total);
         this.setState({ totalPrice: (Math.round(total * 100) / 100) });
         this.handleButton();
     }
 
     handleAmountChange(value, ingredientID) {
-        console.log('amount change', value);
-        console.log('ing id', ingredientID);
+        // console.log('amount change', value);
+        // console.log('ing id', ingredientID);
         let newItems = this.state.cartItems;
         //console.log(newItems);
         let itemIndex = newItems.findIndex(it => it.id == ingredientID);
@@ -108,18 +108,18 @@ class IngredientCustomizer extends Component {
         newItems[itemIndex].price = newItems[itemIndex].basePrice * newItems[itemIndex].amount;
 
         this.setState({ cartItems: newItems });
-        console.log('amount handler', newItems);
+        // console.log('amount handler', newItems);
         this.calculateTotalPrice();
     };
 
     handleBrandChange(value, ingredientID) {
-        console.log('brand changed', value);
-        console.log('ing id', ingredientID);
+        // console.log('brand changed', value);
+        // console.log('ing id', ingredientID);
         let basePrice = 0;
         if (value !== '0') {
             IngredientsService.getIngredient(ingredientID).then((data) => {
                 basePrice = data.ingredientBrands.find(br => br.brandName == value).price;
-                console.log(basePrice);
+                // console.log(basePrice);
                 let newItems = this.state.cartItems;
                 let itemIndex = newItems.findIndex(it => it.id == ingredientID);
                 newItems[itemIndex].basePrice = basePrice;
@@ -129,7 +129,7 @@ class IngredientCustomizer extends Component {
 
                 this.setState({ isActive: true });
                 this.setState({ cartItems: newItems });
-                console.log('brand handler', newItems);
+                // console.log('brand handler', newItems);
 
                 this.calculateTotalPrice();
             }).catch((e) => {
@@ -145,7 +145,7 @@ class IngredientCustomizer extends Component {
 
             this.setState({ isActive: false });
             this.setState({ cartItems: newItems });
-            console.log('brand handler', newItems);
+            // console.log('brand handler', newItems);
 
             this.calculateTotalPrice();
         }

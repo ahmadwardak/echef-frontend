@@ -73,11 +73,11 @@ class Header extends Component {
 
   handleSearchSubmit(e) {
     e.preventDefault();
-    console.log("This category?", e.target.innerText)
+    // console.log("This category?", e.target.innerText)
     //innerText adds a whitepsace to category?
     const category = e.target.innerText.trim()
     const title = this.state.searchValue
-    console.log("Searching these values:", category, title)
+    // console.log("Searching these values:", category, title)
     this.props.history.push({
       pathname: "/search",
       title: title,
@@ -86,7 +86,7 @@ class Header extends Component {
   }
   // inputField change for search
   handleChange(e) {
-    console.log(e.target.value, "is Changing")
+    // console.log(e.target.value, "is Changing")
     this.setState({
       searchValue: e.target.value
     })
@@ -104,6 +104,9 @@ class Header extends Component {
               <Nav.Link href="#/">Home</Nav.Link>
               <Nav.Link href="#about">About</Nav.Link>
               <Nav.Link href="#our-team">Our Team</Nav.Link>
+              {(UserService.isAuthenticated() && UserService.getCurrentUser().accounttype === 'chef') ?
+                <Nav.Link href="#chef">My Recipes</Nav.Link>
+                : ""}
             </Nav>
             <Form inline onSubmit={(e) => { this.handleSearchSubmit(e) }}>
               <InputGroup>

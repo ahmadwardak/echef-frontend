@@ -40,7 +40,7 @@ export class RecipeView extends React.Component {
 
         let id = this.props.match.params.id;
         RecipeService.getRecipe(id).then((data) => {
-            console.log("test", data.recipe);
+            // console.log("test", data.recipe);
             this.setState({
                 recipe: data.recipe,
                 overallRating: data.OverallRating,
@@ -68,40 +68,40 @@ export class RecipeView extends React.Component {
                     customerID: this.state.user._id,
                     totalPrice: totalPrice
                 }
-                console.log("shopping cart", finalCart);
+                // console.log("shopping cart", finalCart);
                 ShoppingCartService.createShoppingCart(finalCart).then((data) => {
                     toast("Added to shopping cart", { type: 'success' });
                     window.location = '/#checkout';
                 });
             }
             else {
-                console.log("data not 0", data);
-                console.log("shoping cart", shoppingCart);
+                // console.log("data not 0", data);
+                // console.log("shoping cart", shoppingCart);
                 var existingCart = data[0];
                 var existingItems = [];
                 existingItems = existingCart.cartItems;
-                console.log("items", existingItems);
+                // console.log("items", existingItems);
                 var existingRecipe = existingItems.find(element => element.recipeID == this.state.recipe._id);
                 if (existingRecipe) {
                     var indexOfRecipe = existingItems.findIndex(element => element.recipeID == this.state.recipe._id);
-                    console.log("recipe is there", existingRecipe);
+                    // console.log("recipe is there", existingRecipe);
                     shoppingCart.forEach(element => {
                         var existingItem = existingRecipe.recipeIngredients.find(item =>
                             item.ingredientID == element.ingredientID && item.ingredientBrand === element.ingredientBrand);
                         if (existingItem) {
-                            console.log("element of cart", element);
+                            // console.log("element of cart", element);
                             var indexOfIngredient = existingRecipe.recipeIngredients.findIndex(item => item.ingredientID == element.ingredientID);
-                            console.log("yes ingredient there");
-                            console.log("old amount", existingItem.ingredientQuantity);
+                            // console.log("yes ingredient there");
+                            // console.log("old amount", existingItem.ingredientQuantity);
                             existingItem.ingredientQuantity = existingItem.ingredientQuantity + element.ingredientQuantity;
                             existingItem.price = Math.round((existingItem.price + element.price) * 100) / 100;
-                            console.log("new amount", existingItem.ingredientQuantity);
-                            console.log("new cartItem", existingItem);
-                            console.log("new cartItems", existingItems);
+                            // console.log("new amount", existingItem.ingredientQuantity);
+                            // console.log("new cartItem", existingItem);
+                            // console.log("new cartItems", existingItems);
                         }
                         else {
                             existingRecipe.recipeIngredients.push(element);
-                            console.log("no ingredient is not there", existingRecipe);
+                            // console.log("no ingredient is not there", existingRecipe);
                         }
                     });
 
@@ -111,7 +111,7 @@ export class RecipeView extends React.Component {
                         recipeID: this.state.recipe._id,
                         recipeIngredients: shoppingCart
                     });
-                    console.log("final cartt", existingCart);
+                    // console.log("final cartt", existingCart);
                 }
                 existingCart.totalPrice = Math.round((existingCart.totalPrice + totalPrice) * 100) / 100;
                 ShoppingCartService.updateShoppingCart(existingCart, this.state.user._id).then((data) => {

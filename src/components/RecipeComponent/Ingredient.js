@@ -18,7 +18,7 @@ class Ingredient extends Component {
         this.pointsInput = React.createRef();
         this.brandSelectInput = React.createRef();
 
-        console.log(this.props);
+        // console.log(this.props);
         // this.priceChanged = this.priceChanged.bind(this);
         this.fixFloat = this.fixFloat.bind(this);
 

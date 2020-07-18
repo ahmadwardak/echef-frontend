@@ -33,12 +33,7 @@ export default class App extends React.Component {
             routes: [
                 {
                     render: (props) => {
-                        if (UserService.getCurrentUser().accounttype === 'chef') {
-                            return (<ChefView {...props} title={"Chef"} />)
-                        }
-                        else {
-                            return (<HomeView {...props} title={"eChef Home"} />)
-                        }
+                        return (<HomeView {...props} title={"eChef Home"} />)
                     }, path: '/', exact: true
                 },
                 {
@@ -48,11 +43,11 @@ export default class App extends React.Component {
                 },
                 {
                     render: (props) => {
-                        if (UserService.isAuthenticated()) {
-                            return (<ChefView {...props} title={"Chef"} />)
+                        if (UserService.isAuthenticated() && UserService.getCurrentUser().accounttype === 'chef') {
+                            return (<ChefView {...props} title={"My Recipes"} />)
                         }
                         else {
-                            return (<Redirect to={'/login'} />)
+                            return (<Redirect to={'/'} />)
                         }
 
                     }, path: '/chef'

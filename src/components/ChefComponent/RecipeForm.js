@@ -22,7 +22,8 @@ class RecipeForm extends React.Component {
             recipeImageURL: '',
             createdByChef: '',
             ingredients: '',
-            loading: false
+            loading: false,
+            showFileInput: true,
         };
 
 
@@ -36,6 +37,7 @@ class RecipeForm extends React.Component {
         this.handleAddClick = this.handleAddClick.bind(this);
         this.handleRemoveClick = this.handleRemoveClick.bind(this);
 
+        this.handleToggleChangeRecipeImage = this.handleToggleChangeRecipeImage.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -55,7 +57,8 @@ class RecipeForm extends React.Component {
                 recipeImageURL: recipe.recipeImageURL,
                 createdByChef: recipe.createdByChef,
                 ingredients: recipe.ingredients,
-                loading: true
+                loading: true,
+                showFileInput: false
             };
         }
         // A blank ingredient for Ingredient Map (ingredient list row component)
@@ -87,6 +90,13 @@ class RecipeForm extends React.Component {
         this.setState(
             { [name]: value }
         )
+    }
+
+
+    handleToggleChangeRecipeImage(event) {
+        console.log(event.target.checked);
+        this.setState({ showFileInput: event.target.checked });
+
     }
 
     //Ingredient changes are handled 
@@ -148,12 +158,15 @@ class RecipeForm extends React.Component {
         recipe.category = this.state.category;
         recipe.difficulty = this.state.difficulty;
         //console.log(this.recipeImageURL.current.files[0]);
-        recipe.recipeImageURL = this.recipeImageURL.current.files[0];
+        if (this.state.showFileInput) {
+            recipe.recipeImageURL = this.recipeImageURL.current.files[0];
+        }
         recipe.createdByChef = UserService.getCurrentUser()._id;
         recipe.ingredients = this.state.ingredients;
 
+
         this.props.onSubmit(recipe);
-        //console.log("submitting",recipe)
+        // console.log("submitting", recipe)
     }
 
     render() {
@@ -228,12 +241,20 @@ class RecipeForm extends React.Component {
 
                                 <Col xs={12} md={4}>
                                     <Form.Group>
+                                        {this.props.recipe === undefined ?
+                                            <Form.Label id="recipeImageLabel">Recipe Image</Form.Label>
+                                            :
+                                            <Form.Check id="checkboxChangeRecipeImage"
+                                                style={{ marginBottom: '0.5rem' }} type="checkbox"
+                                                onChange={this.handleToggleChangeRecipeImage}
+                                                label='Update Recipe Image ?' />
+                                        }
                                         <Form.File
                                             className="position-relative"
                                             accept=".jpg,.gif,.png,.jpeg"
                                             ref={this.recipeImageURL}
+                                            disabled={!this.state.showFileInput}
                                             name="recipeImageURL"
-                                            label="Add photo"
                                             id="recipeImageURL"
                                         />
                                     </Form.Group>
@@ -275,8 +296,8 @@ class RecipeForm extends React.Component {
                             <Row>
                                 <Col xs={12} md={12}>
                                     <Button variant="success" id="submit" type="submit"
-                                        disabled={this.state.title == undefined || this.state.title == '' || this.state.category == undefined || this.state.category == '' || this.state.servingSize == undefined || this.state.servingSize == '' 
-                                        || this.state.description == undefined || this.state.description == '' || this.state.difficulty == '' || this.state.difficulty == undefined || this.state.ingredients == '' || this.state.ingredients == undefined}
+                                        disabled={this.state.title == undefined || this.state.title == '' || this.state.category == undefined || this.state.category == '' || this.state.servingSize == undefined || this.state.servingSize == ''
+                                            || this.state.description == undefined || this.state.description == '' || this.state.difficulty == '' || this.state.difficulty == undefined || this.state.ingredients == '' || this.state.ingredients == undefined}
                                     >Publish</Button>
                                 </Col>
                             </Row>

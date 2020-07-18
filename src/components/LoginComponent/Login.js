@@ -40,7 +40,7 @@ class Login extends Component {
 
         this.props.onSubmit(user);
 
-        console.log('submit clicked');
+        // console.log('submit clicked');
 
     }
     goToRegister() {
@@ -66,9 +66,9 @@ class Login extends Component {
                         <Col xs={12} md={12} className="d-flex justify-content-center">
                             <div className=" justify-content-center" style={{ display: 'flex', flexWrap: 'wrap' }}>
                                 <div className="item">
-                                    <span style={{ color: 'green' }}>eChef</span> 'a one-stop go-to platform to identify ingredients </div>
+                                    <span style={{ color: 'green' }}>eChef</span> is a one-stop go-to platform to identify ingredients </div>
                                 <div style={{ flexBasis: '100%', height: '0' }}> </div>
-                                <div className="item" >of recipe and buy in a single click.'</div>
+                                <div className="item" >of recipe and buy in a single click.</div>
                                 <div style={{ flexBasis: '100%', height: '10px' }}> </div>
                                 <div className="item" >Learn more <Link to='/about'>about us</Link>.</div>
                             </div>

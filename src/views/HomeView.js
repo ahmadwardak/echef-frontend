@@ -61,7 +61,7 @@ export class HomeView extends React.Component {
         const cats = this.state.categories;
         // randomize recipes
         let rand = this.state.someOtherRecipes.sort(() => 0.5 - Math.random());
-        rand = rand.slice(0, 4)
+        rand = rand.slice(0, 6)
 
 
         return (
@@ -140,15 +140,14 @@ export class HomeView extends React.Component {
                                 </Card>
                             </Col>
                         </Row>
-
                         <Row className="mt-3" >
                             <Col xs={12} md={12}>
                                 <Card>
                                     <Card.Header className="bg-success text-white">
                                         <Row>
                                             <Col xs={12} md={12}>
-                                                <h5 className="m-1  font-weight-light">
-                                                    Want to try something new?</h5>
+                                                <h6 className="m-1  font-weight-light">
+                                                    Want to try something new?</h6>
                                             </Col>
                                         </Row>
                                     </Card.Header>
@@ -164,8 +163,8 @@ export class HomeView extends React.Component {
                                     <Card.Header className="bg-primary text-white">
                                         <Row>
                                             <Col xs={12} md={12}>
-                                                <h5 className="m-1  font-weight-light">
-                                                    Or why don't you try...</h5>
+                                                <h6 className="m-1  font-weight-light">
+                                                    Or why don't you try...</h6>
                                             </Col>
                                         </Row>
                                     </Card.Header>

@@ -28,7 +28,7 @@ export class LoginView extends React.Component {
             }
 
             window.location.reload();
-            console.log('logged in successfully');
+            // console.log('logged in successfully');
         }).catch(err => {
             console.error(err);
             this.setState({
