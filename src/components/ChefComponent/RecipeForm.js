@@ -43,7 +43,6 @@ class RecipeForm extends React.Component {
 
 
     componentWillMount(props) {
-        console.log(this.props.recipe)
         if (this.props.recipe != undefined) {
             let recipe = this.props.recipe.recipe;
             //console.log(recipe)
@@ -94,7 +93,7 @@ class RecipeForm extends React.Component {
 
 
     handleToggleChangeRecipeImage(event) {
-        console.log(event.target.checked);
+        //console.log(event.target.checked);
         this.setState({ showFileInput: event.target.checked });
 
     }

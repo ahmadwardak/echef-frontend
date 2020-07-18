@@ -158,7 +158,6 @@ export default class App extends React.Component {
     render() {
 
         const { title } = this.state;
-        //console.log(title);
         return (
             <div>
                 <Router>
