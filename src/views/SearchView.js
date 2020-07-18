@@ -21,6 +21,7 @@ export class SearchView extends React.Component {
             loading: false,
             title: inputData,
             difficulty: "",
+            OverallRating: "",
             category: categories,
             // tags: [],
             // showTags: true,
@@ -113,11 +114,12 @@ export class SearchView extends React.Component {
         const recipes = this.state.data.filter(recipe => {
             //console.log("This is a recipe", recipe["tags"])
             //console.log("Active tags", this.state.activeTags)
+            console.log(recipe);
             if (this.state.category == "All Categories") {
                 return (
                     recipe["title"].toLowerCase().includes(this.state.title.toLowerCase())
                     && recipe["difficulty"].includes(this.state.difficulty)
-                    // && recipe["tags"].some(r => this.state.activeTags.includes(r))
+                    && recipe["OverallRating"] >= this.state.OverallRating
 
                 )
             }
@@ -167,6 +169,21 @@ export class SearchView extends React.Component {
                                                     <option value="Easy">Easy</option>
                                                     <option value="Intermediate">Intermediate</option>
                                                     <option value="Hard">Hard</option>
+                                                </Form.Control>
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col xs={12} md={12}>
+                                            <Form.Group>
+                                                <Form.Control as="select" onChange={this.handleSearchChange} name="OverallRating">
+                                                    <option value="0">Any Rating</option>
+                                                    <option value="5">5 stars</option>
+                                                    <option value="4">4 stars and above</option>
+                                                    <option value="3">3 stars and above</option>
+                                                    <option value="2">2 stars and above</option>
+                                                    <option value="1">1 star nd above</option>
                                                 </Form.Control>
                                             </Form.Group>
                                         </Col>
