@@ -102,6 +102,7 @@ class Header extends Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="#/">Home</Nav.Link>
+              <Nav.Link href="#search">All Recipes</Nav.Link>
               <Nav.Link href="#about">About</Nav.Link>
               <Nav.Link href="#our-team">Our Team</Nav.Link>
               {(UserService.isAuthenticated() && UserService.getCurrentUser().accounttype === 'chef') ?
